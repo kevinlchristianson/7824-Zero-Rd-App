@@ -1,0 +1,42 @@
+// Bump VERSION whenever you change index.html so phones pick up the new copy.
+const VERSION = 'v1';
+const CACHE = 'zr-' + VERSION;
+const SHELL = [
+  './',
+  './index.html',
+  './manifest.json',
+  './icons/icon-180.png',
+  './icons/icon-192.png',
+  './icons/icon-512.png',
+  './vendor/three/build/three.module.min.js',
+  './vendor/three/examples/jsm/controls/OrbitControls.js'
+];
+
+self.addEventListener('install', e => {
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
+});
+
+self.addEventListener('activate', e => {
+  e.waitUntil(
+    caches.keys()
+      .then(keys => Promise.all(keys.filter(k => k.startsWith('zr-') && k !== CACHE).map(k => caches.delete(k))))
+      .then(() => self.clients.claim())
+  );
+});
+
+// Network first (so edits show up when online), fall back to cache offline.
+// Anything fetched successfully (fonts, packet PDFs you've opened) is cached for next time.
+self.addEventListener('fetch', e => {
+  if (e.request.method !== 'GET') return;
+  e.respondWith(
+    fetch(e.request)
+      .then(res => {
+        if (res && (res.ok || res.type === 'opaque')) {
+          const copy = res.clone();
+          caches.open(CACHE).then(c => c.put(e.request, copy));
+        }
+        return res;
+      })
+      .catch(() => caches.match(e.request).then(r => r || caches.match('./index.html')))
+  );
+});

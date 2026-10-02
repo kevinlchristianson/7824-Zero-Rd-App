@@ -86,8 +86,8 @@ main { flex: 1; min-height: 0; }
 .sheet2d { height: 100%; overflow-y: auto; padding-bottom: env(safe-area-inset-bottom, 0px); }
 .tools { position: sticky; top: 0; z-index: 3; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 8px 16px; background: var(--panel); border-bottom: 1px solid var(--line); }
 .tools .zoom { display: flex; gap: 4px; }
-.tools .sel { min-width: 0; flex: 1 1 300px; font-size: 13px; color: var(--muted); }
-.tools .sel.on { color: var(--ink); }
+.tools .sel { min-width: 0; flex: 1 1 300px; margin: 0; font-size: 13px; color: var(--muted); white-space: pre-line; }
+.tools .sel.on { color: var(--ink); white-space: normal; }
 .tools .sel button { margin-left: 8px; }
 .drawing { padding: 16px; background: var(--bg); }
 .paper { position: relative; width: 100%; max-width: 1400px; margin: 0 auto; background: var(--paper); border: 1px solid var(--line); box-shadow: var(--shadow); overflow: hidden; transform-origin: 0 0; }
@@ -192,7 +192,7 @@ tbody tr:last-child td { border-bottom: 0; }
   .tools .zoom button:first-child { border-radius: 8px 0 0 8px; margin-left: 0; }
   .tools .zoom button:last-child { border-radius: 0 8px 8px 0; }
   .tools .zoom button[aria-pressed="true"] { position: relative; z-index: 1; }
-  .tools .sel { flex: 1 1 auto; font-size: 12.5px; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tools .sel { flex: 1 1 auto; font-size: 12.5px; line-height: 1.3; }
   .tools .sel.on { white-space: normal; font-size: 13px; }
   .tools .sel button { min-height: 32px; }
   .ckt-name { padding: 4px 10px 6px; font-size: 12.5px; }
@@ -287,7 +287,8 @@ tbody tr:last-child td { border-bottom: 0; }
 
     <!-- ================================================================ S-1 -->
     <div class="sheet sheet2d" id="sheet-s1" role="tabpanel" aria-labelledby="tab-s1" hidden>
-      <div class="tools"><div class="zoom" role="group" aria-label="Zoom"><button type="button" data-zoom="1" aria-pressed="true">Fit</button><button type="button" data-zoom="2" aria-pressed="false">2×</button><button type="button" data-zoom="4" aria-pressed="false">4×</button></div><p class="sel" data-hint="Click a wall tag, door, or blocking band to read it. Schedule rows highlight the drawing.">Click a wall tag, door, or blocking band to read it. Schedule rows highlight the drawing.</p></div>
+      <div class="tools"><div class="zoom" role="group" aria-label="Zoom"><button type="button" data-zoom="1" aria-pressed="true">Fit</button><button type="button" data-zoom="2" aria-pressed="false">2×</button><button type="button" data-zoom="4" aria-pressed="false">4×</button></div><p class="sel" data-hint="These zoom buttons are your friend.&#10;Everything you see is clickable.">These zoom buttons are your friend.
+Everything you see is clickable.</p></div>
       <div class="drawing"><div class="scroller"><div class="paper"><svg xmlns="http://www.w3.org/2000/svg" width="1072" height="882" viewBox="0 0 1072 882" font-family="IBM Plex Sans, Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-label="S-1 Framing plan">
 <style>.wire{display:none}</style><rect width="100%" height="100%" fill="#fff"/>
 <rect x="60.0" y="70.0" width="952.0" height="672.0" fill="#cfc9bf" stroke="none" stroke-width="1" rx="0"/>
@@ -927,7 +928,8 @@ tbody tr:last-child td { border-bottom: 0; }
 
     <!-- ================================================================ E-1 -->
     <div class="sheet sheet2d" id="sheet-e1" role="tabpanel" aria-labelledby="tab-e1" hidden>
-      <div class="tools"><div class="zoom" role="group" aria-label="Zoom"><button type="button" data-zoom="1" aria-pressed="true">Fit</button><button type="button" data-zoom="2" aria-pressed="false">2×</button><button type="button" data-zoom="4" aria-pressed="false">4×</button></div><p class="sel" data-hint="Click a device to read its tag, height and circuit. Schedule rows highlight the drawing.">Click a device to read its tag, height and circuit. Schedule rows highlight the drawing.</p></div>
+      <div class="tools"><div class="zoom" role="group" aria-label="Zoom"><button type="button" data-zoom="1" aria-pressed="true">Fit</button><button type="button" data-zoom="2" aria-pressed="false">2×</button><button type="button" data-zoom="4" aria-pressed="false">4×</button></div><p class="sel" data-hint="These zoom buttons are your friend.&#10;Everything you see is clickable.">These zoom buttons are your friend.
+Everything you see is clickable.</p></div>
       <div class="subtabs" id="ckt-tabs" role="group" aria-label="Circuit sheets"><button type="button" data-ckt="all" aria-pressed="true">E-1 all</button><button type="button" data-ckt="1-2" aria-pressed="false" title="Induction cooktop, 240V 40A 2P">E-1.1 <span>1-2</span></button><button type="button" data-ckt="3-4" aria-pressed="false" title="Wall oven, side-opening, 240V 30A 2P">E-1.2 <span>3-4</span></button><button type="button" data-ckt="5-6" aria-pressed="false" title="Dryer, 240V 30A 2P">E-1.3 <span>5-6</span></button><button type="button" data-ckt="7" aria-pressed="false" title="Kitchen small appliance 1, 20A GFCI/AFCI">E-1.4 <span>7</span></button><button type="button" data-ckt="8" aria-pressed="false" title="Kitchen small appliance 2 + pantry, 20A GFCI/AFCI">E-1.5 <span>8</span></button><button type="button" data-ckt="9" aria-pressed="false" title="Refrigerator, 20A AFCI">E-1.6 <span>9</span></button><button type="button" data-ckt="10" aria-pressed="false" title="Freezer, 20A AFCI">E-1.7 <span>10</span></button><button type="button" data-ckt="11" aria-pressed="false" title="Dishwasher drawers, 20A GFCI/AFCI">E-1.8 <span>11</span></button><button type="button" data-ckt="12" aria-pressed="false" title="Microwave drawer, 20A AFCI">E-1.9 <span>12</span></button><button type="button" data-ckt="13" aria-pressed="false" title="Laundry: washer, sink, counter, 20A GFCI/AFCI">E-1.10 <span>13</span></button><button type="button" data-ckt="14" aria-pressed="false" title="Bath receptacles west, 20A GFCI">E-1.11 <span>14</span></button><button type="button" data-ckt="15" aria-pressed="false" title="Bath receptacles east, 20A GFCI">E-1.12 <span>15</span></button><button type="button" data-ckt="16" aria-pressed="false" title="Master suite receptacles, 15A AFCI">E-1.13 <span>16</span></button><button type="button" data-ckt="17" aria-pressed="false" title="Bedrooms 3 and 4 receptacles, 15A AFCI">E-1.14 <span>17</span></button><button type="button" data-ckt="18" aria-pressed="false" title="Mini suite receptacles, 15A AFCI">E-1.15 <span>18</span></button><button type="button" data-ckt="19" aria-pressed="false" title="Living and dining receptacles, 15A AFCI">E-1.16 <span>19</span></button><button type="button" data-ckt="20" aria-pressed="false" title="Den, office, passage receptacles, 15A AFCI">E-1.17 <span>20</span></button><button type="button" data-ckt="21" aria-pressed="false" title="Lighting A, 15A AFCI">E-1.18 <span>21</span></button><button type="button" data-ckt="22" aria-pressed="false" title="Lighting B + alarms, 15A AFCI">E-1.19 <span>22</span></button><button type="button" data-ckt="23" aria-pressed="false" title="Exhaust fans + hood, 15A AFCI">E-1.20 <span>23</span></button><button type="button" data-ckt="24" aria-pressed="false" title="Exterior receptacles, 20A GFCI">E-1.21 <span>24</span></button><button type="button" data-ckt="25" aria-pressed="false" title="Mech closet: ventilation unit, 15A">E-1.22 <span>25</span></button><button type="button" data-ckt="26" aria-pressed="false" title="Exterior soffit lighting, 15A">E-1.23 <span>26</span></button><button type="button" data-ckt="30" aria-pressed="false" title="Low-voltage power supplies, 15A">E-1.26 <span>30</span></button><button type="button" data-ckt="data" aria-pressed="false" title="Cat6 and coax home runs to the media panel">E-1.D <span>data</span></button></div><p class="ckt-name" id="ckt-name">All circuits. Pick a circuit sheet to see just its devices and the cable run from P2.</p>
       <div class="drawing"><div class="scroller"><div class="paper"><svg xmlns="http://www.w3.org/2000/svg" width="1072" height="882" viewBox="0 0 1072 882" font-family="IBM Plex Sans, Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-label="E-1 Electrical plan">
 <style>.wire{display:none}</style><rect width="100%" height="100%" fill="#fff"/>
@@ -3460,7 +3462,8 @@ tbody tr:last-child td { border-bottom: 0; }
 
     <!-- ================================================================ P-1 -->
     <div class="sheet sheet2d" id="sheet-p1" role="tabpanel" aria-labelledby="tab-p1" hidden>
-      <div class="tools"><div class="zoom" role="group" aria-label="Zoom"><button type="button" data-zoom="1" aria-pressed="true">Fit</button><button type="button" data-zoom="2" aria-pressed="false">2×</button><button type="button" data-zoom="4" aria-pressed="false">4×</button></div><p class="sel" data-hint="Click a fixture tag, stack, pipe or riser to read it. Schedule rows highlight the drawing.">Click a fixture tag, stack, pipe or riser to read it. Schedule rows highlight the drawing.</p></div>
+      <div class="tools"><div class="zoom" role="group" aria-label="Zoom"><button type="button" data-zoom="1" aria-pressed="true">Fit</button><button type="button" data-zoom="2" aria-pressed="false">2×</button><button type="button" data-zoom="4" aria-pressed="false">4×</button></div><p class="sel" data-hint="These zoom buttons are your friend.&#10;Everything you see is clickable.">These zoom buttons are your friend.
+Everything you see is clickable.</p></div>
       <div class="drawing"><div class="scroller"><div class="paper"><svg xmlns="http://www.w3.org/2000/svg" width="1072" height="882" viewBox="0 0 1072 882" font-family="IBM Plex Sans, Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-label="P-1 Plumbing plan">
 <style>.wire{display:none}</style><rect width="100%" height="100%" fill="#fff"/>
 <rect x="60.0" y="70.0" width="952.0" height="672.0" fill="#cfc9bf" stroke="none" stroke-width="1" rx="0"/>
@@ -4128,7 +4131,8 @@ tbody tr:last-child td { border-bottom: 0; }
 
     <!-- ================================================================ M-1 -->
     <div class="sheet sheet2d" id="sheet-m1" role="tabpanel" aria-labelledby="tab-m1" hidden>
-      <div class="tools"><div class="zoom" role="group" aria-label="Zoom"><button type="button" data-zoom="1" aria-pressed="true">Fit</button><button type="button" data-zoom="2" aria-pressed="false">2×</button><button type="button" data-zoom="4" aria-pressed="false">4×</button></div><p class="sel" data-hint="Click a register, return, trunk or thermostat to read it. Schedule rows highlight the drawing.">Click a register, return, trunk or thermostat to read it. Schedule rows highlight the drawing.</p></div>
+      <div class="tools"><div class="zoom" role="group" aria-label="Zoom"><button type="button" data-zoom="1" aria-pressed="true">Fit</button><button type="button" data-zoom="2" aria-pressed="false">2×</button><button type="button" data-zoom="4" aria-pressed="false">4×</button></div><p class="sel" data-hint="These zoom buttons are your friend.&#10;Everything you see is clickable.">These zoom buttons are your friend.
+Everything you see is clickable.</p></div>
       <div class="drawing"><div class="scroller"><div class="paper"><svg xmlns="http://www.w3.org/2000/svg" width="1072" height="882" viewBox="0 0 1072 882" font-family="IBM Plex Sans, Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-label="M-1 HVAC plan">
 <style>.wire{display:none}</style><rect width="100%" height="100%" fill="#fff"/>
 <rect x="60.0" y="70.0" width="952.0" height="672.0" fill="#cfc9bf" stroke="none" stroke-width="1" rx="0"/>
@@ -4713,7 +4717,6 @@ tbody tr:last-child td { border-bottom: 0; }
       scroller.scrollTop = fy * paper.offsetHeight + paper.offsetTop - scroller.clientHeight / 2;
     });
     layout();
-    if (matchMedia('(pointer: coarse)').matches && /^Click /.test(sel.dataset.hint)) { sel.dataset.hint = sel.dataset.hint.replace(/^Click /, 'Tap '); if (!sel.classList.contains('on')) sel.textContent = sel.dataset.hint; }
     // pinch (two fingers) previews with a transform; double-tap zooms in on the spot, or back to fit
     let pinch = null, lastTap = { t: 0, x: 0, y: 0 };
     const mid = t => [(t[0].clientX + t[1].clientX) / 2, (t[0].clientY + t[1].clientY) / 2];

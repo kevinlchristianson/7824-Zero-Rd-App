@@ -1,10 +1,11 @@
 // Bump VERSION whenever you change index.html so phones pick up the new copy.
-const VERSION = 'v4';
+const VERSION = 'v6';
 const CACHE = 'zr-' + VERSION;
 const SHELL = [
   './',
   './index.html',
   './manifest.json',
+  './chat-config.js',
   './icons/icon-180.png',
   './icons/icon-192.png',
   './icons/icon-512.png',
@@ -28,6 +29,9 @@ self.addEventListener('activate', e => {
 // Anything fetched successfully (fonts, packet PDFs you've opened) is cached for next time.
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
+  // chat traffic (Firestore, sign-in) goes straight to the network: its long-lived streams must never be cached
+  const host = new URL(e.request.url).hostname;
+  if (host.endsWith('googleapis.com') && host !== 'fonts.googleapis.com') return;
   e.respondWith(
     fetch(e.request)
       .then(res => {

@@ -3,15 +3,14 @@
 // then paste the web app's config object here. These values are not secrets; the rules in
 // firestore.rules are what protect the data.
 window.ZR_CHAT = {
-  firebase: null,
-  // firebase: {
-  //   apiKey: "…",
-  //   authDomain: "….firebaseapp.com",
-  //   projectId: "…",
-  //   storageBucket: "….firebasestorage.app",
-  //   messagingSenderId: "…",
-  //   appId: "…"
-  // },
+  firebase: {
+    apiKey: "AIzaSyApnTdm8UzcPngDkE1Jg3SxygGiF_PJFQQ",
+    authDomain: "zero-rd-reno.firebaseapp.com",
+    projectId: "zero-rd-reno",
+    storageBucket: "zero-rd-reno.firebasestorage.app",
+    messagingSenderId: "389018048005",
+    appId: "1:389018048005:web:857972f839636d352dae6c"
+  },
 
   // One conversation per room. Change it to start a fresh thread for a new job.
   room: 'zero-rd-crew',

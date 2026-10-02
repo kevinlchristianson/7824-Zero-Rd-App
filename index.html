@@ -269,8 +269,8 @@ tbody tr:last-child td { border-bottom: 0; }
 .chat-re span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; border-left: 3px solid var(--accent); padding-left: 7px; }
 .chat-re input { flex: none; accent-color: var(--accent); width: 18px; height: 18px; margin: 0; }
 @media (max-width: 760px) {
-  .tabs { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-  .tabs button { font-size: 12px; }
+  .tabs { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+  .tabs button { font-size: 11px; letter-spacing: -.01em; }
   .tabs button .badge { position: absolute; transform: translate(14px, -16px); }
   .tabs button { position: relative; }
   .chat-log { padding: 10px 10px; }
@@ -288,6 +288,7 @@ tbody tr:last-child td { border-bottom: 0; }
       <button type="button" role="tab" id="tab-e1" aria-selected="false" aria-controls="sheet-e1" data-sheet="e1"><span class="no">E-1</span>Electrical</button>
       <button type="button" role="tab" id="tab-p1" aria-selected="false" aria-controls="sheet-p1" data-sheet="p1"><span class="no">P-1</span>Plumbing</button>
       <button type="button" role="tab" id="tab-m1" aria-selected="false" aria-controls="sheet-m1" data-sheet="m1"><span class="no">M-6</span>HVAC</button>
+      <button type="button" role="tab" id="tab-r1" aria-selected="false" aria-controls="sheet-r1" data-sheet="r1"><span class="no">R-1</span>Radiant</button>
       <button type="button" role="tab" id="tab-chat" aria-selected="false" aria-controls="sheet-chat" data-sheet="chat"><span class="no">✉</span>Chat</button>
     </nav>
     <span class="counts">33 walls · 17 doors · 263 electrical devices · 22 plumbing fixtures · 21 registers · rev C 2026-10-01</span>
@@ -317,7 +318,7 @@ tbody tr:last-child td { border-bottom: 0; }
         </section>
         <section>
           <p class="eyebrow">Reading it</p>
-          <p class="lede">Plan view puts east at the top and north on the left, like the drawings. Click anything to read what it is: walls carry the drawing's wall number, devices their E-1 tag, pipes their size and run. The radiant PEX runs down and back in every truss bay, red, orange and blue for zones A, B and C, with the three manifolds on the mech room's west wall. Drains sit in the 2' floor-truss space below the plate and all run to the one drop by the deck door; vents rise in the walls and cross the ceiling space; supply trunks run under the floor to four riser groups.</p>
+          <p class="lede">Plan view puts east at the top and north on the left, like the drawings. Click anything to read what it is: walls carry the drawing's wall number, devices their E-1 tag, pipes their size and run. The radiant PEX runs down and back in every truss bay, red, orange and blue for zones A, B and C, with MF-A and MF-B in the lower mech room and MF-C hung in a truss bay under the pantry (sheet R-1). Drains sit in the 2' floor-truss space below the plate and all run to the one drop by the deck door; vents rise in the walls and cross the ceiling space; supply trunks run under the floor to four riser groups.</p>
           <p class="lede">To point a comment at one thing, name the sheet and the tag (S-1 W23, E-1 R12, P-1 S3, M-1 G7).</p>
         </section>
       </aside>
@@ -4709,6 +4710,498 @@ Everything you see is clickable.</p></div>
 </tbody></table></div></section>
       </div>
     </div>
+    <!-- ================================================================ R-1 -->
+    <div class="sheet sheet2d" id="sheet-r1" role="tabpanel" aria-labelledby="tab-r1" hidden>
+      <div class="tools"><div class="zoom" role="group" aria-label="Zoom"><button type="button" data-zoom="1" aria-pressed="true">Fit</button><button type="button" data-zoom="2" aria-pressed="false">2×</button><button type="button" data-zoom="4" aria-pressed="false">4×</button></div><a class="packet" href="packets/M-1-to-M-5-hydronic-pack.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M4 1.5h5.5L13 5v9.5H4z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M9.5 1.5V5H13M8.5 7.5v4.5M6.5 10l2 2 2-2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="pk-name">Hydronic pack </span>PDF</a><p class="sel" data-hint="These zoom buttons are your friend.&#10;Everything you see is clickable.">These zoom buttons are your friend.
+Everything you see is clickable.</p></div>
+      <div class="drawing"><div class="scroller"><div class="paper"><svg xmlns="http://www.w3.org/2000/svg" width="1072" height="882" viewBox="0 0 1072 882" font-family="IBM Plex Sans, Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-label="R-1 Radiant floor plan">
+<style>.wire{display:none}</style><rect width="100%" height="100%" fill="#fff"/>
+<rect x="60.0" y="70.0" width="952.0" height="672.0" fill="#cfc9bf" stroke="none" stroke-width="1" rx="0"/>
+<rect x="68.1" y="78.1" width="935.8" height="655.8" fill="#fff" stroke="none" stroke-width="1" rx="0"/>
+<rect x="68.1" y="78.1" width="935.8" height="655.8" fill="#f7f4ec" stroke="none" stroke-width="1" rx="0"/>
+<rect x="68.1" y="675.5" width="84.0" height="58.4" fill="#e9e6e0" stroke="none" stroke-width="1" rx="0"/>
+<rect x="68.1" y="628.8" width="33.9" height="46.7" fill="#e9e6e0" stroke="none" stroke-width="1" rx="0"/>
+<rect x="152.1" y="676.6" width="77.0" height="56.0" fill="#e3e0d8" stroke="none" stroke-width="1" rx="0"/>
+<rect x="229.1" y="682.5" width="61.9" height="51.4" fill="#ffffff" stroke="none" stroke-width="1" rx="0"/>
+<rect x="151.0" y="628.8" width="140.0" height="47.8" fill="#e3e0d8" stroke="none" stroke-width="1" rx="0"/>
+<rect x="102.0" y="628.8" width="49.0" height="47.8" fill="#ffffff" stroke="none" stroke-width="1" rx="0"/>
+<rect x="825.8" y="550.2" width="178.1" height="183.7" fill="#dcefe6" stroke="none" stroke-width="1" rx="0"/>
+<rect x="825.8" y="482.5" width="74.2" height="67.7" fill="#dcefe6" stroke="none" stroke-width="1" rx="0"/>
+<rect x="825.8" y="414.8" width="74.2" height="67.7" fill="#dcefe6" stroke="none" stroke-width="1" rx="0"/>
+<rect x="900.0" y="414.8" width="103.9" height="135.4" fill="#efeadf" stroke="none" stroke-width="1" rx="0"/>
+<rect x="825.8" y="228.2" width="178.1" height="186.6" fill="#dcefe6" stroke="none" stroke-width="1" rx="0"/>
+<rect x="753.0" y="78.1" width="250.9" height="150.1" fill="#dcefe6" stroke="none" stroke-width="1" rx="0"/>
+<rect x="711.0" y="623.0" width="114.8" height="110.9" fill="#e9e6e0" stroke="none" stroke-width="1" rx="0"/>
+<rect x="753.0" y="344.4" width="72.8" height="278.6" fill="#ffffff" stroke="none" stroke-width="1" rx="0"/>
+<rect x="214.0" y="78.1" width="242.2" height="229.9" fill="#dcefe6" stroke="none" stroke-width="1" rx="0"/>
+<rect x="68.1" y="78.1" width="145.9" height="229.9" fill="#efeadf" stroke="none" stroke-width="1" rx="0"/>
+<rect x="166.1" y="308.0" width="192.1" height="84.0" fill="#dcefe6" stroke="none" stroke-width="1" rx="0"/>
+<rect x="68.1" y="308.0" width="98.0" height="84.0" fill="#efeadf" stroke="none" stroke-width="1" rx="0"/>
+<rect x="151.0" y="466.2" width="140.0" height="162.6" fill="#e6ecf3" stroke="none" stroke-width="1" rx="0"/>
+<rect x="748.8" y="228.2" width="77.0" height="116.2" fill="#efeadf" stroke="none" stroke-width="1" rx="0"/>
+<rect x="634.0" y="228.2" width="114.8" height="116.2" fill="#e9e6e0" stroke="none" stroke-width="1" rx="0"/>
+<line x1="60.0" y1="733.9" x2="60.0" y2="78.1" stroke="#c5d0dc" stroke-width="0.6" stroke-dasharray="2,3"/>
+<text x="60.0" y="749.7" font-size="7" font-weight="normal" fill="#6b86a3" text-anchor="middle" dominant-baseline="middle">0</text>
+<line x1="130.0" y1="733.9" x2="130.0" y2="78.1" stroke="#c5d0dc" stroke-width="0.6" stroke-dasharray="2,3"/>
+<text x="130.0" y="749.7" font-size="7" font-weight="normal" fill="#6b86a3" text-anchor="middle" dominant-baseline="middle">5</text>
+<line x1="200.0" y1="733.9" x2="200.0" y2="78.1" stroke="#c5d0dc" stroke-width="0.6" stroke-dasharray="2,3"/>
+<text x="200.0" y="749.7" font-size="7" font-weight="normal" fill="#6b86a3" text-anchor="middle" dominant-baseline="middle">10</text>
+<line x1="270.0" y1="733.9" x2="270.0" y2="78.1" stroke="#c5d0dc" stroke-width="0.6" stroke-dasharray="2,3"/>
+<text x="270.0" y="749.7" font-size="7" font-weight="normal" fill="#6b86a3" text-anchor="middle" dominant-baseline="middle">15</text>
+<line x1="340.0" y1="733.9" x2="340.0" y2="78.1" stroke="#c5d0dc" stroke-width="0.6" stroke-dasharray="2,3"/>
+<text x="340.0" y="749.7" font-size="7" font-weight="normal" fill="#6b86a3" text-anchor="middle" dominant-baseline="middle">20</text>
+<line x1="410.0" y1="733.9" x2="410.0" y2="78.1" stroke="#c5d0dc" stroke-width="0.6" stroke-dasharray="2,3"/>
+<text x="410.0" y="749.7" font-size="7" font-weight="normal" fill="#6b86a3" text-anchor="middle" dominant-baseline="middle">25</text>
+<line x1="480.0" y1="733.9" x2="480.0" y2="78.1" stroke="#c5d0dc" stroke-width="0.6" stroke-dasharray="2,3"/>
+<text x="480.0" y="749.7" font-size="7" font-weight="normal" fill="#6b86a3" text-anchor="middle" dominant-baseline="middle">30</text>
+<line x1="550.0" y1="733.9" x2="550.0" y2="78.1" stroke="#c5d0dc" stroke-width="0.6" stroke-dasharray="2,3"/>
+<text x="550.0" y="749.7" font-size="7" font-weight="normal" fill="#6b86a3" text-anchor="middle" dominant-baseline="middle">35</text>
+<line x1="620.0" y1="733.9" x2="620.0" y2="78.1" stroke="#c5d0dc" stroke-width="0.6" stroke-dasharray="2,3"/>
+<text x="620.0" y="749.7" font-size="7" font-weight="normal" fill="#6b86a3" text-anchor="middle" dominant-baseline="middle">40</text>
+<line x1="690.0" y1="733.9" x2="690.0" y2="78.1" stroke="#c5d0dc" stroke-width="0.6" stroke-dasharray="2,3"/>
+<text x="690.0" y="749.7" font-size="7" font-weight="normal" fill="#6b86a3" text-anchor="middle" dominant-baseline="middle">45</text>
+<line x1="760.0" y1="733.9" x2="760.0" y2="78.1" stroke="#c5d0dc" stroke-width="0.6" stroke-dasharray="2,3"/>
+<text x="760.0" y="749.7" font-size="7" font-weight="normal" fill="#6b86a3" text-anchor="middle" dominant-baseline="middle">50</text>
+<line x1="830.0" y1="733.9" x2="830.0" y2="78.1" stroke="#c5d0dc" stroke-width="0.6" stroke-dasharray="2,3"/>
+<text x="830.0" y="749.7" font-size="7" font-weight="normal" fill="#6b86a3" text-anchor="middle" dominant-baseline="middle">55</text>
+<line x1="900.0" y1="733.9" x2="900.0" y2="78.1" stroke="#c5d0dc" stroke-width="0.6" stroke-dasharray="2,3"/>
+<text x="900.0" y="749.7" font-size="7" font-weight="normal" fill="#6b86a3" text-anchor="middle" dominant-baseline="middle">60</text>
+<line x1="970.0" y1="733.9" x2="970.0" y2="78.1" stroke="#c5d0dc" stroke-width="0.6" stroke-dasharray="2,3"/>
+<text x="970.0" y="749.7" font-size="7" font-weight="normal" fill="#6b86a3" text-anchor="middle" dominant-baseline="middle">65</text>
+<line x1="68.1" y1="742.0" x2="1003.9" y2="742.0" stroke="#c5d0dc" stroke-width="0.6" stroke-dasharray="2,3"/>
+<text x="47.4" y="742.0" font-size="7" font-weight="normal" fill="#6b86a3" text-anchor="middle" dominant-baseline="middle">0</text>
+<line x1="68.1" y1="672.0" x2="1003.9" y2="672.0" stroke="#c5d0dc" stroke-width="0.6" stroke-dasharray="2,3"/>
+<text x="47.4" y="672.0" font-size="7" font-weight="normal" fill="#6b86a3" text-anchor="middle" dominant-baseline="middle">5</text>
+<line x1="68.1" y1="602.0" x2="1003.9" y2="602.0" stroke="#c5d0dc" stroke-width="0.6" stroke-dasharray="2,3"/>
+<text x="47.4" y="602.0" font-size="7" font-weight="normal" fill="#6b86a3" text-anchor="middle" dominant-baseline="middle">10</text>
+<line x1="68.1" y1="532.0" x2="1003.9" y2="532.0" stroke="#c5d0dc" stroke-width="0.6" stroke-dasharray="2,3"/>
+<text x="47.4" y="532.0" font-size="7" font-weight="normal" fill="#6b86a3" text-anchor="middle" dominant-baseline="middle">15</text>
+<line x1="68.1" y1="462.0" x2="1003.9" y2="462.0" stroke="#c5d0dc" stroke-width="0.6" stroke-dasharray="2,3"/>
+<text x="47.4" y="462.0" font-size="7" font-weight="normal" fill="#6b86a3" text-anchor="middle" dominant-baseline="middle">20</text>
+<line x1="68.1" y1="392.0" x2="1003.9" y2="392.0" stroke="#c5d0dc" stroke-width="0.6" stroke-dasharray="2,3"/>
+<text x="47.4" y="392.0" font-size="7" font-weight="normal" fill="#6b86a3" text-anchor="middle" dominant-baseline="middle">25</text>
+<line x1="68.1" y1="322.0" x2="1003.9" y2="322.0" stroke="#c5d0dc" stroke-width="0.6" stroke-dasharray="2,3"/>
+<text x="47.4" y="322.0" font-size="7" font-weight="normal" fill="#6b86a3" text-anchor="middle" dominant-baseline="middle">30</text>
+<line x1="68.1" y1="252.0" x2="1003.9" y2="252.0" stroke="#c5d0dc" stroke-width="0.6" stroke-dasharray="2,3"/>
+<text x="47.4" y="252.0" font-size="7" font-weight="normal" fill="#6b86a3" text-anchor="middle" dominant-baseline="middle">35</text>
+<line x1="68.1" y1="182.0" x2="1003.9" y2="182.0" stroke="#c5d0dc" stroke-width="0.6" stroke-dasharray="2,3"/>
+<text x="47.4" y="182.0" font-size="7" font-weight="normal" fill="#6b86a3" text-anchor="middle" dominant-baseline="middle">40</text>
+<line x1="68.1" y1="112.0" x2="1003.9" y2="112.0" stroke="#c5d0dc" stroke-width="0.6" stroke-dasharray="2,3"/>
+<text x="47.4" y="112.0" font-size="7" font-weight="normal" fill="#6b86a3" text-anchor="middle" dominant-baseline="middle">45</text>
+<text x="1024.6" y="742.0" font-size="7" font-weight="normal" fill="#6b86a3" text-anchor="middle" dominant-baseline="middle">X</text>
+<text x="47.4" y="61.6" font-size="7" font-weight="normal" fill="#6b86a3" text-anchor="middle" dominant-baseline="middle">Y</text>
+<line x1="102.0" y1="675.5" x2="152.1" y2="675.5" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="152.1" y1="732.6" x2="152.1" y2="676.6" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="152.1" y1="676.6" x2="229.1" y2="676.6" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="229.1" y1="732.6" x2="229.1" y2="676.6" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="102.0" y1="675.5" x2="102.0" y2="628.8" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="229.1" y1="679.6" x2="291.0" y2="679.6" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="825.8" y1="733.9" x2="825.8" y2="228.2" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="753.0" y1="228.2" x2="753.0" y2="78.1" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="753.0" y1="228.2" x2="1003.9" y2="228.2" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="825.8" y1="550.2" x2="1003.9" y2="550.2" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="825.8" y1="414.8" x2="1003.9" y2="414.8" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="900.0" y1="550.2" x2="900.0" y2="414.8" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="825.8" y1="482.5" x2="900.0" y2="482.5" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="711.0" y1="733.9" x2="711.0" y2="623.0" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="711.0" y1="623.0" x2="825.8" y2="623.0" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="753.0" y1="623.0" x2="753.0" y2="420.3" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="587.8" y1="228.2" x2="753.0" y2="228.2" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="68.1" y1="392.0" x2="358.2" y2="392.0" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="456.2" y1="308.0" x2="456.2" y2="78.1" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="68.1" y1="308.0" x2="456.2" y2="308.0" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="166.1" y1="392.0" x2="166.1" y2="308.0" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="358.2" y1="392.0" x2="358.2" y2="308.0" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="214.0" y1="308.0" x2="214.0" y2="78.1" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="123.0" y1="124.7" x2="123.0" y2="78.1" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="123.0" y1="124.7" x2="214.0" y2="124.7" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="151.0" y1="628.8" x2="151.0" y2="466.2" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="291.0" y1="676.6" x2="291.0" y2="466.2" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="151.0" y1="628.8" x2="291.0" y2="628.8" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="151.0" y1="466.2" x2="291.0" y2="466.2" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="748.8" y1="344.4" x2="748.8" y2="228.2" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="634.0" y1="344.4" x2="825.8" y2="344.4" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="634.0" y1="344.4" x2="634.0" y2="228.2" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<line x1="68.1" y1="628.8" x2="102.0" y2="628.8" stroke="#5b574f" stroke-width="5.88" stroke-linecap="square"/>
+<rect x="72.6" y="625.6" width="0.0" height="6.4" fill="#fff" stroke="none" stroke-width="1" rx="0"/>
+<line x1="72.6" y1="628.8" x2="72.6" y2="628.8" stroke="#888" stroke-width="1"/>
+<rect x="225.9" y="683.6" width="6.4" height="42.0" fill="#fff" stroke="none" stroke-width="1" rx="0"/>
+<line x1="229.1" y1="725.6" x2="229.1" y2="683.6" stroke="#888" stroke-width="1"/>
+<rect x="707.8" y="651.7" width="6.4" height="49.0" fill="#fff" stroke="none" stroke-width="1" rx="0"/>
+<line x1="711.0" y1="700.7" x2="711.0" y2="651.7" stroke="#888" stroke-width="1"/>
+<rect x="822.6" y="574.0" width="6.4" height="42.0" fill="#fff" stroke="none" stroke-width="1" rx="0"/>
+<line x1="825.8" y1="616.0" x2="825.8" y2="574.0" stroke="#888" stroke-width="1"/>
+<rect x="822.6" y="351.4" width="6.4" height="42.0" fill="#fff" stroke="none" stroke-width="1" rx="0"/>
+<line x1="825.8" y1="393.4" x2="825.8" y2="351.4" stroke="#888" stroke-width="1"/>
+<rect x="837.0" y="547.0" width="42.0" height="6.4" fill="#fff" stroke="none" stroke-width="1" rx="0"/>
+<line x1="837.0" y1="550.2" x2="879.0" y2="550.2" stroke="#888" stroke-width="1"/>
+<rect x="837.0" y="411.6" width="42.0" height="6.4" fill="#fff" stroke="none" stroke-width="1" rx="0"/>
+<line x1="837.0" y1="414.8" x2="879.0" y2="414.8" stroke="#888" stroke-width="1"/>
+<rect x="946.2" y="547.0" width="42.0" height="6.4" fill="#fff" stroke="none" stroke-width="1" rx="0"/>
+<line x1="946.2" y1="550.2" x2="988.2" y2="550.2" stroke="#888" stroke-width="1"/>
+<rect x="946.2" y="411.6" width="42.0" height="6.4" fill="#fff" stroke="none" stroke-width="1" rx="0"/>
+<line x1="946.2" y1="414.8" x2="988.2" y2="414.8" stroke="#888" stroke-width="1"/>
+<rect x="749.8" y="154.0" width="6.4" height="42.0" fill="#fff" stroke="none" stroke-width="1" rx="0"/>
+<line x1="753.0" y1="196.0" x2="753.0" y2="154.0" stroke="#888" stroke-width="1"/>
+<rect x="130.0" y="121.5" width="42.0" height="6.4" fill="#fff" stroke="none" stroke-width="1" rx="0"/>
+<line x1="130.0" y1="124.7" x2="172.0" y2="124.7" stroke="#888" stroke-width="1"/>
+<rect x="229.4" y="304.8" width="42.0" height="6.4" fill="#fff" stroke="none" stroke-width="1" rx="0"/>
+<line x1="229.4" y1="308.0" x2="271.4" y2="308.0" stroke="#888" stroke-width="1"/>
+<rect x="408.6" y="304.8" width="42.0" height="6.4" fill="#fff" stroke="none" stroke-width="1" rx="0"/>
+<line x1="408.6" y1="308.0" x2="450.6" y2="308.0" stroke="#888" stroke-width="1"/>
+<rect x="72.3" y="388.8" width="42.0" height="6.4" fill="#fff" stroke="none" stroke-width="1" rx="0"/>
+<line x1="72.3" y1="392.0" x2="114.3" y2="392.0" stroke="#888" stroke-width="1"/>
+<rect x="235.0" y="463.0" width="42.0" height="6.4" fill="#fff" stroke="none" stroke-width="1" rx="0"/>
+<line x1="235.0" y1="466.2" x2="277.0" y2="466.2" stroke="#888" stroke-width="1"/>
+<rect x="781.0" y="225.0" width="42.0" height="6.4" fill="#fff" stroke="none" stroke-width="1" rx="0"/>
+<line x1="781.0" y1="228.2" x2="823.0" y2="228.2" stroke="#888" stroke-width="1"/>
+<rect x="657.8" y="341.2" width="42.0" height="6.4" fill="#fff" stroke="none" stroke-width="1" rx="0"/>
+<line x1="657.8" y1="344.4" x2="699.8" y2="344.4" stroke="#888" stroke-width="1"/>
+<rect x="210.8" y="252.0" width="6.4" height="42.0" fill="#fff" stroke="none" stroke-width="1" rx="0"/>
+<line x1="214.0" y1="294.0" x2="214.0" y2="252.0" stroke="#888" stroke-width="1"/>
+<path d="M214.0,742.0 L261.8,742.0 L270.0,733.9 L205.9,733.9 Z" fill="#fff" stroke="#444" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M350.5,742.0 L398.3,742.0 L406.5,733.9 L342.4,733.9 Z" fill="#fff" stroke="#444" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M489.4,742.0 L537.2,742.0 L545.3,733.9 L481.3,733.9 Z" fill="#fff" stroke="#444" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="763.5" y="733.9" width="47.8" height="8.1" fill="#c9c1b4" stroke="none" stroke-width="1" rx="0"/>
+<line x1="763.5" y1="742.0" x2="811.3" y2="733.9" stroke="#6d655a" stroke-width="1"/>
+<line x1="763.5" y1="733.9" x2="811.3" y2="742.0" stroke="#6d655a" stroke-width="1"/>
+<path d="M910.5,70.0 L958.4,70.0 L966.5,78.1 L902.4,78.1 Z" fill="#fff" stroke="#444" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M776.3,70.0 L824.1,70.0 L832.2,78.1 L768.2,78.1 Z" fill="#fff" stroke="#444" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M645.7,70.0 L693.5,70.0 L701.6,78.1 L637.5,78.1 Z" fill="#fff" stroke="#444" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M378.5,70.0 L426.4,70.0 L434.5,78.1 L370.4,78.1 Z" fill="#fff" stroke="#444" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M247.8,70.0 L295.6,70.0 L303.7,78.1 L239.7,78.1 Z" fill="#fff" stroke="#444" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="112.5" y="70.0" width="47.8" height="8.1" fill="#c9c1b4" stroke="none" stroke-width="1" rx="0"/>
+<line x1="112.5" y1="78.1" x2="160.4" y2="70.0" stroke="#6d655a" stroke-width="1"/>
+<line x1="112.5" y1="70.0" x2="160.4" y2="78.1" stroke="#6d655a" stroke-width="1"/>
+<path d="M60.0,183.2 L60.0,135.4 L68.1,127.3 L68.1,191.3 Z" fill="#fff" stroke="#444" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="60.0" y="273.0" width="8.1" height="47.8" fill="#c9c1b4" stroke="none" stroke-width="1" rx="0"/>
+<line x1="60.0" y1="320.8" x2="68.1" y2="273.0" stroke="#6d655a" stroke-width="1"/>
+<line x1="60.0" y1="273.0" x2="68.1" y2="320.8" stroke="#6d655a" stroke-width="1"/>
+<path d="M1012.0,674.4 L1012.0,626.5 L1003.9,618.4 L1003.9,682.5 Z" fill="#fff" stroke="#444" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="1003.9" y="491.2" width="8.1" height="47.8" fill="#c9c1b4" stroke="none" stroke-width="1" rx="0"/>
+<line x1="1003.9" y1="539.0" x2="1012.0" y2="491.2" stroke="#6d655a" stroke-width="1"/>
+<line x1="1003.9" y1="491.2" x2="1012.0" y2="539.0" stroke="#6d655a" stroke-width="1"/>
+<path d="M1012.0,316.1 L1012.0,268.3 L1003.9,260.2 L1003.9,324.2 Z" fill="#fff" stroke="#444" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1012.0,177.4 L1012.0,129.5 L1003.9,121.4 L1003.9,185.5 Z" fill="#fff" stroke="#444" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="492.9" y="70.0" width="87.5" height="8.1" fill="#fff" stroke="none" stroke-width="1" rx="0"/>
+<line x1="492.9" y1="78.1" x2="580.4" y2="78.1" stroke="#888" stroke-width="1"/>
+<rect x="630.5" y="733.9" width="42.0" height="8.1" fill="#fff" stroke="none" stroke-width="1" rx="0"/>
+<line x1="630.5" y1="733.9" x2="672.5" y2="733.9" stroke="#888" stroke-width="1"/>
+<rect x="116.0" y="744.1" width="840.0" height="10.5" fill="#ece8e0" stroke="#c2bbae" stroke-width="0.8" rx="0"/>
+<rect x="478.9" y="57.4" width="115.5" height="10.5" fill="#ece8e0" stroke="#c2bbae" stroke-width="0.8" rx="0"/>
+<rect x="715.2" y="710.1" width="106.4" height="19.6" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="804.8" y="627.2" width="16.8" height="82.9" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="715.2" y="627.2" width="19.6" height="25.2" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="907.0" y="640.5" width="70.0" height="93.4" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="911.2" y="723.4" width="28.7" height="8.4" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="944.1" y="723.4" width="28.7" height="8.4" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="907.0" y="228.2" width="70.0" height="93.4" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="911.2" y="230.3" width="28.7" height="8.4" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="944.1" y="230.3" width="28.7" height="8.4" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="825.8" y="482.5" width="74.2" height="28.0" fill="none" stroke="#b9b4aa" stroke-width="0.9" stroke-dasharray="3,2" rx="1"/>
+<rect x="825.8" y="454.5" width="74.2" height="28.0" fill="none" stroke="#b9b4aa" stroke-width="0.9" stroke-dasharray="3,2" rx="1"/>
+<rect x="900.0" y="441.2" width="25.2" height="82.6" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="968.6" y="447.5" width="35.3" height="70.0" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="5"/>
+<rect x="972.8" y="451.7" width="26.9" height="61.6" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="995.5" y="522.9" width="8.4" height="21.0" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="975.9" y="419.0" width="28.0" height="25.7" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="837.0" y="134.8" width="70.0" height="93.4" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="841.2" y="217.7" width="28.7" height="8.4" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="874.1" y="217.7" width="28.7" height="8.4" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="914.0" y="200.2" width="89.9" height="28.0" fill="none" stroke="#b9b4aa" stroke-width="0.9" stroke-dasharray="3,2" rx="1"/>
+<rect x="610.2" y="84.0" width="116.2" height="49.0" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="715.2" y="423.5" width="35.0" height="196.0" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="715.2" y="584.5" width="35.0" height="35.0" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="715.2" y="515.9" width="35.0" height="28.0" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="600.9" y="423.5" width="42.0" height="196.0" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="606.5" y="504.7" width="30.8" height="28.0" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="505.2" y="322.0" width="49.0" height="84.0" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="372.2" y="450.8" width="154.0" height="23.8" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="494.0" y="474.6" width="32.2" height="63.0" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="372.2" y="656.6" width="154.0" height="23.8" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="494.0" y="593.6" width="32.2" height="63.0" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="143.7" y="308.0" width="21.0" height="8.4" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="68.1" y="313.6" width="22.4" height="28.0" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="166.1" y="312.2" width="28.0" height="75.6" fill="none" stroke="#b9b4aa" stroke-width="0.9" stroke-dasharray="3,2" rx="1"/>
+<rect x="330.2" y="312.2" width="28.0" height="75.6" fill="none" stroke="#b9b4aa" stroke-width="0.9" stroke-dasharray="3,2" rx="1"/>
+<rect x="282.6" y="368.9" width="47.6" height="18.9" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="362.8" y="133.9" width="93.3" height="88.7" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="445.7" y="180.4" width="8.4" height="38.0" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="445.7" y="138.1" width="8.4" height="38.0" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="396.0" y="109.2" width="28.0" height="21.0" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="95.0" y="224.0" width="77.0" height="70.0" fill="none" stroke="#b9b4aa" stroke-width="0.9" stroke-dasharray="3,2" rx="1"/>
+<rect x="68.1" y="224.0" width="26.9" height="70.0" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="68.1" y="119.0" width="40.9" height="84.0" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="5"/>
+<rect x="72.3" y="123.2" width="32.5" height="75.6" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="187.4" y="137.2" width="26.6" height="84.0" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="202.7" y="89.5" width="8.4" height="21.0" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="156.6" y="511.0" width="35.0" height="84.0" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="748.8" y="309.4" width="70.0" height="35.0" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="5"/>
+<rect x="753.0" y="313.6" width="61.6" height="26.6" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="817.4" y="279.3" width="8.4" height="21.0" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="748.8" y="232.4" width="28.0" height="40.6" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="652.2" y="231.7" width="65.8" height="34.3" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<rect x="719.4" y="231.7" width="25.9" height="34.3" fill="none" stroke="#b9b4aa" stroke-width="0.9" rx="1"/>
+<text x="106.2" y="697.9" font-size="8.5" font-weight="normal" fill="#8a857c" text-anchor="middle" dominant-baseline="middle">Mech</text>
+<text x="190.6" y="704.6" font-size="8.5" font-weight="normal" fill="#8a857c" text-anchor="middle" dominant-baseline="middle">Elev.</text>
+<text x="310.6" y="698.6" font-size="8.5" font-weight="normal" fill="#8a857c" text-anchor="middle" dominant-baseline="middle">Elev. hall</text>
+<text x="166.4" y="636.5" font-size="8.5" font-weight="normal" fill="#8a857c" text-anchor="middle" dominant-baseline="middle">Stair down</text>
+<text x="872.0" y="92.1" font-size="8.5" font-weight="normal" fill="#8a857c" text-anchor="middle" dominant-baseline="middle">TV</text>
+<text x="942.0" y="482.5" font-size="8.5" font-weight="normal" fill="#8a857c" text-anchor="middle" dominant-baseline="middle">Jack &amp; Jill</text>
+<text x="958.8" y="95.9" font-size="8.5" font-weight="normal" fill="#8a857c" text-anchor="middle" dominant-baseline="middle">2nd Suite</text>
+<text x="772.6" y="636.3" font-size="8.5" font-weight="normal" fill="#8a857c" text-anchor="middle" dominant-baseline="middle">Pantry</text>
+<text x="789.4" y="529.2" font-size="8.5" font-weight="normal" fill="#8a857c" text-anchor="middle" dominant-baseline="middle">Hallway 5′-2″</text>
+<text x="669.0" y="212.8" font-size="8.5" font-weight="normal" fill="#8a857c" text-anchor="middle" dominant-baseline="middle">TV</text>
+<text x="669.0" y="196.0" font-size="8.5" font-weight="normal" fill="#8a857c" text-anchor="middle" dominant-baseline="middle">Den</text>
+<text x="529.7" y="303.8" font-size="8.5" font-weight="normal" fill="#8a857c" text-anchor="middle" dominant-baseline="middle">Dining</text>
+<text x="678.8" y="567.0" font-size="8.5" font-weight="normal" fill="#8a857c" text-anchor="middle" dominant-baseline="middle">Kitchen</text>
+<text x="449.2" y="565.6" font-size="8.5" font-weight="normal" fill="#8a857c" text-anchor="middle" dominant-baseline="middle">Living</text>
+<text x="480.0" y="701.4" font-size="8.5" font-weight="normal" fill="#8a857c" text-anchor="middle" dominant-baseline="middle">Hallway 5′-2″</text>
+<text x="133.9" y="364.0" font-size="8.5" font-weight="normal" fill="#8a857c" text-anchor="middle" dominant-baseline="middle">Powder</text>
+<text x="250.4" y="335.3" font-size="8.5" font-weight="normal" fill="#8a857c" text-anchor="middle" dominant-baseline="middle">WIC</text>
+<text x="333.0" y="111.3" font-size="8.5" font-weight="normal" fill="#8a857c" text-anchor="middle" dominant-baseline="middle">Master Bedroom</text>
+<text x="148.2" y="165.9" font-size="8.5" font-weight="normal" fill="#8a857c" text-anchor="middle" dominant-baseline="middle">M Bath</text>
+<text x="158.0" y="84.0" font-size="8.5" font-weight="normal" fill="#8a857c" text-anchor="middle" dominant-baseline="middle">WC</text>
+<text x="186.0" y="462.0" font-size="8.5" font-weight="normal" fill="#8a857c" text-anchor="middle" dominant-baseline="middle">Hall</text>
+<text x="232.2" y="573.3" font-size="8.5" font-weight="normal" fill="#8a857c" text-anchor="middle" dominant-baseline="middle">Office</text>
+<text x="302.2" y="574.0" font-size="8.5" font-weight="normal" fill="#8a857c" text-anchor="middle" dominant-baseline="middle">TV Wall</text>
+<text x="799.9" y="247.8" font-size="8.5" font-weight="normal" fill="#8a857c" text-anchor="middle" dominant-baseline="middle">Suite Bath</text>
+<text x="698.4" y="319.2" font-size="8.5" font-weight="normal" fill="#8a857c" text-anchor="middle" dominant-baseline="middle">Laundry</text>
+<text x="536.0" y="50.4" font-size="9" font-weight="normal" fill="#666" text-anchor="middle" dominant-baseline="middle">EAST — 75&quot; Porch</text>
+<text x="536.0" y="763.0" font-size="9" font-weight="normal" fill="#666" text-anchor="middle" dominant-baseline="middle">WEST — Deck</text>
+<text x="29.2" y="406.0" font-size="13" font-weight="700" fill="#555" text-anchor="middle" dominant-baseline="middle">N</text>
+<text x="1042.8" y="406.0" font-size="13" font-weight="700" fill="#555" text-anchor="middle" dominant-baseline="middle">S</text>
+<g pointer-events="none">
+<rect x="68.1" y="78.1" width="327.9" height="655.8" fill="#c62828" fill-opacity="0.05"/>
+<rect x="396.0" y="78.1" width="336.0" height="655.8" fill="#e65100" fill-opacity="0.05"/>
+<rect x="732.0" y="78.1" width="271.9" height="655.8" fill="#1565c0" fill-opacity="0.05"/>
+<line x1="68.1" y1="733.9" x2="68.1" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="88.0" y1="733.9" x2="88.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="116.0" y1="733.9" x2="116.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="144.0" y1="733.9" x2="144.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="172.0" y1="628.8" x2="172.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="200.0" y1="628.8" x2="200.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="228.0" y1="628.8" x2="228.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="256.0" y1="733.9" x2="256.0" y2="676.6" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="256.0" y1="628.8" x2="256.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="284.0" y1="733.9" x2="284.0" y2="676.6" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="284.0" y1="628.8" x2="284.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="312.0" y1="733.9" x2="312.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="340.0" y1="733.9" x2="340.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="368.0" y1="733.9" x2="368.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="396.0" y1="733.9" x2="396.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="424.0" y1="733.9" x2="424.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="452.0" y1="733.9" x2="452.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="480.0" y1="733.9" x2="480.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="508.0" y1="733.9" x2="508.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="536.0" y1="733.9" x2="536.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="564.0" y1="733.9" x2="564.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="592.0" y1="733.9" x2="592.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="620.0" y1="733.9" x2="620.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="648.0" y1="733.9" x2="648.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="676.0" y1="733.9" x2="676.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="704.0" y1="733.9" x2="704.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="732.0" y1="733.9" x2="732.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="760.0" y1="733.9" x2="760.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="788.0" y1="733.9" x2="788.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="816.0" y1="733.9" x2="816.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="844.0" y1="733.9" x2="844.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="872.0" y1="733.9" x2="872.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="900.0" y1="733.9" x2="900.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="928.0" y1="733.9" x2="928.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="956.0" y1="733.9" x2="956.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="984.0" y1="733.9" x2="984.0" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="1003.9" y1="733.9" x2="1003.9" y2="78.1" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="6,3"/>
+<line x1="396.0" y1="64.1" x2="396.0" y2="733.9" stroke="#555" stroke-width="1" stroke-dasharray="2,3"/>
+<line x1="732.0" y1="64.1" x2="732.0" y2="733.9" stroke="#555" stroke-width="1" stroke-dasharray="2,3"/>
+<text x="72.1" y="63" font-size="8.5" font-weight="700" fill="#c62828">ZONE A · bays 1–12 · L1–L6 · MF-A</text>
+<text x="400.0" y="63" font-size="8.5" font-weight="700" fill="#e65100">ZONE B · bays 13–24 · L7–L12 · MF-B</text>
+<text x="736.0" y="63" font-size="8.5" font-weight="700" fill="#1565c0">ZONE C · bays 25–34 · L13–L17 · MF-C</text>
+</g>
+<g id="r1-L1" class="sym" data-id="L1"><title>Loop L1, zone A, truss bays 1–2 from the north wall: about 169&#x27; in the floor + 2 × 14&#x27; leaders = 196&#x27; of 1/2&quot; PEX, home run to MF-A in the lower mech room. 0.5 gpm on the flow meter, about 2.3 ft of head. One continuous coil, no fittings below the floor; tag both ends L1.</title>
+<path d="M73.7,668.5 L73.7,86.5 L80.3,86.5 L80.3,668.5 L95.7,668.5 L95.7,86.5 L108.3,86.5 L108.3,668.5 M73.7,668.5 L73.7,672.7 L146.8,672.7 L146.8,653.1 M108.3,668.5 L108.3,672.7" fill="none" stroke="transparent" stroke-width="9" stroke-linejoin="round"/>
+<path class="pex" d="M73.7,668.5 L73.7,86.5 L80.3,86.5 L80.3,668.5 L95.7,668.5 L95.7,86.5 L108.3,86.5 L108.3,668.5" fill="none" stroke="#c62828" stroke-width="1.6" stroke-linejoin="round"/>
+<path class="lead" d="M73.7,668.5 L73.7,672.7 L146.8,672.7 L146.8,653.1 M108.3,668.5 L108.3,672.7" fill="none" stroke="#c62828" stroke-width="1.1" stroke-dasharray="7,1.5" stroke-linejoin="round"/>
+<text x="91.0" y="108.9" font-size="7" font-weight="700" fill="#c62828" text-anchor="middle" dominant-baseline="middle" stroke="#fff" stroke-width="2.5" paint-order="stroke">L1</text>
+</g>
+<g id="r1-L2" class="sym" data-id="L2"><title>Loop L2, zone A, truss bays 3–4 from the north wall: about 159&#x27; in the floor + 2 × 11&#x27; leaders = 180&#x27; of 1/2&quot; PEX, home run to MF-A in the lower mech room. 0.5 gpm on the flow meter, about 2.2 ft of head. One continuous coil, no fittings below the floor; tag both ends L2.</title>
+<path d="M123.7,668.5 L123.7,86.5 L136.3,86.5 L136.3,588.7 L151.7,588.7 L151.7,86.5 L164.3,86.5 L164.3,588.7 M164.3,588.7 L164.3,593.6 L150.3,593.6 M123.7,668.5 L123.7,670.6 L144.0,670.6 L144.0,653.1" fill="none" stroke="transparent" stroke-width="9" stroke-linejoin="round"/>
+<path class="pex" d="M123.7,668.5 L123.7,86.5 L136.3,86.5 L136.3,588.7 L151.7,588.7 L151.7,86.5 L164.3,86.5 L164.3,588.7" fill="none" stroke="#c62828" stroke-width="1.6" stroke-linejoin="round"/>
+<path class="lead" d="M164.3,588.7 L164.3,593.6 L150.3,593.6 M123.7,668.5 L123.7,670.6 L144.0,670.6 L144.0,653.1" fill="none" stroke="#c62828" stroke-width="1.1" stroke-dasharray="7,1.5" stroke-linejoin="round"/>
+<text x="144.0" y="108.9" font-size="7" font-weight="700" fill="#c62828" text-anchor="middle" dominant-baseline="middle" stroke="#fff" stroke-width="2.5" paint-order="stroke">L2</text>
+</g>
+<g id="r1-L3" class="sym" data-id="L3"><title>Loop L3, zone A, truss bays 5–6 from the north wall: about 156&#x27; in the floor + 2 × 12&#x27; leaders = 181&#x27; of 1/2&quot; PEX, home run to MF-A in the lower mech room. 0.5 gpm on the flow meter, about 2.2 ft of head. One continuous coil, no fittings below the floor; tag both ends L3.</title>
+<path d="M179.7,588.7 L179.7,86.5 L192.3,86.5 L192.3,588.7 L207.7,588.7 L207.7,86.5 L220.3,86.5 L220.3,588.7 M220.3,588.7 L220.3,596.4 L150.3,596.4 M179.7,588.7 L179.7,596.4" fill="none" stroke="transparent" stroke-width="9" stroke-linejoin="round"/>
+<path class="pex" d="M179.7,588.7 L179.7,86.5 L192.3,86.5 L192.3,588.7 L207.7,588.7 L207.7,86.5 L220.3,86.5 L220.3,588.7" fill="none" stroke="#c62828" stroke-width="1.6" stroke-linejoin="round"/>
+<path class="lead" d="M220.3,588.7 L220.3,596.4 L150.3,596.4 M179.7,588.7 L179.7,596.4" fill="none" stroke="#c62828" stroke-width="1.1" stroke-dasharray="7,1.5" stroke-linejoin="round"/>
+<text x="200.0" y="108.9" font-size="7" font-weight="700" fill="#c62828" text-anchor="middle" dominant-baseline="middle" stroke="#fff" stroke-width="2.5" paint-order="stroke">L3</text>
+</g>
+<g id="r1-L4" class="sym" data-id="L4"><title>Loop L4, zone A, truss bays 7–8 from the north wall: about 156&#x27; in the floor + 2 × 16&#x27; leaders = 189&#x27; of 1/2&quot; PEX, home run to MF-A in the lower mech room. 0.5 gpm on the flow meter, about 2.3 ft of head. One continuous coil, no fittings below the floor; tag both ends L4.</title>
+<path d="M235.7,588.7 L235.7,86.5 L248.3,86.5 L248.3,588.7 L263.7,588.7 L263.7,86.5 L276.3,86.5 L276.3,588.7 M276.3,588.7 L276.3,599.2 L150.3,599.2 M235.7,588.7 L235.7,599.2" fill="none" stroke="transparent" stroke-width="9" stroke-linejoin="round"/>
+<path class="pex" d="M235.7,588.7 L235.7,86.5 L248.3,86.5 L248.3,588.7 L263.7,588.7 L263.7,86.5 L276.3,86.5 L276.3,588.7" fill="none" stroke="#c62828" stroke-width="1.6" stroke-linejoin="round"/>
+<path class="lead" d="M276.3,588.7 L276.3,599.2 L150.3,599.2 M235.7,588.7 L235.7,599.2" fill="none" stroke="#c62828" stroke-width="1.1" stroke-dasharray="7,1.5" stroke-linejoin="round"/>
+<text x="256.0" y="108.9" font-size="7" font-weight="700" fill="#c62828" text-anchor="middle" dominant-baseline="middle" stroke="#fff" stroke-width="2.5" paint-order="stroke">L4</text>
+</g>
+<g id="r1-L5" class="sym" data-id="L5"><title>Loop L5, zone A, truss bays 9–10 from the north wall: about 163&#x27; in the floor + 2 × 24&#x27; leaders = 212&#x27; of 1/2&quot; PEX, home run to MF-A in the lower mech room. 0.5 gpm on the flow meter, about 2.5 ft of head. One continuous coil, no fittings below the floor; tag both ends L5.</title>
+<path d="M291.7,588.7 L291.7,86.5 L304.3,86.5 L304.3,588.7 L319.7,588.7 L319.7,86.5 L332.3,86.5 L332.3,709.8 M332.3,709.8 L332.3,714.0 L314.8,714.0 L314.8,602.0 L150.3,602.0 M291.7,588.7 L291.7,602.0" fill="none" stroke="transparent" stroke-width="9" stroke-linejoin="round"/>
+<path class="pex" d="M291.7,588.7 L291.7,86.5 L304.3,86.5 L304.3,588.7 L319.7,588.7 L319.7,86.5 L332.3,86.5 L332.3,709.8" fill="none" stroke="#c62828" stroke-width="1.6" stroke-linejoin="round"/>
+<path class="lead" d="M332.3,709.8 L332.3,714.0 L314.8,714.0 L314.8,602.0 L150.3,602.0 M291.7,588.7 L291.7,602.0" fill="none" stroke="#c62828" stroke-width="1.1" stroke-dasharray="7,1.5" stroke-linejoin="round"/>
+<text x="312.0" y="108.9" font-size="7" font-weight="700" fill="#c62828" text-anchor="middle" dominant-baseline="middle" stroke="#fff" stroke-width="2.5" paint-order="stroke">L5</text>
+</g>
+<g id="r1-L6" class="sym" data-id="L6"><title>Loop L6, zone A, truss bays 11–12 from the north wall: about 185&#x27; in the floor + 2 × 32&#x27; leaders = 250&#x27; of 1/2&quot; PEX, home run to MF-A in the lower mech room. 0.5 gpm on the flow meter, about 3.0 ft of head. One continuous coil, no fittings below the floor; tag both ends L6.</title>
+<path d="M347.7,709.8 L347.7,86.5 L360.3,86.5 L360.3,709.8 L375.7,709.8 L375.7,86.5 L388.3,86.5 L388.3,709.8 M388.3,709.8 L388.3,716.1 L312.0,716.1 L312.0,604.8 L150.3,604.8 M347.7,709.8 L347.7,716.1" fill="none" stroke="transparent" stroke-width="9" stroke-linejoin="round"/>
+<path class="pex" d="M347.7,709.8 L347.7,86.5 L360.3,86.5 L360.3,709.8 L375.7,709.8 L375.7,86.5 L388.3,86.5 L388.3,709.8" fill="none" stroke="#c62828" stroke-width="1.6" stroke-linejoin="round"/>
+<path class="lead" d="M388.3,709.8 L388.3,716.1 L312.0,716.1 L312.0,604.8 L150.3,604.8 M347.7,709.8 L347.7,716.1" fill="none" stroke="#c62828" stroke-width="1.1" stroke-dasharray="7,1.5" stroke-linejoin="round"/>
+<text x="368.0" y="108.9" font-size="7" font-weight="700" fill="#c62828" text-anchor="middle" dominant-baseline="middle" stroke="#fff" stroke-width="2.5" paint-order="stroke">L6</text>
+</g>
+<g id="r1-L7" class="sym" data-id="L7"><title>Loop L7, zone B, truss bays 13–14 from the north wall: about 185&#x27; in the floor + 2 × 36&#x27; leaders = 258&#x27; of 1/2&quot; PEX, home run to MF-B in the lower mech room. 0.5 gpm on the flow meter, about 3.1 ft of head. One continuous coil, no fittings below the floor; tag both ends L7.</title>
+<path d="M403.7,709.8 L403.7,86.5 L416.3,86.5 L416.3,709.8 L431.7,709.8 L431.7,86.5 L444.3,86.5 L444.3,709.8 M444.3,709.8 L444.3,718.2 L309.2,718.2 L309.2,607.6 L150.3,607.6 M403.7,709.8 L403.7,718.2" fill="none" stroke="transparent" stroke-width="9" stroke-linejoin="round"/>
+<path class="pex" d="M403.7,709.8 L403.7,86.5 L416.3,86.5 L416.3,709.8 L431.7,709.8 L431.7,86.5 L444.3,86.5 L444.3,709.8" fill="none" stroke="#e65100" stroke-width="1.6" stroke-linejoin="round"/>
+<path class="lead" d="M444.3,709.8 L444.3,718.2 L309.2,718.2 L309.2,607.6 L150.3,607.6 M403.7,709.8 L403.7,718.2" fill="none" stroke="#e65100" stroke-width="1.1" stroke-dasharray="7,1.5" stroke-linejoin="round"/>
+<text x="424.0" y="108.9" font-size="7" font-weight="700" fill="#e65100" text-anchor="middle" dominant-baseline="middle" stroke="#fff" stroke-width="2.5" paint-order="stroke">L7</text>
+</g>
+<g id="r1-L8" class="sym" data-id="L8"><title>Loop L8, zone B, truss bays 15–16 from the north wall: about 185&#x27; in the floor + 2 × 40&#x27; leaders = 266&#x27; of 1/2&quot; PEX, home run to MF-B in the lower mech room. 0.5 gpm on the flow meter, about 3.2 ft of head. One continuous coil, no fittings below the floor; tag both ends L8.</title>
+<path d="M459.7,709.8 L459.7,86.5 L472.3,86.5 L472.3,709.8 L487.7,709.8 L487.7,86.5 L500.3,86.5 L500.3,709.8 M500.3,709.8 L500.3,720.3 L306.4,720.3 L306.4,610.4 L150.3,610.4 M459.7,709.8 L459.7,720.3" fill="none" stroke="transparent" stroke-width="9" stroke-linejoin="round"/>
+<path class="pex" d="M459.7,709.8 L459.7,86.5 L472.3,86.5 L472.3,709.8 L487.7,709.8 L487.7,86.5 L500.3,86.5 L500.3,709.8" fill="none" stroke="#e65100" stroke-width="1.6" stroke-linejoin="round"/>
+<path class="lead" d="M500.3,709.8 L500.3,720.3 L306.4,720.3 L306.4,610.4 L150.3,610.4 M459.7,709.8 L459.7,720.3" fill="none" stroke="#e65100" stroke-width="1.1" stroke-dasharray="7,1.5" stroke-linejoin="round"/>
+<text x="480.0" y="108.9" font-size="7" font-weight="700" fill="#e65100" text-anchor="middle" dominant-baseline="middle" stroke="#fff" stroke-width="2.5" paint-order="stroke">L8</text>
+</g>
+<g id="r1-L9" class="sym" data-id="L9"><title>Loop L9, zone B, truss bays 17–18 from the north wall: about 185&#x27; in the floor + 2 × 44&#x27; leaders = 274&#x27; of 1/2&quot; PEX, home run to MF-B in the lower mech room. 0.5 gpm on the flow meter, about 3.3 ft of head. One continuous coil, no fittings below the floor; tag both ends L9.</title>
+<path d="M515.7,709.8 L515.7,86.5 L528.3,86.5 L528.3,709.8 L543.7,709.8 L543.7,86.5 L556.3,86.5 L556.3,709.8 M556.3,709.8 L556.3,722.4 L303.6,722.4 L303.6,613.2 L150.3,613.2 M515.7,709.8 L515.7,722.4" fill="none" stroke="transparent" stroke-width="9" stroke-linejoin="round"/>
+<path class="pex" d="M515.7,709.8 L515.7,86.5 L528.3,86.5 L528.3,709.8 L543.7,709.8 L543.7,86.5 L556.3,86.5 L556.3,709.8" fill="none" stroke="#e65100" stroke-width="1.6" stroke-linejoin="round"/>
+<path class="lead" d="M556.3,709.8 L556.3,722.4 L303.6,722.4 L303.6,613.2 L150.3,613.2 M515.7,709.8 L515.7,722.4" fill="none" stroke="#e65100" stroke-width="1.1" stroke-dasharray="7,1.5" stroke-linejoin="round"/>
+<text x="536.0" y="108.9" font-size="7" font-weight="700" fill="#e65100" text-anchor="middle" dominant-baseline="middle" stroke="#fff" stroke-width="2.5" paint-order="stroke">L9</text>
+</g>
+<g id="r1-L10" class="sym" data-id="L10"><title>Loop L10, zone B, truss bays 19–20 from the north wall: about 185&#x27; in the floor + 2 × 48&#x27; leaders = 282&#x27; of 1/2&quot; PEX, home run to MF-B in the lower mech room. 0.5 gpm on the flow meter, about 3.4 ft of head. One continuous coil, no fittings below the floor; tag both ends L10.</title>
+<path d="M571.7,709.8 L571.7,86.5 L584.3,86.5 L584.3,709.8 L599.7,709.8 L599.7,86.5 L612.3,86.5 L612.3,709.8 M612.3,709.8 L612.3,724.5 L300.8,724.5 L300.8,616.0 L150.3,616.0 M571.7,709.8 L571.7,724.5" fill="none" stroke="transparent" stroke-width="9" stroke-linejoin="round"/>
+<path class="pex" d="M571.7,709.8 L571.7,86.5 L584.3,86.5 L584.3,709.8 L599.7,709.8 L599.7,86.5 L612.3,86.5 L612.3,709.8" fill="none" stroke="#e65100" stroke-width="1.6" stroke-linejoin="round"/>
+<path class="lead" d="M612.3,709.8 L612.3,724.5 L300.8,724.5 L300.8,616.0 L150.3,616.0 M571.7,709.8 L571.7,724.5" fill="none" stroke="#e65100" stroke-width="1.1" stroke-dasharray="7,1.5" stroke-linejoin="round"/>
+<text x="592.0" y="108.9" font-size="7" font-weight="700" fill="#e65100" text-anchor="middle" dominant-baseline="middle" stroke="#fff" stroke-width="2.5" paint-order="stroke">L10</text>
+</g>
+<g id="r1-L11" class="sym" data-id="L11"><title>Loop L11, zone B, truss bays 21–22 from the north wall: about 185&#x27; in the floor + 2 × 52&#x27; leaders = 290&#x27; of 1/2&quot; PEX, home run to MF-B in the lower mech room. 0.5 gpm on the flow meter, about 3.5 ft of head. One continuous coil, no fittings below the floor; tag both ends L11.</title>
+<path d="M627.7,709.8 L627.7,86.5 L640.3,86.5 L640.3,709.8 L655.7,709.8 L655.7,86.5 L668.3,86.5 L668.3,709.8 M668.3,709.8 L668.3,726.6 L298.0,726.6 L298.0,618.8 L150.3,618.8 M627.7,709.8 L627.7,726.6" fill="none" stroke="transparent" stroke-width="9" stroke-linejoin="round"/>
+<path class="pex" d="M627.7,709.8 L627.7,86.5 L640.3,86.5 L640.3,709.8 L655.7,709.8 L655.7,86.5 L668.3,86.5 L668.3,709.8" fill="none" stroke="#e65100" stroke-width="1.6" stroke-linejoin="round"/>
+<path class="lead" d="M668.3,709.8 L668.3,726.6 L298.0,726.6 L298.0,618.8 L150.3,618.8 M627.7,709.8 L627.7,726.6" fill="none" stroke="#e65100" stroke-width="1.1" stroke-dasharray="7,1.5" stroke-linejoin="round"/>
+<text x="648.0" y="108.9" font-size="7" font-weight="700" fill="#e65100" text-anchor="middle" dominant-baseline="middle" stroke="#fff" stroke-width="2.5" paint-order="stroke">L11</text>
+</g>
+<g id="r1-L12" class="sym" data-id="L12"><title>Loop L12, zone B, truss bays 23–24 from the north wall: about 185&#x27; in the floor + 2 × 56&#x27; leaders = 298&#x27; of 1/2&quot; PEX, home run to MF-B in the lower mech room. 0.5 gpm on the flow meter, about 3.6 ft of head. One continuous coil, no fittings below the floor; tag both ends L12.</title>
+<path d="M683.7,709.8 L683.7,86.5 L696.3,86.5 L696.3,709.8 L711.7,709.8 L711.7,86.5 L724.3,86.5 L724.3,709.8 M724.3,709.8 L724.3,728.7 L295.2,728.7 L295.2,621.6 L150.3,621.6 M683.7,709.8 L683.7,728.7" fill="none" stroke="transparent" stroke-width="9" stroke-linejoin="round"/>
+<path class="pex" d="M683.7,709.8 L683.7,86.5 L696.3,86.5 L696.3,709.8 L711.7,709.8 L711.7,86.5 L724.3,86.5 L724.3,709.8" fill="none" stroke="#e65100" stroke-width="1.6" stroke-linejoin="round"/>
+<path class="lead" d="M724.3,709.8 L724.3,728.7 L295.2,728.7 L295.2,621.6 L150.3,621.6 M683.7,709.8 L683.7,728.7" fill="none" stroke="#e65100" stroke-width="1.1" stroke-dasharray="7,1.5" stroke-linejoin="round"/>
+<text x="704.0" y="108.9" font-size="7" font-weight="700" fill="#e65100" text-anchor="middle" dominant-baseline="middle" stroke="#fff" stroke-width="2.5" paint-order="stroke">L12</text>
+</g>
+<g id="r1-L13" class="sym" data-id="L13"><title>Loop L13, zone C, truss bays 25–26 from the north wall: about 170&#x27; in the floor + 2 × 8&#x27; leaders = 186&#x27; of 1/2&quot; PEX, home run to MF-C in truss bay 25 under the pantry. 0.5 gpm on the flow meter, about 2.2 ft of head. One continuous coil, no fittings below the floor; tag both ends L13.</title>
+<path d="M739.7,651.0 L739.7,86.5 L752.3,86.5 L752.3,651.0 L767.7,651.0 L767.7,86.5 L780.3,86.5 L780.3,709.8 M780.3,709.8 L780.3,714.0 L748.8,714.0 L748.8,700.0 M739.7,651.0 L739.7,659.4" fill="none" stroke="transparent" stroke-width="9" stroke-linejoin="round"/>
+<path class="pex" d="M739.7,651.0 L739.7,86.5 L752.3,86.5 L752.3,651.0 L767.7,651.0 L767.7,86.5 L780.3,86.5 L780.3,709.8" fill="none" stroke="#1565c0" stroke-width="1.6" stroke-linejoin="round"/>
+<path class="lead" d="M780.3,709.8 L780.3,714.0 L748.8,714.0 L748.8,700.0 M739.7,651.0 L739.7,659.4" fill="none" stroke="#1565c0" stroke-width="1.1" stroke-dasharray="7,1.5" stroke-linejoin="round"/>
+<text x="760.0" y="108.9" font-size="7" font-weight="700" fill="#1565c0" text-anchor="middle" dominant-baseline="middle" stroke="#fff" stroke-width="2.5" paint-order="stroke">L13</text>
+</g>
+<g id="r1-L14" class="sym" data-id="L14"><title>Loop L14, zone C, truss bays 27–28 from the north wall: about 185&#x27; in the floor + 2 × 9&#x27; leaders = 204&#x27; of 1/2&quot; PEX, home run to MF-C in truss bay 25 under the pantry. 0.5 gpm on the flow meter, about 2.4 ft of head. One continuous coil, no fittings below the floor; tag both ends L14.</title>
+<path d="M795.7,709.8 L795.7,86.5 L808.3,86.5 L808.3,709.8 L823.7,709.8 L823.7,86.5 L836.3,86.5 L836.3,709.8 M836.3,709.8 L836.3,716.8 L746.0,716.8 L746.0,700.0 M795.7,709.8 L795.7,716.8" fill="none" stroke="transparent" stroke-width="9" stroke-linejoin="round"/>
+<path class="pex" d="M795.7,709.8 L795.7,86.5 L808.3,86.5 L808.3,709.8 L823.7,709.8 L823.7,86.5 L836.3,86.5 L836.3,709.8" fill="none" stroke="#1565c0" stroke-width="1.6" stroke-linejoin="round"/>
+<path class="lead" d="M836.3,709.8 L836.3,716.8 L746.0,716.8 L746.0,700.0 M795.7,709.8 L795.7,716.8" fill="none" stroke="#1565c0" stroke-width="1.1" stroke-dasharray="7,1.5" stroke-linejoin="round"/>
+<text x="816.0" y="108.9" font-size="7" font-weight="700" fill="#1565c0" text-anchor="middle" dominant-baseline="middle" stroke="#fff" stroke-width="2.5" paint-order="stroke">L14</text>
+</g>
+<g id="r1-L15" class="sym" data-id="L15"><title>Loop L15, zone C, truss bays 29–30 from the north wall: about 185&#x27; in the floor + 2 × 13&#x27; leaders = 212&#x27; of 1/2&quot; PEX, home run to MF-C in truss bay 25 under the pantry. 0.5 gpm on the flow meter, about 2.5 ft of head. One continuous coil, no fittings below the floor; tag both ends L15.</title>
+<path d="M851.7,709.8 L851.7,86.5 L864.3,86.5 L864.3,709.8 L879.7,709.8 L879.7,86.5 L892.3,86.5 L892.3,709.8 M892.3,709.8 L892.3,719.6 L743.2,719.6 L743.2,700.0 M851.7,709.8 L851.7,719.6" fill="none" stroke="transparent" stroke-width="9" stroke-linejoin="round"/>
+<path class="pex" d="M851.7,709.8 L851.7,86.5 L864.3,86.5 L864.3,709.8 L879.7,709.8 L879.7,86.5 L892.3,86.5 L892.3,709.8" fill="none" stroke="#1565c0" stroke-width="1.6" stroke-linejoin="round"/>
+<path class="lead" d="M892.3,709.8 L892.3,719.6 L743.2,719.6 L743.2,700.0 M851.7,709.8 L851.7,719.6" fill="none" stroke="#1565c0" stroke-width="1.1" stroke-dasharray="7,1.5" stroke-linejoin="round"/>
+<text x="872.0" y="108.9" font-size="7" font-weight="700" fill="#1565c0" text-anchor="middle" dominant-baseline="middle" stroke="#fff" stroke-width="2.5" paint-order="stroke">L15</text>
+</g>
+<g id="r1-L16" class="sym" data-id="L16"><title>Loop L16, zone C, truss bays 31–32 from the north wall: about 185&#x27; in the floor + 2 × 17&#x27; leaders = 220&#x27; of 1/2&quot; PEX, home run to MF-C in truss bay 25 under the pantry. 0.5 gpm on the flow meter, about 2.6 ft of head. One continuous coil, no fittings below the floor; tag both ends L16.</title>
+<path d="M907.7,709.8 L907.7,86.5 L920.3,86.5 L920.3,709.8 L935.7,709.8 L935.7,86.5 L948.3,86.5 L948.3,709.8 M948.3,709.8 L948.3,722.4 L740.4,722.4 L740.4,700.0 M907.7,709.8 L907.7,722.4" fill="none" stroke="transparent" stroke-width="9" stroke-linejoin="round"/>
+<path class="pex" d="M907.7,709.8 L907.7,86.5 L920.3,86.5 L920.3,709.8 L935.7,709.8 L935.7,86.5 L948.3,86.5 L948.3,709.8" fill="none" stroke="#1565c0" stroke-width="1.6" stroke-linejoin="round"/>
+<path class="lead" d="M948.3,709.8 L948.3,722.4 L740.4,722.4 L740.4,700.0 M907.7,709.8 L907.7,722.4" fill="none" stroke="#1565c0" stroke-width="1.1" stroke-dasharray="7,1.5" stroke-linejoin="round"/>
+<text x="928.0" y="108.9" font-size="7" font-weight="700" fill="#1565c0" text-anchor="middle" dominant-baseline="middle" stroke="#fff" stroke-width="2.5" paint-order="stroke">L16</text>
+</g>
+<g id="r1-L17" class="sym" data-id="L17"><title>Loop L17, zone C, truss bays 33–34 from the north wall: about 185&#x27; in the floor + 2 × 21&#x27; leaders = 227&#x27; of 1/2&quot; PEX, home run to MF-C in truss bay 25 under the pantry. 0.5 gpm on the flow meter, about 2.7 ft of head. One continuous coil, no fittings below the floor; tag both ends L17.</title>
+<path d="M963.7,709.8 L963.7,86.5 L976.3,86.5 L976.3,709.8 L991.7,709.8 L991.7,86.5 L998.3,86.5 L998.3,709.8 M998.3,709.8 L998.3,725.2 L737.6,725.2 L737.6,700.0 M963.7,709.8 L963.7,725.2" fill="none" stroke="transparent" stroke-width="9" stroke-linejoin="round"/>
+<path class="pex" d="M963.7,709.8 L963.7,86.5 L976.3,86.5 L976.3,709.8 L991.7,709.8 L991.7,86.5 L998.3,86.5 L998.3,709.8" fill="none" stroke="#1565c0" stroke-width="1.6" stroke-linejoin="round"/>
+<path class="lead" d="M998.3,709.8 L998.3,725.2 L737.6,725.2 L737.6,700.0 M963.7,709.8 L963.7,725.2" fill="none" stroke="#1565c0" stroke-width="1.1" stroke-dasharray="7,1.5" stroke-linejoin="round"/>
+<text x="981.0" y="108.9" font-size="7" font-weight="700" fill="#1565c0" text-anchor="middle" dominant-baseline="middle" stroke="#fff" stroke-width="2.5" paint-order="stroke">L17</text>
+</g>
+<g id="r1-FEED" class="sym" data-id="FEED"><title>Feed to MF-C: 1&quot; PEX supply and return pair from the radiant trunk in the lower mech room, after P-R and TMV-2 (M-2). About 61&#x27; each way, run together in the leader chase, insulated. Carries 2.5 gpm for zone C, about 1.4 ft of head round trip.</title>
+<path d="M150.3,624.4 L289.6,624.4 L289.6,731.9 L732.0,731.9 L732.0,691.6 L734.8,691.6" fill="none" stroke="transparent" stroke-width="9"/>
+<path d="M150.3,624.4 L289.6,624.4 L289.6,731.9 L732.0,731.9 L732.0,691.6 L734.8,691.6" fill="none" stroke="#6a1b9a" stroke-width="3.2" stroke-linejoin="round"/>
+<path d="M150.3,624.4 L289.6,624.4 L289.6,731.9 L732.0,731.9 L732.0,691.6 L734.8,691.6" fill="none" stroke="#fff" stroke-width="1" stroke-linejoin="round"/>
+<text x="522.0" y="727.9" font-size="6.5" font-weight="700" fill="#6a1b9a" text-anchor="middle" stroke="#fff" stroke-width="2.5" paint-order="stroke">1" PEX supply + return to MF-C</text>
+</g>
+<g id="r1-MF-AB" class="sym" data-id="MF-AB"><title>MF-A (zone A, L1–L6) and MF-B (zone B, L7–L12): 6-loop stainless manifolds with flow meters, wall-mounted side by side on the north wall of the lower mech room under the stair, beside B-1, with P-R, TMV-2, ZV-A and ZV-B (M-2). Their leaders rise through the mech room ceiling into the truss bays under the stair landing, then run in the chase. The 1&quot; feed to MF-C starts here.</title>
+<rect x="117.4" y="590.8" width="32.9" height="62.3" fill="#fff" fill-opacity="0.92" stroke="#222" stroke-width="1.3" stroke-dasharray="4,2"/>
+<text x="133.9" y="612.0" font-size="7" font-weight="700" fill="#c62828" text-anchor="middle" dominant-baseline="middle">MF-A</text>
+<text x="133.9" y="622.0" font-size="7" font-weight="700" fill="#e65100" text-anchor="middle" dominant-baseline="middle">MF-B</text>
+<text x="133.9" y="632.0" font-size="5.5" fill="#333" text-anchor="middle" dominant-baseline="middle">below</text>
+</g>
+<g id="r1-MF-C" class="sym" data-id="MF-C"><title>MF-C, zone C (L13–L17): 5-loop stainless manifold with flow meters and ZV-C on its supply, hung on blocking in truss bay 25 under the pantry, below the plates. Reached through a 24&quot; × 24&quot; access panel in the ceiling below; nothing comes up through the subfloor. Fed by the 1&quot; pair from the mech room; 18/4 back to the ZVC404 (M-5).</title>
+<rect x="734.8" y="659.4" width="22.4" height="40.6" fill="#fff" fill-opacity="0.92" stroke="#222" stroke-width="1.3" stroke-dasharray="4,2"/>
+<text x="746.0" y="679.7" font-size="6" font-weight="700" fill="#1565c0" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 746.0 679.7)">MF-C</text>
+</g>
+<text x="200.0" y="752" font-size="6.5" fill="#555" text-anchor="start">LEADER CHASE ALONG THE WEST WALL, THROUGH THE TRUSS WEBS AT MID-DEPTH; JOGS EAST OF THE STAIR AND HOISTWAY (NO TRUSSES THERE)</text>
+<line x1="72" y1="790" x2="96" y2="790" stroke="#c62828" stroke-width="1.6"/><line x1="99" y1="790" x2="111" y2="790" stroke="#e65100" stroke-width="1.6"/><line x1="114" y1="790" x2="126" y2="790" stroke="#1565c0" stroke-width="1.6"/>
+<text x="132" y="790" font-size="7.5" fill="#333" dominant-baseline="middle">PEX loops, zones A / B / C, two passes per truss bay</text>
+<line x1="330" y1="790" x2="360" y2="790" stroke="#555" stroke-width="1.3" stroke-dasharray="5,2"/>
+<text x="366" y="790" font-size="7.5" fill="#333" dominant-baseline="middle">leader pair to the manifold (drawn spread out)</text>
+<line x1="560" y1="790" x2="590" y2="790" stroke="#6a1b9a" stroke-width="3.2"/><line x1="560" y1="790" x2="590" y2="790" stroke="#fff" stroke-width="1"/>
+<text x="596" y="790" font-size="7.5" fill="#333" dominant-baseline="middle">1" feed pair to MF-C</text>
+<line x1="680" y1="785" x2="680" y2="795" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="3,2"/><line x1="688" y1="785" x2="688" y2="795" stroke="#bfb5a3" stroke-width="0.7" stroke-dasharray="3,2"/>
+<text x="694" y="790" font-size="7.5" fill="#333" dominant-baseline="middle">floor trusses 24" o.c.</text>
+<rect x="786" y="785" width="18" height="10" fill="#fff" stroke="#222" stroke-width="1" stroke-dasharray="3,2"/>
+<text x="810" y="790" font-size="7.5" fill="#333" dominant-baseline="middle">manifold below the floor</text>
+<g font-family="IBM Plex Sans, Segoe UI, Helvetica, Arial, sans-serif"><rect x="60" y="806.0" width="952" height="60" fill="#fff" stroke="#444" stroke-width="1"/><line x1="460" y1="806.0" x2="460" y2="866.0" stroke="#444"/><line x1="812" y1="806.0" x2="812" y2="866.0" stroke="#444"/><text x="72" y="826.0" font-size="12" font-weight="700" fill="#222">7824 Zero Road</text><text x="72" y="844.0" font-size="9" fill="#555">Casper, Wyoming · 68' × 48' to brick, faces 7" inside · 9' ceiling · grid 5'</text><text x="72" y="858.0" font-size="9" fill="#555">Base plan 2026-09-29 · wall numbers as that drawing</text><text x="472" y="826.0" font-size="13" font-weight="700" fill="#222">Radiant floor plan</text><text x="472" y="844.0" font-size="9" fill="#555">1/2" PEX in every floor-truss bay, 17 loops in 3 zones, MF-C remote in a truss bay</text><text x="472" y="858.0" font-size="9" fill="#555">From hydronic pack M-1/M-2 · schematic for pricing, not stamped</text><text x="822" y="830.0" font-size="22" font-weight="700" fill="#b4462f">R-1</text><text x="822" y="846.0" font-size="9" fill="#555">rev A · 2026-10-02</text><text x="822" y="859.0" font-size="9" fill="#555">drawn for K. Christianson</text></g>
+</svg>
+</div></div></div>
+      <div class="below">
+        <section><h2>R-1 Radiant floor</h2>
+          <ul class="legend"><li><span class="sw" style="background:#c62828"></span>zone A loops, MF-A</li><li><span class="sw" style="background:#e65100"></span>zone B loops, MF-B</li><li><span class="sw" style="background:#1565c0"></span>zone C loops, MF-C</li><li><span class="sw" style="background:#6a1b9a"></span>1" feed to MF-C</li></ul>
+          <h3>Notes</h3><ol><li>Positions are taped from the nearest wall framing, exterior walls first. Truss bays are numbered from the north ext. wall, 24" o.c.: bay n runs from (n − 1) × 2' to n × 2'. The floor is 68', so 34 bays and 17 loops (the hydronic pack was drawn for 70', 35 bays, 18 loops).</li><li>Tube: 1/2" O2-barrier PEX, two passes down and back in every truss bay, two bays per loop, hung on 4' aluminum plates 2" below the subfloor, R-19 batt below. One continuous coil per loop, no fittings below the floor. Tag both ends of every loop at its manifold.</li><li>Zones run north to south: A bays 1–12 (master suite, office, hall), B bays 13–24 (living, dining, kitchen, den, laundry), C bays 25–34 (pantry, bedrooms 3 and 4, Jack &amp; Jill, 2nd suite).</li><li>Manifolds: MF-A and MF-B on the north wall of the lower mech room under the stair, beside B-1 with P-R, TMV-2, ZV-A and ZV-B (M-2); their leaders rise through the mech room ceiling under the stair landing. MF-C hangs in truss bay 25 under the pantry, below the plates, on 2x blocking with a 24" × 24" access panel in the ceiling below, fed by a 1" PEX supply and return pair from the radiant trunk, ZV-C at the manifold, 18/4 back to the ZVC404. No PEX comes up through the subfloor. The loops in bay 25 start past MF-C.</li><li>Leader chase: along the west wall through the truss webs at mid-depth, below the plates. There are no trusses over the stair opening and the hoistway, so the chase jogs east of the stair between the elevator and bay 9. Leaders are drawn spread out for clarity; in the field they run as a tight bundle.</li><li>Insulate leaders with 3/8" foam sleeves wherever they pass under another zone, and the 1" feed pair end to end, so each zone's heat lands in that zone.</li><li>Flow: 0.5 gpm per loop on the flow meters, 8.5 gpm in all. The energy model puts this floor at about 36,500 Btu/h at −11°F, about 2,150 Btu/h per loop, which is a drop of about 9°F per loop at 0.5 gpm. Supply stays under the 120°F boiler outdoor-reset cap; TMV-2 at 115°F is the backstop (M-2).</li><li>Pump: the longest path is about 4.1 ft of tube head before manifolds, zone valves and TMV-2, well inside P-R's 9 gpm at 12 ft.</li><li>Drill truss webs only, per the truss maker's chart; no chord penetrations. Sleeve every web penetration. Keep plates 18" from recessed lights and flues.</li><li>Pressure test 60 psi air for 24 hours before the insulation and the ceiling below close in.</li></ol></section>
+        <section><h2>Open items</h2><p class="lede">The particulars to settle on this sheet.</p><div class="open"><ul><li>Manifold layout: O2 below is drawn (owner prefers the mech room; MF-C goes remote because it takes 5 loops back under 300'). Moving MF-B to the pantry end too (O3) saves a little more PEX but needs a 1-1/4" feed and a second remote manifold.</li><li>Thermostats: M-5 puts T1, T2 and T3 upstairs west, middle and east, but zones A, B and C run north, middle and south. Where do they go on this floor?</li><li>Access panel: confirm the ground-floor ceiling under the pantry (bay 25, at the west wall) can take a 24" × 24" panel.</li></ul></div></section>
+        <section class="wide"><h3>Loop schedule</h3><div class="tbl"><table><thead><tr><th scope="col">Loop</th><th scope="col">Zone</th><th scope="col">Bays</th><th scope="col">Manifold</th><th scope="col">In floor</th><th scope="col">Leader (each)</th><th scope="col">Total</th><th scope="col">Flow</th><th scope="col">Head</th></tr></thead><tbody>
+<tr data-id="L1" tabindex="0"><td class="">L1</td><td class="">A</td><td class="">1–2</td><td class="">MF-A, mech room</td><td class="num">169'</td><td class="num">14'</td><td class="num">196'</td><td class="num">0.5 gpm</td><td class="num">2.3 ft</td></tr>
+<tr data-id="L2" tabindex="0"><td class="">L2</td><td class="">A</td><td class="">3–4</td><td class="">MF-A, mech room</td><td class="num">159'</td><td class="num">11'</td><td class="num">180'</td><td class="num">0.5 gpm</td><td class="num">2.2 ft</td></tr>
+<tr data-id="L3" tabindex="0"><td class="">L3</td><td class="">A</td><td class="">5–6</td><td class="">MF-A, mech room</td><td class="num">156'</td><td class="num">12'</td><td class="num">181'</td><td class="num">0.5 gpm</td><td class="num">2.2 ft</td></tr>
+<tr data-id="L4" tabindex="0"><td class="">L4</td><td class="">A</td><td class="">7–8</td><td class="">MF-A, mech room</td><td class="num">156'</td><td class="num">16'</td><td class="num">189'</td><td class="num">0.5 gpm</td><td class="num">2.3 ft</td></tr>
+<tr data-id="L5" tabindex="0"><td class="">L5</td><td class="">A</td><td class="">9–10</td><td class="">MF-A, mech room</td><td class="num">163'</td><td class="num">24'</td><td class="num">212'</td><td class="num">0.5 gpm</td><td class="num">2.5 ft</td></tr>
+<tr data-id="L6" tabindex="0"><td class="">L6</td><td class="">A</td><td class="">11–12</td><td class="">MF-A, mech room</td><td class="num">185'</td><td class="num">32'</td><td class="num">250'</td><td class="num">0.5 gpm</td><td class="num">3.0 ft</td></tr>
+<tr data-id="L7" tabindex="0"><td class="">L7</td><td class="">B</td><td class="">13–14</td><td class="">MF-B, mech room</td><td class="num">185'</td><td class="num">36'</td><td class="num">258'</td><td class="num">0.5 gpm</td><td class="num">3.1 ft</td></tr>
+<tr data-id="L8" tabindex="0"><td class="">L8</td><td class="">B</td><td class="">15–16</td><td class="">MF-B, mech room</td><td class="num">185'</td><td class="num">40'</td><td class="num">266'</td><td class="num">0.5 gpm</td><td class="num">3.2 ft</td></tr>
+<tr data-id="L9" tabindex="0"><td class="">L9</td><td class="">B</td><td class="">17–18</td><td class="">MF-B, mech room</td><td class="num">185'</td><td class="num">44'</td><td class="num">274'</td><td class="num">0.5 gpm</td><td class="num">3.3 ft</td></tr>
+<tr data-id="L10" tabindex="0"><td class="">L10</td><td class="">B</td><td class="">19–20</td><td class="">MF-B, mech room</td><td class="num">185'</td><td class="num">48'</td><td class="num">282'</td><td class="num">0.5 gpm</td><td class="num">3.4 ft</td></tr>
+<tr data-id="L11" tabindex="0"><td class="">L11</td><td class="">B</td><td class="">21–22</td><td class="">MF-B, mech room</td><td class="num">185'</td><td class="num">52'</td><td class="num">290'</td><td class="num">0.5 gpm</td><td class="num">3.5 ft</td></tr>
+<tr data-id="L12" tabindex="0"><td class="">L12</td><td class="">B</td><td class="">23–24</td><td class="">MF-B, mech room</td><td class="num">185'</td><td class="num">56'</td><td class="num">298'</td><td class="num">0.5 gpm</td><td class="num">3.6 ft</td></tr>
+<tr data-id="L13" tabindex="0"><td class="">L13</td><td class="">C</td><td class="">25–26</td><td class="">MF-C, bay 25</td><td class="num">170'</td><td class="num">8'</td><td class="num">186'</td><td class="num">0.5 gpm</td><td class="num">2.2 ft</td></tr>
+<tr data-id="L14" tabindex="0"><td class="">L14</td><td class="">C</td><td class="">27–28</td><td class="">MF-C, bay 25</td><td class="num">185'</td><td class="num">9'</td><td class="num">204'</td><td class="num">0.5 gpm</td><td class="num">2.4 ft</td></tr>
+<tr data-id="L15" tabindex="0"><td class="">L15</td><td class="">C</td><td class="">29–30</td><td class="">MF-C, bay 25</td><td class="num">185'</td><td class="num">13'</td><td class="num">212'</td><td class="num">0.5 gpm</td><td class="num">2.5 ft</td></tr>
+<tr data-id="L16" tabindex="0"><td class="">L16</td><td class="">C</td><td class="">31–32</td><td class="">MF-C, bay 25</td><td class="num">185'</td><td class="num">17'</td><td class="num">220'</td><td class="num">0.5 gpm</td><td class="num">2.6 ft</td></tr>
+<tr data-id="L17" tabindex="0"><td class="">L17</td><td class="">C</td><td class="">33–34</td><td class="">MF-C, bay 25</td><td class="num">185'</td><td class="num">21'</td><td class="num">227'</td><td class="num">0.5 gpm</td><td class="num">2.7 ft</td></tr>
+<tr><td class="">Zone A</td><td class="">A</td><td class="">1–12</td><td class="">MF-A, 6 loops</td><td class=""></td><td class=""></td><td class="num">1,208'</td><td class="num">3.0 gpm</td><td class=""></td></tr>
+<tr><td class="">Zone B</td><td class="">B</td><td class="">13–24</td><td class="">MF-B, 6 loops</td><td class=""></td><td class=""></td><td class="num">1,669'</td><td class="num">3.0 gpm</td><td class=""></td></tr>
+<tr><td class="">Zone C</td><td class="">C</td><td class="">25–34</td><td class="">MF-C, 5 loops</td><td class=""></td><td class=""></td><td class="num">1,050'</td><td class="num">2.5 gpm</td><td class=""></td></tr>
+</tbody></table></div><h3>Manifolds</h3><div class="tbl"><table><thead><tr><th scope="col">Tag</th><th scope="col">Serves</th><th scope="col">Where</th><th scope="col">Leaders</th><th scope="col">Valve</th></tr></thead><tbody>
+<tr data-id="MF-AB" tabindex="0"><td class="">MF-A</td><td class="">A, L1–L6</td><td class="">Lower mech room, north wall under the stair, beside B-1 (M-2)</td><td class="">Rise through the mech room ceiling under the stair landing</td><td class="">ZV-A, mech room</td></tr>
+<tr data-id="MF-AB" tabindex="0"><td class="">MF-B</td><td class="">B, L7–L12</td><td class="">Lower mech room, beside MF-A</td><td class="">Rise with MF-A's, then south in the chase</td><td class="">ZV-B, mech room</td></tr>
+<tr data-id="MF-C" tabindex="0"><td class="">MF-C</td><td class="">C, L13–L17</td><td class="">Hung in truss bay 25 under the pantry, 2'-6" to 5'-5" from the west ext. wall</td><td class="">24" × 24" access panel in the ceiling below</td><td class="">ZV-C, at the manifold</td></tr>
+<tr data-id="FEED" tabindex="0"><td class="">Feed</td><td class="">C</td><td class="">Radiant trunk after P-R and TMV-2</td><td class="">1" pair, about 61' each way in the chase</td><td class="">2.5 gpm</td></tr>
+</tbody></table></div></section>
+        <section class="wide"><h3>Manifold options</h3><p class="lede">Same 17 loops, routed to each layout. Head is the longest path in tube only, at 0.5 gpm per loop. ★ is drawn.</p><div class="tbl"><table><thead><tr><th scope="col">Option</th><th scope="col">Layout</th><th scope="col">1/2" PEX</th><th scope="col">Leaders</th><th scope="col">Longest / shortest loop</th><th scope="col">Loops over 300'</th><th scope="col">Leader under another zone</th><th scope="col">Feed to the pantry</th><th scope="col">Head</th></tr></thead><tbody>
+<tr><td class="">O1</td><td class="">All three manifolds in the lower mech room</td><td class="num">4,487'</td><td class="num">1,459'</td><td class="num">337' / 180'</td><td class="num">5</td><td class="num">658'</td><td class="">none</td><td class="num">4.0 ft</td></tr>
+<tr><td class="">O2 ★</td><td class="">A and B in the lower mech room, C in truss bay 25 under the pantry</td><td class="num">3,927'</td><td class="num">915'</td><td class="num">298' / 180'</td><td class="num">0</td><td class="num">228'</td><td class="">61' × 2, 1"</td><td class="num">4.1 ft</td></tr>
+<tr><td class="">O3</td><td class="">A in the lower mech room, B and C in truss bays 24 and 25 under the pantry</td><td class="num">3,544'</td><td class="num">548'</td><td class="num">250' / 180'</td><td class="num">0</td><td class="num">0'</td><td class="">61' × 2, 1-1/4"</td><td class="num">5.0 ft</td></tr>
+</tbody></table></div></section>
+        <section class="wide"><h3>Bill of materials</h3><p class="lede">Rough-order quantities from the drawing geometry, for pricing. The contractor takes off the final list.</p><div class="tbl"><table><thead><tr><th scope="col">Item</th><th scope="col">Qty</th><th scope="col">Notes</th></tr></thead><tbody>
+<tr data-id="1/2&quot; O2-barrier PEX-B, 500&#x27; coils" tabindex="0"><td class="">1/2&quot; O2-barrier PEX-B, 500&#x27; coils</td><td class="">9 coils</td><td class="">3,927&#x27; + 5% waste; one coil per loop, no splices</td></tr>
+<tr data-id="1&quot; PEX supply + return, insulated" tabindex="0"><td class="">1&quot; PEX supply + return, insulated</td><td class="">122 lf</td><td class="">mech room to MF-C, in the leader chase</td></tr>
+<tr data-id="Aluminum heat-transfer plates, 4&#x27;" tabindex="0"><td class="">Aluminum heat-transfer plates, 4&#x27;</td><td class="">600 ea</td><td class="">about 80% of the tube in the floor</td></tr>
+<tr data-id="R-19 unfaced batt, 24&quot; wide, below the tube" tabindex="0"><td class="">R-19 unfaced batt, 24&quot; wide, below the tube</td><td class="">3100 sf</td><td class="">every bay</td></tr>
+<tr data-id="Stainless manifold with flow meters" tabindex="0"><td class="">Stainless manifold with flow meters</td><td class="">6-loop × 2, 5-loop × 1</td><td class="">MF-A and MF-B in the mech room, MF-C in bay 25</td></tr>
+<tr data-id="Ceiling access panel 24&quot; × 24&quot; under MF-C" tabindex="0"><td class="">Ceiling access panel 24&quot; × 24&quot; under MF-C</td><td class="">1</td><td class="">ground-floor ceiling under the pantry, bay 25</td></tr>
+<tr data-id="2x blocking to hang MF-C in truss bay 25" tabindex="0"><td class="">2x blocking to hang MF-C in truss bay 25</td><td class="">1 set</td><td class="">below the plates, clear of the leaders</td></tr>
+<tr data-id="24V zone valve with end switch" tabindex="0"><td class="">24V zone valve with end switch</td><td class="">3</td><td class="">ZV-A and ZV-B in the mech room, ZV-C at MF-C</td></tr>
+<tr data-id="18/4 thermostat cable, ZVC404 to ZV-C" tabindex="0"><td class="">18/4 thermostat cable, ZVC404 to ZV-C</td><td class="">71 lf</td><td class="">zone valve C and its end switch</td></tr>
+<tr data-id="PEX sleeves / grommets at web penetrations" tabindex="0"><td class="">PEX sleeves / grommets at web penetrations</td><td class="">about 150</td><td class=""></td></tr>
+<tr data-id="Foam pipe insulation 3/8&quot; wall for 1/2&quot; PEX" tabindex="0"><td class="">Foam pipe insulation 3/8&quot; wall for 1/2&quot; PEX</td><td class="">258 lf</td><td class="">zone B leaders where they pass under zone A, plus the risers</td></tr>
+</tbody></table></div></section>
+      </div>
+    </div>
     <!-- ================================================================ crew chat -->
     <div class="sheet" id="sheet-chat" role="tabpanel" aria-labelledby="tab-chat" hidden>
       <div class="chat-wrap" id="chat"></div>
@@ -5493,6 +5986,7 @@ function buildRoofTrusses() {
 const RAD = {
   zone: { A: mat(0xc62828, { roughness: 0.4 }), B: mat(0xe65100, { roughness: 0.4 }), C: mat(0x1565c0, { roughness: 0.4 }) },
   manifold: mat(0xb8b4ad, { roughness: 0.35, metalness: 0.4 }),
+  feed: mat(0x6a1b9a, { roughness: 0.4 }),
   r: 0.07,          // drawn fatter than 1/2" PEX so it reads from above
   h: -0.25,         // tube 2" below the subfloor, between the top chords
   leaderY: 0.9,     // the leader chase along the west wall, through the truss web holes
@@ -5502,32 +5996,45 @@ function bayClear(bay) {
   // the west end of the PEX run in a truss bay: past the mech room, the hoistway and the stair opening
   const x0 = (bay - 1) * 2, x1 = bay * 2, st = shell.core.stair, el = shell.core.elevator, mech = [F, 6.58, F, 4.75];
   let y = F + 0.6;
-  for (const [a, b, , yb] of [mech, el, st]) if (x1 > a && x0 < b) y = Math.max(y, yb + 0.5);
+  for (const [a, b, , yb] of [mech, el, st, [48.0, 50.0, F, 6.0]]) if (x1 > a && x0 < b) y = Math.max(y, yb + 0.5);   // the last: MF-C hung in bay 25 (R-1)
   return y;
 }
 function buildRadiant() {
+  // manifolds as sheet R-1: MF-A and MF-B on the lower mech room's north wall under the stair, leaders up under the landing; MF-C hung in truss bay 25 under the pantry, reached from the ceiling below
   const bays = Math.round(BX / 2), zoneOf = b => (b <= 12 ? 'A' : b <= 24 ? 'B' : 'C');
-  const mf = { A: 1.5, B: 3.2, C: 4.9 };   // manifold centres along the mech room's west wall, from the north face
-  for (const [z, px] of Object.entries(mf)) {
-    box(px - 0.6, px + 0.6, F + 0.1, F + 0.4, 3.0, 3.4, RAD.manifold, { kind: 'radiant', text: `Manifold MF-${z}: 6-loop stainless manifold with flow meters, wall-mounted in the mech room, supply bar up (M-2). Zone valve ZV-${z} and the circulator P-R feed it from B-1.` }, G.radiant);
-    tube({ x: px, y: F + 0.25, h: 3.0 }, { x: px, y: RAD.leaderY, h: RAD.leaderH }, RAD.r, RAD.zone[z], { kind: 'radiant', text: `Zone ${z} leaders drop from MF-${z} into the west-wall chase` }, G.radiant);
-  }
+  const CORE_Y = 9.0, JOG_X = 17.0, COL_X = 49.0, COL_TOP = 3.0;
+  const station = { A: 'mech', B: 'mech', C: 'pantry' };
+  box(3.6, 6.4, 1.0, 1.25, -8.5, -6.5, RAD.manifold, { kind: 'radiant', text: 'Manifolds MF-A (zone A, L1–L6) and MF-B (zone B, L7–L12): 6-loop stainless manifolds with flow meters on the north wall of the lower mech room under the stair, beside B-1, with P-R, TMV-2, ZV-A and ZV-B (M-2). Leaders rise through the mech room ceiling under the stair landing. See sheet R-1.' }, G.radiant);
+  tube({ x: 5.0, y: 1.25, h: -6.5 }, { x: 5.0, y: CORE_Y, h: -2.2 }, RAD.r * 2, RAD.manifold, { kind: 'radiant', text: 'Zone A and B leaders rising from MF-A and MF-B in the lower mech room into the truss bays under the stair landing.' }, G.radiant);
+  box(48.25, 49.75, 3.0, 5.9, -1.8, -1.2, RAD.manifold, { kind: 'radiant', text: 'Manifold MF-C (zone C, L13–L17): 5-loop stainless manifold with flow meters and ZV-C, hung on blocking in truss bay 25 under the pantry, below the plates; reached through an access panel in the ceiling below. Nothing comes up through the subfloor. See sheet R-1.' }, G.radiant);
+  // the 1" feed pair, from the radiant trunk in the mech room to MF-C
+  const feed = { kind: 'radiant', text: '1" PEX supply and return from the radiant trunk in the lower mech room to MF-C, in the leader chase, insulated. See sheet R-1.' };
+  tube({ x: 5.0, y: CORE_Y, h: -5.3 }, { x: 5.0, y: CORE_Y, h: RAD.leaderH }, RAD.r * 1.4, RAD.feed, feed, G.radiant);
+  polyline([[5.0, CORE_Y], [JOG_X, CORE_Y], [JOG_X, RAD.leaderY], [48.0, RAD.leaderY], [48.0, 3.6], [48.25, 3.6]], RAD.leaderH, RAD.r * 1.4, RAD.feed, feed, G.radiant);
+  // a leader's route from a loop tail at plan X to its station, in the chase at mid-depth; the stair and hoistway have no trusses, so the chase jogs east of them
+  const route = (x, st) => {
+    const lane = x < JOG_X ? CORE_Y : RAD.leaderY;
+    if (st === 'mech') return x < JOG_X ? [[x, lane], [5.0, CORE_Y]] : [[x, lane], [JOG_X, RAD.leaderY], [JOG_X, CORE_Y], [5.0, CORE_Y]];
+    return [[x, lane], [COL_X, RAD.leaderY], [COL_X, COL_TOP]];
+  };
+  const len = pts => pts.slice(1).reduce((t, p, i) => t + Math.abs(p[0] - pts[i][0]) + Math.abs(p[1] - pts[i][1]), 0);
   const yEnd = BY - F - 0.6;
   let n = 0;
   for (let f = 1; f <= bays; f += 2) {
-    const s = f + 1 <= bays ? f + 1 : null, z = zoneOf(f), id = `L${++n}`, m = RAD.zone[z];
-    const per = b => 2 * (yEnd - bayClear(b));
-    const active = Math.round(per(f) + (s ? per(s) : 0)), leader = 2 * (f - 1) + 6, total = active + 2 * leader;
-    const text = `Loop ${id}, zone ${z}, truss bay${s ? `s ${f}–${s}` : ` ${f}`}: 1/2" O2-barrier PEX down and back in each bay, hung on 4' aluminum heat-transfer plates 2" below the subfloor, R-19 batt below. About ${active}' active + 2 × ${leader}' leader = ${total}'${total > 300 ? ' (over 300\': 3/4" leaders or 0.4 gpm, see M-1)' : ''}. One continuous coil, no splices below the floor, home run to MF-${z}.`;
+    const s = f + 1 <= bays ? f + 1 : null, z = zoneOf(f), id = `L${++n}`, m = RAD.zone[z], st = station[z];
+    const xs = b => [Math.max((b - 1) * 2 + 0.55, F + 0.4), Math.min(b * 2 - 0.55, BX - F - 0.4)];
+    const [xa, xb] = xs(f), y0 = bayClear(f), [xc, xd] = s ? xs(s) : [xa, xb], y1 = s ? bayClear(s) : y0, yc = Math.max(y0, y1);
+    const pex = s ? [[xa, y0], [xa, yEnd], [xb, yEnd], [xb, yc], [xc, yc], [xc, yEnd], [xd, yEnd], [xd, y1]] : [[xa, y0], [xa, yEnd], [xb, yEnd], [xb, y0]];
+    const tails = [[xa, y0], [xd, y1]];
+    const legs = tails.map(([x, y]) => [[x, y], ...route(x, st)]);
+    const vert = st === 'mech' ? 7 : 1;
+    const active = Math.round(len(pex)), leader = Math.round(legs.reduce((t, l) => t + len(l), 0) / 2 + vert), total = active + 2 * leader;
+    const text = `Loop ${id}, zone ${z}, truss bays ${s ? `${f}–${s}` : f}: 1/2" O2-barrier PEX down and back in each bay, hung on 4' aluminum heat-transfer plates 2" below the subfloor, R-19 batt below. About ${active}' in the floor + 2 × ${leader}' leaders = ${total}', home run to MF-${z} ${st === 'mech' ? 'in the lower mech room' : 'in truss bay 25 under the pantry'}. One continuous coil, no splices below the floor. See sheet R-1.`;
     const d = { kind: 'radiant', text };
-    const run = b => { const xa = (b - 1) * 2 + 0.55, xb = b * 2 - 0.55, y0 = bayClear(b); polyline([[xa, y0], [xa, yEnd], [xb, yEnd], [xb, y0]], RAD.h, RAD.r, m, d, G.radiant); return [xa, xb, y0]; };
-    const a = run(f);
-    if (s) { const b = run(s); polyline([[a[1], a[2]], [a[1], a[2] - 0.3], [b[0], b[2] - 0.3], [b[0], b[2]]], RAD.h, RAD.r, m, d, G.radiant); }
-    // leader: from the bay's west end down into the chase, along the west wall to the manifold
-    const last = s ? [(s - 1) * 2 + 0.55, bayClear(s)] : [a[0], a[2]];
-    for (const [x, y] of [[a[0], a[2]], last]) {
-      tube({ x, y, h: RAD.h }, { x, y: RAD.leaderY, h: RAD.leaderH }, RAD.r, m, d, G.radiant);
-      tube({ x, y: RAD.leaderY, h: RAD.leaderH }, { x: mf[z], y: RAD.leaderY, h: RAD.leaderH }, RAD.r, m, d, G.radiant);
+    polyline(pex, RAD.h, RAD.r, m, d, G.radiant);
+    for (const l of legs) {
+      tube({ x: l[0][0], y: l[0][1], h: RAD.h }, { x: l[1][0], y: l[1][1], h: RAD.leaderH }, RAD.r, m, d, G.radiant);
+      polyline(l.slice(1), RAD.leaderH, RAD.r, m, d, G.radiant);
     }
   }
 }

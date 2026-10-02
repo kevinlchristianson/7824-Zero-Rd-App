@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="app-version" content="v12">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -45,6 +46,7 @@ header.bar { flex: none; display: flex; align-items: center; gap: 14px; padding:
 .brand { display: flex; flex-direction: column; min-width: 0; margin-right: 6px; }
 .brand .eyebrow { font-family: var(--display); font-weight: 600; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 .brand h1 { font-family: var(--display); font-weight: 700; font-size: 22px; line-height: 1; margin: 0; }
+.brand .ver { font-family: var(--mono); font-weight: 500; font-size: 11px; vertical-align: middle; padding: 1px 6px; border-radius: 4px; border: 1px solid var(--line); background: var(--panel-2); color: var(--muted); }
 .tabs { display: flex; gap: 4px; flex-wrap: wrap; }
 .tabs button { font: inherit; font-family: var(--display); font-weight: 600; font-size: 16px; padding: 6px 12px; border-radius: 6px; border: 1px solid transparent; background: transparent; color: var(--ink); cursor: pointer; display: flex; align-items: center; gap: 8px; }
 .tabs button .no { font-family: var(--mono); font-size: 12px; font-weight: 500; padding: 1px 6px; border-radius: 4px; background: var(--panel-2); color: var(--muted); border: 1px solid var(--line); }
@@ -279,7 +281,7 @@ tbody tr:last-child td { border-bottom: 0; }
 
 <div id="app">
   <header class="bar">
-    <div class="brand"><span class="eyebrow">7824 Zero Road · second floor</span><h1>Contractor app</h1></div>
+    <div class="brand"><span class="eyebrow">7824 Zero Road · second floor</span><h1>Contractor App <span class="ver" id="appver" title="App version">v12</span></h1></div>
     <nav class="tabs" role="tablist" aria-label="Sheets">
       <button type="button" role="tab" id="tab-3d" aria-selected="true" aria-controls="sheet-3d" data-sheet="3d"><span class="no">3D</span>Model</button>
       <button type="button" role="tab" id="tab-s1" aria-selected="false" aria-controls="sheet-s1" data-sheet="s1"><span class="no">S-1</span>Framing</button>

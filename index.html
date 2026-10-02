@@ -90,10 +90,9 @@ main { flex: 1; min-height: 0; }
 .tools .sel.on { color: var(--ink); }
 .tools .sel button { margin-left: 8px; }
 .drawing { padding: 16px; background: var(--bg); }
-.paper { position: relative; width: 100%; max-width: 1400px; margin: 0 auto; background: var(--paper); border: 1px solid var(--line); box-shadow: var(--shadow); overflow: hidden; }
-.paper.z2 { max-width: none; width: 200%; }
-.paper.z3 { max-width: none; width: 300%; }
-.scroller { overflow: auto; }
+.paper { position: relative; width: 100%; max-width: 1400px; margin: 0 auto; background: var(--paper); border: 1px solid var(--line); box-shadow: var(--shadow); overflow: hidden; transform-origin: 0 0; }
+/* the frame: scrolls (pans) in both directions; the browser keeps one-finger panning, the page script takes pinch and double-tap */
+.scroller { position: relative; overflow: auto; touch-action: pan-x pan-y; overscroll-behavior-x: contain; }
 .paper svg { display: block; width: 100%; height: auto; }
 .paper svg .sym, .paper svg .tag { cursor: pointer; }
 .paper svg .sym:hover, .paper svg .tag:hover { filter: drop-shadow(0 0 2px #e08a00); }
@@ -142,6 +141,80 @@ tbody tr:last-child td { border-bottom: 0; }
   .brand h1 { font-size: 18px; }
 }
 @media (prefers-reduced-motion: reduce) { .compass svg { transition: none; } }
+
+/* ---- phone-friendly schedules: one table at a time, search, card rows ---- */
+.pane[hidden] { display: none; }
+.below > .panebar, .below > .panes { grid-column: 1 / -1; min-width: 0; }
+.panebar { position: sticky; top: var(--tools-h, 0px); z-index: 2; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; margin: 0 -16px; padding: 8px 16px; background: var(--bg); border-bottom: 1px solid var(--line); }
+.panebar::-webkit-scrollbar { display: none; }
+.panebar button { flex: none; font: inherit; font-family: var(--display); font-weight: 600; font-size: 16px; min-height: 40px; padding: 6px 14px; border-radius: 20px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); cursor: pointer; }
+.panebar button[aria-pressed="true"] { background: var(--ink); color: var(--panel); border-color: var(--ink); }
+.panebar .n { font-family: var(--mono); font-size: 11px; font-weight: 500; opacity: .7; margin-left: 6px; }
+.pane ol, .pane ul, .pane > p { max-width: 90ch; }
+.psearch { display: flex; align-items: center; gap: 10px; margin: 8px 0 10px; }
+.psearch input { flex: 1 1 auto; min-width: 0; font: inherit; font-size: 16px; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); }
+.psearch .cnt { flex: none; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.backlist { position: fixed; right: 14px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 6; font: inherit; font-family: var(--display); font-weight: 600; font-size: 17px; padding: 10px 16px; border-radius: 24px; border: 0; background: var(--accent); color: var(--accent-ink); box-shadow: var(--shadow); cursor: pointer; }
+@media (max-width: 760px) {
+  .subtabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .subtabs::-webkit-scrollbar { display: none; }
+  .subtabs button { flex: none; min-height: 36px; padding: 4px 10px; }
+  .below { padding: 0 12px 96px; }
+  .panebar { margin: 0 -12px; padding: 8px 12px; }
+  .tbl { border: 0; background: none; overflow: visible; }
+  .tbl table { display: block; min-width: 0; width: 100%; }
+  .tbl thead { display: none; }
+  .tbl tbody { display: block; }
+  .tbl tbody tr { display: block; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; margin: 0 0 10px; padding: 10px 12px; }
+  .tbl tbody tr.on { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+  .tbl td { display: flex; gap: 10px; align-items: baseline; border: 0; padding: 3px 0; font-size: 14px; white-space: normal; }
+  .tbl td:empty { display: none; }
+  .tbl td::before { content: attr(data-label); flex: 0 0 76px; font-family: var(--display); font-weight: 600; font-size: 13px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+  .tbl td:first-child { white-space: normal; display: block; font-size: 17px; font-weight: 600; color: var(--accent); padding: 0 0 6px; margin-bottom: 4px; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+  .tbl td:first-child::before { display: none; }
+  .tbl td:nth-child(2) { font-weight: 600; font-size: 15px; }
+  .tbl td.num { white-space: normal; }
+}
+
+/* ---- phones: a two-row header, a one-row toolbar, the drawing in a full-height frame once zoomed ---- */
+@media (max-width: 760px) {
+  header.bar { gap: 2px 10px; padding: 6px 10px 0; padding-top: calc(6px + env(safe-area-inset-top, 0px)); }
+  .brand { flex: 1 1 100%; flex-direction: row; align-items: baseline; flex-wrap: wrap; gap: 2px 10px; margin: 0 0 2px; padding: 0 2px; }
+  .brand h1 { font-size: 18px; order: -1; }
+  .brand .eyebrow { font-size: 11px; letter-spacing: .06em; }
+  .tabs { flex: 1 1 100%; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 2px; }
+  .tabs button { flex-direction: column; justify-content: flex-end; gap: 4px; min-height: 48px; padding: 5px 2px 6px; font-size: 13px; line-height: 1; border-radius: 6px 6px 0 0; border-bottom: 2px solid transparent; }
+  .tabs button[aria-selected="true"] { border-bottom-color: var(--accent); }
+  .tabs button .no { font-size: 11px; padding: 2px 6px; }
+  .tools { gap: 8px; padding: 6px 10px; flex-wrap: nowrap; }
+  .tools .zoom { gap: 0; flex: none; }
+  .tools .zoom button { min-width: 44px; padding: 5px 10px; border-radius: 0; margin-left: -1px; }
+  .tools .zoom button:first-child { border-radius: 8px 0 0 8px; margin-left: 0; }
+  .tools .zoom button:last-child { border-radius: 0 8px 8px 0; }
+  .tools .zoom button[aria-pressed="true"] { position: relative; z-index: 1; }
+  .tools .sel { flex: 1 1 auto; font-size: 12.5px; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tools .sel.on { white-space: normal; font-size: 13px; }
+  .tools .sel button { min-height: 32px; }
+  .ckt-name { padding: 4px 10px 6px; font-size: 12.5px; }
+  .drawing { padding: 8px; }
+  .lede, .below p, .below li { font-size: 14.5px; }
+}
+@media (max-width: 760px), (pointer: coarse) {
+  .scroller.zoomed { height: calc(100vh - var(--chrome-h, 140px) - 16px); height: calc(100dvh - var(--chrome-h, 140px) - 16px); }
+  .row button, .tools button, .subtabs button, .panebar button { min-height: 40px; }
+  .toggle { min-height: 40px; }
+  .toggle input { width: 20px; height: 20px; }
+}
+@media (min-width: 761px) and (max-height: 520px) {
+  header.bar { gap: 10px; padding: 4px 12px; padding-top: calc(4px + env(safe-area-inset-top, 0px)); }
+  .brand .eyebrow, .counts { display: none; }
+  .brand h1 { font-size: 18px; }
+  .tools { padding: 4px 12px; }
+  .subtabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding: 4px 12px 6px; }
+  .subtabs::-webkit-scrollbar { display: none; }
+  .subtabs button { flex: none; }
+  .drawing { padding: 8px; }
+}
 </style>
 
 <div id="app">
@@ -214,7 +287,7 @@ tbody tr:last-child td { border-bottom: 0; }
 
     <!-- ================================================================ S-1 -->
     <div class="sheet sheet2d" id="sheet-s1" role="tabpanel" aria-labelledby="tab-s1" hidden>
-      <div class="tools"><div class="zoom" role="group" aria-label="Zoom"><button type="button" data-zoom="1" aria-pressed="true">Fit</button><button type="button" data-zoom="2" aria-pressed="false">2×</button><button type="button" data-zoom="3" aria-pressed="false">3×</button></div><p class="sel" data-hint="Click a wall tag, door, or blocking band to read it. Schedule rows highlight the drawing.">Click a wall tag, door, or blocking band to read it. Schedule rows highlight the drawing.</p></div>
+      <div class="tools"><div class="zoom" role="group" aria-label="Zoom"><button type="button" data-zoom="1" aria-pressed="true">Fit</button><button type="button" data-zoom="2" aria-pressed="false">2×</button><button type="button" data-zoom="4" aria-pressed="false">4×</button></div><p class="sel" data-hint="Click a wall tag, door, or blocking band to read it. Schedule rows highlight the drawing.">Click a wall tag, door, or blocking band to read it. Schedule rows highlight the drawing.</p></div>
       <div class="drawing"><div class="scroller"><div class="paper"><svg xmlns="http://www.w3.org/2000/svg" width="1072" height="882" viewBox="0 0 1072 882" font-family="IBM Plex Sans, Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-label="S-1 Framing plan">
 <style>.wire{display:none}</style><rect width="100%" height="100%" fill="#fff"/>
 <rect x="60.0" y="70.0" width="952.0" height="672.0" fill="#cfc9bf" stroke="none" stroke-width="1" rx="0"/>
@@ -854,7 +927,7 @@ tbody tr:last-child td { border-bottom: 0; }
 
     <!-- ================================================================ E-1 -->
     <div class="sheet sheet2d" id="sheet-e1" role="tabpanel" aria-labelledby="tab-e1" hidden>
-      <div class="tools"><div class="zoom" role="group" aria-label="Zoom"><button type="button" data-zoom="1" aria-pressed="true">Fit</button><button type="button" data-zoom="2" aria-pressed="false">2×</button><button type="button" data-zoom="3" aria-pressed="false">3×</button></div><p class="sel" data-hint="Click a device to read its tag, height and circuit. Schedule rows highlight the drawing.">Click a device to read its tag, height and circuit. Schedule rows highlight the drawing.</p></div>
+      <div class="tools"><div class="zoom" role="group" aria-label="Zoom"><button type="button" data-zoom="1" aria-pressed="true">Fit</button><button type="button" data-zoom="2" aria-pressed="false">2×</button><button type="button" data-zoom="4" aria-pressed="false">4×</button></div><p class="sel" data-hint="Click a device to read its tag, height and circuit. Schedule rows highlight the drawing.">Click a device to read its tag, height and circuit. Schedule rows highlight the drawing.</p></div>
       <div class="subtabs" id="ckt-tabs" role="group" aria-label="Circuit sheets"><button type="button" data-ckt="all" aria-pressed="true">E-1 all</button><button type="button" data-ckt="1-2" aria-pressed="false" title="Induction cooktop, 240V 40A 2P">E-1.1 <span>1-2</span></button><button type="button" data-ckt="3-4" aria-pressed="false" title="Wall oven, side-opening, 240V 30A 2P">E-1.2 <span>3-4</span></button><button type="button" data-ckt="5-6" aria-pressed="false" title="Dryer, 240V 30A 2P">E-1.3 <span>5-6</span></button><button type="button" data-ckt="7" aria-pressed="false" title="Kitchen small appliance 1, 20A GFCI/AFCI">E-1.4 <span>7</span></button><button type="button" data-ckt="8" aria-pressed="false" title="Kitchen small appliance 2 + pantry, 20A GFCI/AFCI">E-1.5 <span>8</span></button><button type="button" data-ckt="9" aria-pressed="false" title="Refrigerator, 20A AFCI">E-1.6 <span>9</span></button><button type="button" data-ckt="10" aria-pressed="false" title="Freezer, 20A AFCI">E-1.7 <span>10</span></button><button type="button" data-ckt="11" aria-pressed="false" title="Dishwasher drawers, 20A GFCI/AFCI">E-1.8 <span>11</span></button><button type="button" data-ckt="12" aria-pressed="false" title="Microwave drawer, 20A AFCI">E-1.9 <span>12</span></button><button type="button" data-ckt="13" aria-pressed="false" title="Laundry: washer, sink, counter, 20A GFCI/AFCI">E-1.10 <span>13</span></button><button type="button" data-ckt="14" aria-pressed="false" title="Bath receptacles west, 20A GFCI">E-1.11 <span>14</span></button><button type="button" data-ckt="15" aria-pressed="false" title="Bath receptacles east, 20A GFCI">E-1.12 <span>15</span></button><button type="button" data-ckt="16" aria-pressed="false" title="Master suite receptacles, 15A AFCI">E-1.13 <span>16</span></button><button type="button" data-ckt="17" aria-pressed="false" title="Bedrooms 3 and 4 receptacles, 15A AFCI">E-1.14 <span>17</span></button><button type="button" data-ckt="18" aria-pressed="false" title="Mini suite receptacles, 15A AFCI">E-1.15 <span>18</span></button><button type="button" data-ckt="19" aria-pressed="false" title="Living and dining receptacles, 15A AFCI">E-1.16 <span>19</span></button><button type="button" data-ckt="20" aria-pressed="false" title="Den, office, passage receptacles, 15A AFCI">E-1.17 <span>20</span></button><button type="button" data-ckt="21" aria-pressed="false" title="Lighting A, 15A AFCI">E-1.18 <span>21</span></button><button type="button" data-ckt="22" aria-pressed="false" title="Lighting B + alarms, 15A AFCI">E-1.19 <span>22</span></button><button type="button" data-ckt="23" aria-pressed="false" title="Exhaust fans + hood, 15A AFCI">E-1.20 <span>23</span></button><button type="button" data-ckt="24" aria-pressed="false" title="Exterior receptacles, 20A GFCI">E-1.21 <span>24</span></button><button type="button" data-ckt="25" aria-pressed="false" title="Mech closet: ventilation unit, 15A">E-1.22 <span>25</span></button><button type="button" data-ckt="26" aria-pressed="false" title="Exterior soffit lighting, 15A">E-1.23 <span>26</span></button><button type="button" data-ckt="30" aria-pressed="false" title="Low-voltage power supplies, 15A">E-1.26 <span>30</span></button><button type="button" data-ckt="data" aria-pressed="false" title="Cat6 and coax home runs to the media panel">E-1.D <span>data</span></button></div><p class="ckt-name" id="ckt-name">All circuits. Pick a circuit sheet to see just its devices and the cable run from P2.</p>
       <div class="drawing"><div class="scroller"><div class="paper"><svg xmlns="http://www.w3.org/2000/svg" width="1072" height="882" viewBox="0 0 1072 882" font-family="IBM Plex Sans, Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-label="E-1 Electrical plan">
 <style>.wire{display:none}</style><rect width="100%" height="100%" fill="#fff"/>
@@ -3387,7 +3460,7 @@ tbody tr:last-child td { border-bottom: 0; }
 
     <!-- ================================================================ P-1 -->
     <div class="sheet sheet2d" id="sheet-p1" role="tabpanel" aria-labelledby="tab-p1" hidden>
-      <div class="tools"><div class="zoom" role="group" aria-label="Zoom"><button type="button" data-zoom="1" aria-pressed="true">Fit</button><button type="button" data-zoom="2" aria-pressed="false">2×</button><button type="button" data-zoom="3" aria-pressed="false">3×</button></div><p class="sel" data-hint="Click a fixture tag, stack, pipe or riser to read it. Schedule rows highlight the drawing.">Click a fixture tag, stack, pipe or riser to read it. Schedule rows highlight the drawing.</p></div>
+      <div class="tools"><div class="zoom" role="group" aria-label="Zoom"><button type="button" data-zoom="1" aria-pressed="true">Fit</button><button type="button" data-zoom="2" aria-pressed="false">2×</button><button type="button" data-zoom="4" aria-pressed="false">4×</button></div><p class="sel" data-hint="Click a fixture tag, stack, pipe or riser to read it. Schedule rows highlight the drawing.">Click a fixture tag, stack, pipe or riser to read it. Schedule rows highlight the drawing.</p></div>
       <div class="drawing"><div class="scroller"><div class="paper"><svg xmlns="http://www.w3.org/2000/svg" width="1072" height="882" viewBox="0 0 1072 882" font-family="IBM Plex Sans, Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-label="P-1 Plumbing plan">
 <style>.wire{display:none}</style><rect width="100%" height="100%" fill="#fff"/>
 <rect x="60.0" y="70.0" width="952.0" height="672.0" fill="#cfc9bf" stroke="none" stroke-width="1" rx="0"/>
@@ -4055,7 +4128,7 @@ tbody tr:last-child td { border-bottom: 0; }
 
     <!-- ================================================================ M-1 -->
     <div class="sheet sheet2d" id="sheet-m1" role="tabpanel" aria-labelledby="tab-m1" hidden>
-      <div class="tools"><div class="zoom" role="group" aria-label="Zoom"><button type="button" data-zoom="1" aria-pressed="true">Fit</button><button type="button" data-zoom="2" aria-pressed="false">2×</button><button type="button" data-zoom="3" aria-pressed="false">3×</button></div><p class="sel" data-hint="Click a register, return, trunk or thermostat to read it. Schedule rows highlight the drawing.">Click a register, return, trunk or thermostat to read it. Schedule rows highlight the drawing.</p></div>
+      <div class="tools"><div class="zoom" role="group" aria-label="Zoom"><button type="button" data-zoom="1" aria-pressed="true">Fit</button><button type="button" data-zoom="2" aria-pressed="false">2×</button><button type="button" data-zoom="4" aria-pressed="false">4×</button></div><p class="sel" data-hint="Click a register, return, trunk or thermostat to read it. Schedule rows highlight the drawing.">Click a register, return, trunk or thermostat to read it. Schedule rows highlight the drawing.</p></div>
       <div class="drawing"><div class="scroller"><div class="paper"><svg xmlns="http://www.w3.org/2000/svg" width="1072" height="882" viewBox="0 0 1072 882" font-family="IBM Plex Sans, Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-label="M-1 HVAC plan">
 <style>.wire{display:none}</style><rect width="100%" height="100%" fill="#fff"/>
 <rect x="60.0" y="70.0" width="952.0" height="672.0" fill="#cfc9bf" stroke="none" stroke-width="1" rx="0"/>
@@ -4582,11 +4655,104 @@ tbody tr:last-child td { border-bottom: 0; }
   // each 2D sheet: zoom, pick on the drawing, pick from the schedule
   for (const sheet of document.querySelectorAll('.sheet2d')) {
     const paper = sheet.querySelector('.paper'), svg = sheet.querySelector('.paper svg'), sel = sheet.querySelector('.sel'), scroller = sheet.querySelector('.scroller');
-    for (const b of sheet.querySelectorAll('[data-zoom]')) b.addEventListener('click', () => {
-      const z = b.dataset.zoom;
-      paper.classList.toggle('z2', z === '2'); paper.classList.toggle('z3', z === '3');
-      for (const o of sheet.querySelectorAll('[data-zoom]')) o.setAttribute('aria-pressed', String(o === b));
+    // zoom. Fit / 2× / 4× buttons; pinch and double-tap on touch; ctrl+wheel (a trackpad pinch) on desktop.
+    // The paper is sized in px (fit width × zoom). A pinch previews with a CSS transform and commits the width when the fingers lift.
+    const tools = sheet.querySelector('.tools'), header = document.querySelector('header.bar');
+    const MAXZ = 8;
+    // the sticky section bar sits under the toolbar and the zoomed frame fills the rest of the screen: publish both heights
+    const measure = () => { const th = tools ? tools.offsetHeight : 0; sheet.style.setProperty('--tools-h', th + 'px'); sheet.style.setProperty('--chrome-h', (th + (header ? header.offsetHeight : 0)) + 'px'); };
+    let zoom = 1;
+    const fitW = () => Math.min(scroller.clientWidth, 1400);
+    const phone = () => scroller.clientWidth < 700;
+    const framed = () => matchMedia('(max-width: 760px), (pointer: coarse)').matches;
+    function layout() {
+      if (!scroller.clientWidth) return; // hidden sheet: laid out when shown (show() fires resize)
+      measure();
+      paper.style.maxWidth = 'none'; paper.style.width = Math.round(fitW() * zoom) + 'px';
+      scroller.classList.toggle('zoomed', zoom > 1.02);
+      for (const o of sheet.querySelectorAll('[data-zoom]')) o.setAttribute('aria-pressed', String(Math.abs(zoom - +o.dataset.zoom) < 0.02));
+    }
+    // zoom to z keeping the paper point (px, py), in paper px at the current zoom, under the client point (cx, cy)
+    function zoomTo(z, px, py, cx, cy) {
+      z = Math.min(MAXZ, Math.max(1, z)); const k = z / zoom;
+      zoom = z; layout();
+      const pr = paper.getBoundingClientRect();
+      const dx = pr.left + px * k - cx, dy = pr.top + py * k - cy;
+      scroller.scrollLeft += dx;
+      const was = scroller.scrollTop; scroller.scrollTop += dy;
+      const rest = dy - (scroller.scrollTop - was); if (Math.abs(rest) > 0.5) sheet.scrollTop += rest;
+    }
+    function zoomAt(z, cx, cy) { const pr = paper.getBoundingClientRect(); zoomTo(z, cx - pr.left, cy - pr.top, cx, cy); }
+    const toolsBottom = () => tools ? tools.getBoundingClientRect().bottom : sheet.getBoundingClientRect().top;
+    function visibleCenter() {
+      const r = scroller.getBoundingClientRect(), s = sheet.getBoundingClientRect();
+      const top = Math.max(r.top, toolsBottom()), bottom = Math.min(r.bottom, s.bottom);
+      return [r.left + r.width / 2, bottom > top ? (top + bottom) / 2 : r.top + r.height / 2];
+    }
+    // on a phone the zoomed frame fills the screen below the toolbar: put it there
+    function alignFrame() { measure(); if (framed() && scroller.classList.contains('zoomed')) { const d = scroller.getBoundingClientRect().top - toolsBottom() - 8; if (Math.abs(d) > 2) sheet.scrollTop += d; } }
+    // bring a picked element into view: zoomed enough to read on a phone, centred in the frame, the frame under the toolbar
+    function reveal(el) {
+      measure();
+      if (phone() && zoom < 3.9) { const c = el.getBoundingClientRect(); zoomAt(4, c.left + c.width / 2, c.top + c.height / 2); }
+      const r = el.getBoundingClientRect(), p = scroller.getBoundingClientRect();
+      scroller.scrollLeft += r.left + r.width / 2 - (p.left + p.width / 2);
+      if (scroller.scrollHeight > scroller.clientHeight + 1) scroller.scrollTop += r.top + r.height / 2 - (p.top + p.height / 2);
+      const r2 = el.getBoundingClientRect(), s = sheet.getBoundingClientRect(), tb = toolsBottom();
+      const frameTop = scroller.getBoundingClientRect().top - tb - 8, centred = r2.top + r2.height / 2 - (tb + s.bottom) / 2;
+      const by = framed() && scroller.classList.contains('zoomed') ? frameTop : Math.max(frameTop, centred);
+      sheet.scrollTo({ top: sheet.scrollTop + by, behavior: 'smooth' });
+    }
+    for (const b of sheet.querySelectorAll('[data-zoom]')) b.addEventListener('click', () => { zoomAt(+b.dataset.zoom, ...visibleCenter()); alignFrame(); });
+    addEventListener('resize', () => {
+      if (sheet.hidden) return;
+      const w = paper.offsetWidth || 1, h = paper.offsetHeight || 1;
+      const fx = (scroller.scrollLeft + scroller.clientWidth / 2 - paper.offsetLeft) / w, fy = (scroller.scrollTop + scroller.clientHeight / 2 - paper.offsetTop) / h;
+      layout();
+      scroller.scrollLeft = fx * paper.offsetWidth + paper.offsetLeft - scroller.clientWidth / 2;
+      scroller.scrollTop = fy * paper.offsetHeight + paper.offsetTop - scroller.clientHeight / 2;
     });
+    layout();
+    if (matchMedia('(pointer: coarse)').matches && /^Click /.test(sel.dataset.hint)) { sel.dataset.hint = sel.dataset.hint.replace(/^Click /, 'Tap '); if (!sel.classList.contains('on')) sel.textContent = sel.dataset.hint; }
+    // pinch (two fingers) previews with a transform; double-tap zooms in on the spot, or back to fit
+    let pinch = null, lastTap = { t: 0, x: 0, y: 0 };
+    const mid = t => [(t[0].clientX + t[1].clientX) / 2, (t[0].clientY + t[1].clientY) / 2];
+    const dist = t => Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY);
+    scroller.addEventListener('touchstart', e => {
+      if (e.touches.length !== 2) return;
+      const pr = paper.getBoundingClientRect(), [mx, my] = mid(e.touches);
+      pinch = { d0: dist(e.touches), px: mx - pr.left, py: my - pr.top, k: 1, mx, my };
+      paper.style.willChange = 'transform';
+    }, { passive: true });
+    scroller.addEventListener('touchmove', e => {
+      if (!pinch || e.touches.length < 2) return;
+      e.preventDefault();
+      const [mx, my] = mid(e.touches);
+      pinch.k = Math.min(MAXZ, Math.max(1, zoom * dist(e.touches) / pinch.d0)) / zoom; pinch.mx = mx; pinch.my = my;
+      const sr = scroller.getBoundingClientRect();
+      const left = sr.left + paper.offsetLeft - scroller.scrollLeft, top = sr.top + paper.offsetTop - scroller.scrollTop;
+      paper.style.transform = `translate(${mx - left - pinch.px * pinch.k}px, ${my - top - pinch.py * pinch.k}px) scale(${pinch.k})`;
+    }, { passive: false });
+    function endPinch() {
+      if (!pinch) return;
+      const p = pinch; pinch = null;
+      paper.style.transform = ''; paper.style.willChange = '';
+      zoomTo(zoom * p.k, p.px, p.py, p.mx, p.my);
+      alignFrame();
+    }
+    scroller.addEventListener('touchend', e => {
+      if (pinch) { if (e.touches.length < 2) endPinch(); lastTap.t = 0; return; }
+      if (e.touches.length || e.changedTouches.length !== 1) return;
+      const t = e.changedTouches[0], now = e.timeStamp;
+      if (now - lastTap.t < 350 && Math.hypot(t.clientX - lastTap.x, t.clientY - lastTap.y) < 30) {
+        lastTap.t = 0; e.preventDefault();
+        const big = phone() ? 4 : 2;
+        zoomAt(zoom < big - 0.1 ? big : 1, t.clientX, t.clientY); alignFrame();
+      } else lastTap = { t: now, x: t.clientX, y: t.clientY };
+    }, { passive: false });
+    scroller.addEventListener('touchcancel', endPinch);
+    scroller.addEventListener('gesturestart', e => e.preventDefault());
+    scroller.addEventListener('wheel', e => { if (!e.ctrlKey) return; e.preventDefault(); zoomAt(zoom * Math.exp(-Math.max(-40, Math.min(40, e.deltaY)) * 0.01), e.clientX, e.clientY); }, { passive: false });
     let on = null;
     function legs(el) { return (el && el.dataset.leg) ? el.dataset.leg.split(' ') : []; }
     function lightLegs(ids) {
@@ -4610,12 +4776,7 @@ tbody tr:last-child td { border-bottom: 0; }
       const btn = document.createElement('button'); btn.type = 'button'; btn.textContent = 'Clear'; btn.addEventListener('click', clear); sel.appendChild(btn);
       const row = sheet.querySelector(`tr[data-id="${CSS.escape(el.dataset.id)}"]`);
       if (row) row.classList.add('on');
-      if (fromTable) {
-        // scroll the drawing so the element is in view
-        const r = el.getBoundingClientRect(), p = scroller.getBoundingClientRect();
-        scroller.scrollLeft += r.left + r.width / 2 - (p.left + p.width / 2);
-        sheet.scrollTo({ top: Math.max(0, scroller.offsetTop - 60), behavior: 'smooth' });
-      }
+      if (fromTable) reveal(el);
     }
     svg.addEventListener('click', e => { const g = e.target.closest('.sym, .tag'); if (g) pick(g, false); else clear(); });
     const subtabs = sheet.querySelector('.subtabs');
@@ -4637,11 +4798,131 @@ tbody tr:last-child td { border-bottom: 0; }
     }
     for (const row of sheet.querySelectorAll('tbody tr[data-id]')) {
       const go = () => {
-        if (row.dataset.id.startsWith('LEG:')) { clear(); const l = row.dataset.id.slice(4); lightLegs([l]); row.classList.add('on'); sel.textContent = `Switch leg ${l}: ${row.children[1].textContent} — ${row.children[5].textContent}`; sel.classList.add('on'); const first = svg.querySelector(`.sym[data-leg~="${CSS.escape(l)}"]`); if (first) { const r = first.getBoundingClientRect(), p = scroller.getBoundingClientRect(); scroller.scrollLeft += r.left - (p.left + p.width / 2); sheet.scrollTo({ top: Math.max(0, scroller.offsetTop - 60), behavior: 'smooth' }); } return; }
+        if (row.dataset.id.startsWith('LEG:')) { clear(); const l = row.dataset.id.slice(4); lightLegs([l]); row.classList.add('on'); sel.textContent = `Switch leg ${l}: ${row.children[1].textContent} — ${row.children[5].textContent}`; sel.classList.add('on'); const first = svg.querySelector(`.sym[data-leg~="${CSS.escape(l)}"]`); if (first) reveal(first); return; }
         const el = svg.querySelector(`[data-id="${CSS.escape(row.dataset.id)}"]`); if (el) pick(el, true); else { clear(); row.classList.add('on'); sel.textContent = row.dataset.id + ': not drawn on the sheet (see the schedule)'; sel.classList.add('on'); } };
       row.addEventListener('click', go);
       row.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
     }
+  }
+})();
+</script>
+
+<script>
+// ---------------------------------------------------------------- schedules: one table at a time, search, back-to-list
+(function () {
+  const NAMES = [[/circuit/i, 'Circuits'], [/switch/i, 'Switches'], [/device/i, 'Devices'], [/bill of/i, 'Materials'], [/wall sched/i, 'Walls'], [/door/i, 'Doors'], [/blocking/i, 'Blocking'], [/fixture/i, 'Fixtures'], [/vent/i, 'Vents'], [/register/i, 'Registers'], [/trunk/i, 'Trunks'], [/note/i, 'Notes'], [/open/i, 'Open items']];
+  const short = t => { for (const [re, n] of NAMES) if (re.test(t)) return n; return t.length > 18 ? t.slice(0, 17) + '…' : t; };
+
+  for (const sheet of document.querySelectorAll('.sheet2d')) {
+    const below = sheet.querySelector('.below'), tools = sheet.querySelector('.tools');
+    if (!below) continue;
+    const key = sheet.id;
+    const panes = [];
+    const mk = title => { const d = document.createElement('div'); d.className = 'pane'; d.dataset.title = title; panes.push(d); return d; };
+
+    for (const sec of [...below.querySelectorAll(':scope > section')]) {
+      const h3s = [...sec.querySelectorAll(':scope > h3')];
+      const kids = [...sec.children];
+      if (sec.classList.contains('wide') && h3s.length) {
+        let cur = null;
+        for (const k of kids) {
+          if (k.tagName === 'H3') cur = mk(short(k.textContent));
+          if (!cur) cur = mk(short(h3s[0].textContent));
+          cur.appendChild(k);
+        }
+      } else {
+        const h = h3s.length === 1 ? h3s[0] : sec.querySelector(':scope > h2');
+        const cur = mk(short(h ? h.textContent : 'Info'));
+        for (const k of kids) cur.appendChild(k);
+      }
+      sec.remove();
+    }
+    if (!panes.length) continue;
+
+    // card labels + search
+    for (const pane of panes) {
+      for (const table of pane.querySelectorAll('table')) {
+        const heads = [...table.querySelectorAll('thead th')].map(t => t.textContent.trim());
+        for (const tr of table.querySelectorAll('tbody tr')) [...tr.children].forEach((td, i) => td.dataset.label = heads[i] || '');
+      }
+      const rows = [...pane.querySelectorAll('tbody tr')];
+      pane.dataset.count = rows.length;
+      if (rows.length > 6) {
+        const box = document.createElement('div'); box.className = 'psearch';
+        const inp = document.createElement('input'); inp.type = 'search'; inp.placeholder = 'Search ' + pane.dataset.title.toLowerCase() + '…';
+        inp.setAttribute('aria-label', 'Search ' + pane.dataset.title); inp.autocomplete = 'off'; inp.autocapitalize = 'off'; inp.setAttribute('enterkeyhint', 'search');
+        const cnt = document.createElement('span'); cnt.className = 'cnt'; cnt.textContent = rows.length + '';
+        let pre = '';
+        const apply = () => {
+          const q = inp.value.toLowerCase().split(/\s+/).filter(Boolean); let n = 0;
+          for (const r of rows) { const t = r.textContent.toLowerCase(); const ok = (!pre || r.dataset.pre === pre) && q.every(w => t.includes(w)); r.hidden = !ok; if (ok) n++; }
+          cnt.textContent = (q.length || pre) ? n + ' of ' + rows.length : rows.length + '';
+        };
+        inp.addEventListener('input', apply);
+        // big tables keyed by tag letters (R1, L7, S3...): add one-tap filters by type
+        const m = rows.map(r => /^([A-Z]+)\d/.exec(r.children[0].textContent.trim()));
+        if (rows.length > 40 && m.every(Boolean)) {
+          const TYPES = { R: 'Receptacles', S: 'Switches', L: 'Lights', A: 'Alarms', X: 'Panels' };
+          rows.forEach((r, i) => r.dataset.pre = m[i][1]);
+          const letters = [...new Set(m.map(x => x[1]))].sort();
+          const chips = document.createElement('div'); chips.className = 'panebar'; chips.style.position = 'static'; chips.style.margin = '0 0 8px'; chips.style.padding = '0'; chips.style.border = '0'; chips.style.background = 'none';
+          const cb = [];
+          for (const l of ['', ...letters]) {
+            const b = document.createElement('button'); b.type = 'button'; b.textContent = l ? (TYPES[l] || l) : 'All'; b.setAttribute('aria-pressed', String(l === ''));
+            b.addEventListener('click', () => { pre = l; cb.forEach(x => x.setAttribute('aria-pressed', String(x === b))); apply(); });
+            cb.push(b); chips.appendChild(b);
+          }
+          pane.chips = chips;
+        }
+        box.append(inp, cnt);
+        pane.querySelector('.tbl').before(box);
+        if (pane.chips) box.before(pane.chips);
+      }
+    }
+
+    // button bar
+    const bar = document.createElement('div'); bar.className = 'panebar'; bar.setAttribute('role', 'group'); bar.setAttribute('aria-label', 'Sections');
+    const wrap = document.createElement('div'); wrap.className = 'panes';
+    const btns = panes.map((pane, i) => {
+      const b = document.createElement('button'); b.type = 'button'; b.textContent = pane.dataset.title;
+      if (+pane.dataset.count) { const n = document.createElement('span'); n.className = 'n'; n.textContent = pane.dataset.count; b.appendChild(n); }
+      b.addEventListener('click', () => select(i, true));
+      bar.appendChild(b); wrap.appendChild(pane); return b;
+    });
+    below.append(bar, wrap);
+
+    const header = document.querySelector('header.bar');
+    const tools_h = () => { const th = tools ? tools.offsetHeight : 0; sheet.style.setProperty('--tools-h', th + 'px'); sheet.style.setProperty('--chrome-h', (th + (header ? header.offsetHeight : 0)) + 'px'); };
+    tools_h(); addEventListener('resize', tools_h);
+    if (window.ResizeObserver) { const ro = new ResizeObserver(tools_h); if (tools) ro.observe(tools); if (header) ro.observe(header); }
+
+    function select(i, scroll) {
+      panes.forEach((p, j) => { p.hidden = j !== i; btns[j].setAttribute('aria-pressed', String(j === i)); });
+      try { localStorage.setItem('o3b-pane-' + key, panes[i].dataset.title); } catch (e) { /* per-viewer convenience */ }
+      { const bl = btns[i].offsetLeft, bw = btns[i].offsetWidth; if (bl < bar.scrollLeft || bl + bw > bar.scrollLeft + bar.clientWidth) bar.scrollTo({ left: bl - (bar.clientWidth - bw) / 2, behavior: scroll ? 'smooth' : 'auto' }); }
+      if (scroll) {
+        const th = tools ? tools.offsetHeight : 0;
+        const barTop = bar.getBoundingClientRect().top - sheet.getBoundingClientRect().top;
+        if (barTop <= th + 2) sheet.scrollTo({ top: sheet.scrollTop + barTop - th, behavior: 'auto' });
+      }
+    }
+    let first = panes.findIndex(p => +p.dataset.count > 0); if (first < 0) first = 0;
+    try { const saved = localStorage.getItem('o3b-pane-' + key); const j = panes.findIndex(p => p.dataset.title === saved); if (j >= 0) first = j; } catch (e) { /* ignore */ }
+    select(first, false);
+
+    // after tapping a row the drawing scrolls into view; give a one-tap way back to the list
+    const back = document.createElement('button'); back.type = 'button'; back.className = 'backlist'; back.textContent = '↩ Back to list'; back.hidden = true;
+    sheet.appendChild(back);
+    let savedRow = null, savedTop = 0, away = false;
+    sheet.addEventListener('click', e => { const tr = e.target.closest('tbody tr[data-id]'); if (tr) { savedRow = tr; savedTop = tr.getBoundingClientRect().top; away = false; } }, true);
+    sheet.addEventListener('scroll', () => {
+      if (!savedRow) { back.hidden = true; return; }
+      const d = savedRow.getBoundingClientRect().top - savedTop; // how far the row has moved down the screen
+      if (d > 150) away = true;
+      if (away && d < 20) { savedRow = null; away = false; }
+      back.hidden = !savedRow || !away;
+    }, { passive: true });
+    back.addEventListener('click', () => { if (savedRow) sheet.scrollTo({ top: sheet.scrollTop + savedRow.getBoundingClientRect().top - savedTop, behavior: 'smooth' }); back.hidden = true; savedRow = null; away = false; });
   }
 })();
 </script>

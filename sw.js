@@ -1,5 +1,5 @@
 // Bump VERSION whenever you change index.html so phones pick up the new copy.
-const VERSION = 'v7';
+const VERSION = 'v8';
 const CACHE = 'zr-' + VERSION;
 const SHELL = [
   './',

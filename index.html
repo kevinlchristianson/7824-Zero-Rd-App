@@ -295,7 +295,7 @@ tbody tr:last-child td { border-bottom: 0; }
         </section>
         <section>
           <p class="eyebrow">Model</p>
-          <p class="lede">The floor plate, 68' × 48', with its walls, fixtures and the three trade layers from sheets S-1, E-1 and P-1. Everything is generated from the same data as the sheets, so a change on a sheet moves here too.</p>
+          <p class="lede">The floor plate, 68' × 48', with its walls, fixtures and the three trade layers from sheets S-1, E-1 and P-1. Everything is generated from the same data as the sheets, so a change on a sheet moves here too. The floor structure is drawn too: the 24" open-web trusses, with the radiant PEX loops from the hydronic pack (M-1) hung in every bay and the ducts below them. Turn off the plan drawing to look down into the trusses.</p>
         </section>
         <section>
           <p class="eyebrow">View</p>
@@ -313,6 +313,8 @@ tbody tr:last-child td { border-bottom: 0; }
           <label class="toggle"><input type="checkbox" id="ly-elec" checked><span class="sw" style="background:#d08a00"></span> Electrical devices and lights (E-1)</label>
           <label class="toggle"><input type="checkbox" id="ly-plumb" checked><span class="sw" style="background:#2c6aa0"></span> Plumbing: drains, vents, supply (P-1)</label>
           <label class="toggle"><input type="checkbox" id="ly-hvac" checked><span class="sw" style="background:#e3a05a"></span> HVAC ducts and registers (M-1)</label>
+          <label class="toggle"><input type="checkbox" id="ly-truss" checked><span class="sw" style="background:#b89a6e"></span> Floor trusses: 24" open-web at 24" o.c., east–west</label>
+          <label class="toggle"><input type="checkbox" id="ly-radiant" checked><span class="sw" style="background:#c62828"></span> Radiant floor heat: PEX loops and manifolds (hydronic pack M-1); red zone A, orange B, blue C</label>
           <label class="toggle"><input type="checkbox" id="ly-furn" checked><span class="sw" style="background:#dfe8df"></span> Fixtures and furniture</label>
           <label class="toggle"><input type="checkbox" id="ly-shell" checked><span class="sw" style="background:#8d8378"></span> Brick shell and windows</label>
           <label class="toggle"><input type="checkbox" id="ly-floor" checked><span class="sw" style="background:#ffffff"></span> Plan drawing on the floor</label>
@@ -324,7 +326,7 @@ tbody tr:last-child td { border-bottom: 0; }
         </section>
         <section>
           <p class="eyebrow">Reading it</p>
-          <p class="lede">Plan view puts east at the top and north on the left, like the drawings. Click anything to read what it is: walls carry the drawing's wall number, devices their E-1 tag, pipes their size and run. Drains sit in the 2' floor-truss space below the plate and all run to the one drop by the deck door; vents rise in the walls and cross the ceiling space; supply trunks run under the floor to four riser groups.</p>
+          <p class="lede">Plan view puts east at the top and north on the left, like the drawings. Click anything to read what it is: walls carry the drawing's wall number, devices their E-1 tag, pipes their size and run. The radiant PEX runs down and back in every truss bay, red, orange and blue for zones A, B and C, with the three manifolds on the mech room's west wall. Drains sit in the 2' floor-truss space below the plate and all run to the one drop by the deck door; vents rise in the walls and cross the ceiling space; supply trunks run under the floor to four riser groups.</p>
           <p class="lede">To point a comment at one thing, name the sheet and the tag (S-1 W23, E-1 R12, P-1 S3, M-1 G7).</p>
         </section>
       </aside>
@@ -5033,7 +5035,7 @@ const MAT = {
 function setCut(h) { const on = h < 9.5; cutPlane.constant = h; for (const m of cutMats) { m.clippingPlanes = on ? [cutPlane] : null; m.needsUpdate = true; } }
 
 // ---------------------------------------------------------------- groups
-const G = {}; for (const k of ['floor', 'shell', 'walls', 'framing', 'elec', 'plumb', 'furn', 'hvac']) { G[k] = new THREE.Group(); scene.add(G[k]); }
+const G = {}; for (const k of ['floor', 'shell', 'walls', 'framing', 'elec', 'plumb', 'furn', 'hvac', 'truss', 'radiant']) { G[k] = new THREE.Group(); scene.add(G[k]); }
 const pickables = [];
 function box(x1, x2, y1, y2, bottom, top, material, data, group) {
   // a box over plan rectangle [x1,x2] × [y1,y2] from height bottom to top (feet)
@@ -5340,8 +5342,92 @@ function buildHVAC() {
   for (const t of hv.tstats) box(t.x + (t.side === 'n' ? 0 : -0.12), t.x + (t.side === 'n' ? 0.12 : 0), t.y - 0.25, t.y + 0.25, 3.8, 4.3, MAT.panel, { kind: 'hvac', text: `Thermostat ${t.id}, 48" AFF` }, G.hvac);
 }
 
+// ---------------------------------------------------------------- floor trusses: 24" open-web, 24" o.c., spanning east–west
+const TRUSS_D = 2.0, CHORD = 0.29, CHORD_W = 0.125, PANEL = 4.0;   // 2x4 chords on the flat (3.5" deep, 1.5" wide), 4' panels
+function mergeBoxes(parts) {
+  // parts: [w, h, d, x, y, z, rotZ]; one geometry per truss keeps the mesh count down on phones
+  const pos = [], nor = [];
+  for (const [w, h, d, x, y, z, rz] of parts) {
+    const g = new THREE.BoxGeometry(w, h, d); if (rz) g.rotateZ(rz); g.translate(x, y, z);
+    const ng = g.toNonIndexed(); pos.push(...ng.attributes.position.array); nor.push(...ng.attributes.normal.array); g.dispose(); ng.dispose();
+  }
+  const out = new THREE.BufferGeometry();
+  out.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); out.setAttribute('normal', new THREE.Float32BufferAttribute(nor, 3));
+  return out;
+}
+function trussSpans(px) {
+  // where a truss at plan X runs: the full width, less the stair opening (and the hoistway beside it), which gets a header instead
+  const st = shell.core.stair, el = shell.core.elevator;
+  const out = [[0, BY]];
+  for (const [x1, x2, y1, y2] of [st, el]) if (px > x1 && px < x2) {
+    for (let i = out.length - 1; i >= 0; i--) { const [a, b] = out[i]; if (b <= y1 || a >= y2) continue; out.splice(i, 1); if (a < y1) out.push([a, y1]); if (b > y2) out.push([y2, b]); }
+  }
+  return out.filter(([a, b]) => b - a > 1);
+}
+function buildTrusses() {
+  const n = Math.round(BX / 2), xs = [];
+  for (let i = 0; i <= n; i++) xs.push(i === 0 ? F : i === n ? BX - F : i * 2);
+  xs.forEach((px, i) => {
+    const parts = [];
+    for (const [ya, yb] of trussSpans(px)) {
+      const a = M(px, ya), b = M(px, yb), len = b.x - a.x, cx = (a.x + b.x) / 2;
+      parts.push([len, CHORD, CHORD_W, cx, -CHORD / 2, a.z], [len, CHORD, CHORD_W, cx, -TRUSS_D + CHORD / 2, a.z]);
+      const inner = TRUSS_D - 2 * CHORD, panels = Math.max(1, Math.round(len / PANEL)), pw = len / panels, diag = Math.hypot(pw, inner);
+      for (let k = 0; k <= panels; k++) parts.push([CHORD_W, inner, CHORD_W, a.x + k * pw, -TRUSS_D / 2, a.z]);                       // verticals
+      for (let k = 0; k < panels; k++) parts.push([CHORD_W, diag, CHORD_W, a.x + (k + 0.5) * pw, -TRUSS_D / 2, a.z, (k % 2 ? -1 : 1) * Math.atan2(pw, inner)]);  // diagonals
+    }
+    const m = new THREE.Mesh(mergeBoxes(parts), MAT.wood);
+    m.castShadow = true; m.receiveShadow = true;
+    m.userData = { kind: 'truss', text: `Floor truss ${i + 1} of ${n + 1}: 24" open-web, ${ftIn(px)} from the north face, spans east–west; 24" o.c., 19" clear between webs. Drill webs per the truss chart only, no chord penetrations.` };
+    pickables.push(m); G.truss.add(m);
+  });
+}
+
+// ---------------------------------------------------------------- radiant floor heat: the hydronic pack's M-1 loops, one per two truss bays
+const RAD = {
+  zone: { A: mat(0xc62828, { roughness: 0.4 }), B: mat(0xe65100, { roughness: 0.4 }), C: mat(0x1565c0, { roughness: 0.4 }) },
+  manifold: mat(0xb8b4ad, { roughness: 0.35, metalness: 0.4 }),
+  r: 0.07,          // drawn fatter than 1/2" PEX so it reads from above
+  h: -0.25,         // tube 2" below the subfloor, between the top chords
+  leaderY: 0.9,     // the leader chase along the west wall, through the truss web holes
+  leaderH: -1.0,    // leaders cross the bays mid-depth
+};
+function bayClear(bay) {
+  // the west end of the PEX run in a truss bay: past the mech room, the hoistway and the stair opening
+  const x0 = (bay - 1) * 2, x1 = bay * 2, st = shell.core.stair, el = shell.core.elevator, mech = [F, 6.58, F, 4.75];
+  let y = F + 0.6;
+  for (const [a, b, , yb] of [mech, el, st]) if (x1 > a && x0 < b) y = Math.max(y, yb + 0.5);
+  return y;
+}
+function buildRadiant() {
+  const bays = Math.round(BX / 2), zoneOf = b => (b <= 12 ? 'A' : b <= 24 ? 'B' : 'C');
+  const mf = { A: 1.5, B: 3.2, C: 4.9 };   // manifold centres along the mech room's west wall, from the north face
+  for (const [z, px] of Object.entries(mf)) {
+    box(px - 0.6, px + 0.6, F + 0.1, F + 0.4, 3.0, 3.4, RAD.manifold, { kind: 'radiant', text: `Manifold MF-${z}: 6-loop stainless manifold with flow meters, wall-mounted in the mech room, supply bar up (M-2). Zone valve ZV-${z} and the circulator P-R feed it from B-1.` }, G.radiant);
+    tube({ x: px, y: F + 0.25, h: 3.0 }, { x: px, y: RAD.leaderY, h: RAD.leaderH }, RAD.r, RAD.zone[z], { kind: 'radiant', text: `Zone ${z} leaders drop from MF-${z} into the west-wall chase` }, G.radiant);
+  }
+  const yEnd = BY - F - 0.6;
+  let n = 0;
+  for (let f = 1; f <= bays; f += 2) {
+    const s = f + 1 <= bays ? f + 1 : null, z = zoneOf(f), id = `L${++n}`, m = RAD.zone[z];
+    const per = b => 2 * (yEnd - bayClear(b));
+    const active = Math.round(per(f) + (s ? per(s) : 0)), leader = 2 * (f - 1) + 6, total = active + 2 * leader;
+    const text = `Loop ${id}, zone ${z}, truss bay${s ? `s ${f}–${s}` : ` ${f}`}: 1/2" O2-barrier PEX down and back in each bay, hung on 4' aluminum heat-transfer plates 2" below the subfloor, R-19 batt below. About ${active}' active + 2 × ${leader}' leader = ${total}'${total > 300 ? ' (over 300\': 3/4" leaders or 0.4 gpm, see M-1)' : ''}. One continuous coil, no splices below the floor, home run to MF-${z}.`;
+    const d = { kind: 'radiant', text };
+    const run = b => { const xa = (b - 1) * 2 + 0.55, xb = b * 2 - 0.55, y0 = bayClear(b); polyline([[xa, y0], [xa, yEnd], [xb, yEnd], [xb, y0]], RAD.h, RAD.r, m, d, G.radiant); return [xa, xb, y0]; };
+    const a = run(f);
+    if (s) { const b = run(s); polyline([[a[1], a[2]], [a[1], a[2] - 0.3], [b[0], b[2] - 0.3], [b[0], b[2]]], RAD.h, RAD.r, m, d, G.radiant); }
+    // leader: from the bay's west end down into the chase, along the west wall to the manifold
+    const last = s ? [(s - 1) * 2 + 0.55, bayClear(s)] : [a[0], a[2]];
+    for (const [x, y] of [[a[0], a[2]], last]) {
+      tube({ x, y, h: RAD.h }, { x, y: RAD.leaderY, h: RAD.leaderH }, RAD.r, m, d, G.radiant);
+      tube({ x, y: RAD.leaderY, h: RAD.leaderH }, { x: mf[z], y: RAD.leaderY, h: RAD.leaderH }, RAD.r, m, d, G.radiant);
+    }
+  }
+}
+
 // ---------------------------------------------------------------- build everything
-buildFloor(); buildShell(); buildHVAC();
+buildFloor(); buildShell(); buildHVAC(); buildTrusses(); buildRadiant();
 for (const w of framing.walls) { wallBoxes(w, true, MAT.wall); frameWall(w); }
 frameFurring();
 buildFurniture(); buildElectrical(); buildPlumbing();
@@ -5359,7 +5445,7 @@ renderer.domElement.addEventListener('pointerup', e => {
   const r = renderer.domElement.getBoundingClientRect();
   raycaster.setFromCamera(new THREE.Vector2(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1), camera);
   const targets = pickables.filter(m => m.parent && m.parent.visible);
-  const hit = raycaster.intersectObjects(targets, false).find(h => h.point.y <= cutPlane.constant + 0.02 || h.object.parent === G.plumb || h.object.parent === G.hvac || h.object.parent === G.floor);
+  const hit = raycaster.intersectObjects(targets, false).find(h => h.point.y <= cutPlane.constant + 0.02 || h.object.parent === G.plumb || h.object.parent === G.hvac || h.object.parent === G.truss || h.object.parent === G.radiant || h.object.parent === G.floor);
   if (hit) pick(hit.object); else clearPick();
 });
 
@@ -5384,11 +5470,11 @@ function applyLayers() {
   G.framing.visible = fr;
   G.walls.visible = $('ly-walls').checked;
   for (const m of G.walls.children) m.material = fr ? MAT.wallGhost : MAT.wall;
-  G.elec.visible = $('ly-elec').checked; G.plumb.visible = $('ly-plumb').checked; G.hvac.visible = $('ly-hvac').checked; G.furn.visible = $('ly-furn').checked; G.shell.visible = $('ly-shell').checked; G.floor.visible = $('ly-floor').checked;
+  G.elec.visible = $('ly-elec').checked; G.plumb.visible = $('ly-plumb').checked; G.hvac.visible = $('ly-hvac').checked; G.truss.visible = $('ly-truss').checked; G.radiant.visible = $('ly-radiant').checked; G.furn.visible = $('ly-furn').checked; G.shell.visible = $('ly-shell').checked; G.floor.visible = $('ly-floor').checked;
   const h = parseFloat($('cut').value); $('cutval').value = h >= 9.5 ? 'no cut' : ftIn(h); setCut(h);
   if (picked && fr) clearPick();
 }
-for (const id of ['ly-walls', 'ly-framing', 'ly-elec', 'ly-plumb', 'ly-hvac', 'ly-furn', 'ly-shell', 'ly-floor', 'cut']) $(id).addEventListener('input', applyLayers);
+for (const id of ['ly-walls', 'ly-framing', 'ly-elec', 'ly-plumb', 'ly-hvac', 'ly-truss', 'ly-radiant', 'ly-furn', 'ly-shell', 'ly-floor', 'cut']) $(id).addEventListener('input', applyLayers);
 applyLayers(); goView('corner', false); status('');
 const needle = $('needle');
 function frame(now) {

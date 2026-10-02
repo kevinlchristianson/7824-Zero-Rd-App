@@ -1,6 +1,6 @@
 // Bump VERSION whenever you change index.html so phones pick up the new copy,
 // and set the same value in index.html (meta app-version and the #appver label in the header).
-const VERSION = 'v14';
+const VERSION = 'v15';
 const CACHE = 'zr-' + VERSION;
 const SHELL = [
   './',
@@ -15,7 +15,7 @@ const SHELL = [
 ];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL.map(u => new Request(u, { cache: 'reload' })))).then(() => self.skipWaiting()));
 });
 
 self.addEventListener('activate', e => {
@@ -34,7 +34,8 @@ self.addEventListener('fetch', e => {
   const host = new URL(e.request.url).hostname;
   if (host.endsWith('googleapis.com') && host !== 'fonts.googleapis.com') return;
   e.respondWith(
-    fetch(e.request)
+    // same-origin files skip the browser's HTTP cache (GitHub Pages lets it keep pages for 10 minutes)
+    fetch(e.request, new URL(e.request.url).origin === self.location.origin ? { cache: 'no-cache' } : undefined)
       .then(res => {
         if (res && (res.ok || res.type === 'opaque')) {
           const copy = res.clone();

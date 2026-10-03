@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="app-version" content="v15">
+<meta name="app-version" content="v16">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -101,6 +101,7 @@ a.packet:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .paper svg .sym, .paper svg .tag { cursor: pointer; }
 .paper svg .sym:hover, .paper svg .tag:hover { filter: drop-shadow(0 0 2px #e08a00); }
 .paper svg .sym.on, .paper svg .tag.on { filter: drop-shadow(0 0 3px #e08a00) drop-shadow(0 0 6px #e08a00); }
+#sheet-r1 .paper svg:has(g.sym[id^="r1-L"].on) g.sym[id^="r1-L"]:not(.on) { opacity: .15; transition: opacity .15s; }
 .paper svg .sym.on-leg { filter: drop-shadow(0 0 2px #2c6aa0) drop-shadow(0 0 5px #2c6aa0); }
 /* the glow alone is too faint on a phone: the picked device gets an orange disc, every device on its switch leg a blue one */
 .paper svg .sym.on-leg .hit { fill: #2c6aa0; fill-opacity: .3; stroke: #2c6aa0; stroke-width: 2; }
@@ -281,7 +282,7 @@ tbody tr:last-child td { border-bottom: 0; }
 
 <div id="app">
   <header class="bar">
-    <div class="brand"><span class="eyebrow">7824 Zero Road · second floor</span><h1>Contractor App <span class="ver" id="appver" title="App version">v15</span></h1></div>
+    <div class="brand"><span class="eyebrow">7824 Zero Road · second floor</span><h1>Contractor App <span class="ver" id="appver" title="App version">v16</span></h1></div>
     <nav class="tabs" role="tablist" aria-label="Sheets">
       <button type="button" role="tab" id="tab-3d" aria-selected="true" aria-controls="sheet-3d" data-sheet="3d"><span class="no">3D</span>Model</button>
       <button type="button" role="tab" id="tab-s1" aria-selected="false" aria-controls="sheet-s1" data-sheet="s1"><span class="no">S-1</span>Framing</button>

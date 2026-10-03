@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="app-version" content="v18">
+<meta name="app-version" content="v20">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -136,6 +136,24 @@ h3 { font-family: var(--display); font-weight: 600; font-size: 18px; margin: 18p
 .below ol, .below ul { padding-left: 20px; margin: 0; }
 .below li { margin: 0 0 6px; }
 .open li::marker { color: var(--accent); }
+.oi-list { list-style: none; padding-left: 0 !important; }
+.oi { display: flex; gap: 10px; align-items: flex-start; padding: 6px 0; margin: 0 !important; border-bottom: 1px solid var(--line); }
+.oi input { flex: none; width: 22px; height: 22px; margin: 1px 0 0; accent-color: var(--accent); cursor: pointer; }
+.oi-main { min-width: 0; flex: 1; }
+.oi-txt { overflow-wrap: anywhere; white-space: pre-wrap; }
+.oi.done .oi-txt { text-decoration: line-through; text-decoration-thickness: 1.5px; color: var(--muted); }
+.oi-meta { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 2px; font-size: 12px; color: var(--muted); }
+.oi-res { color: var(--ink); }
+.oi-del { font: inherit; font-size: 12px; color: var(--muted); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
+.oi-st { margin: 6px 0 0; font-size: 12.5px; color: var(--muted); min-height: 1em; }
+.oi-add { display: flex; flex-direction: column; gap: 6px; margin: 8px 0 0; max-width: 90ch; }
+.oi-add .line { display: flex; gap: 8px; align-items: flex-end; }
+.oi-add textarea, .oi-add input { flex: 1 1 auto; min-width: 0; font: inherit; font-size: 16px; padding: 9px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); }
+.oi-add textarea { resize: none; max-height: 140px; line-height: 1.35; }
+.oi-add label { font-size: 13px; color: var(--muted); }
+.pk-oi { margin-top: 8px; padding-top: 6px; border-top: 1px solid var(--line); }
+.pk-oi-h { font-size: 13px; color: var(--muted); }
+.pk-oi .oi-st:empty { display: none; }
 .feed { color: var(--muted); max-width: 90ch; }
 .tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 4px; background: var(--panel); }
 table { border-collapse: collapse; width: 100%; font-size: 12.5px; min-width: 700px; }
@@ -282,7 +300,7 @@ tbody tr:last-child td { border-bottom: 0; }
 
 <div id="app">
   <header class="bar">
-    <div class="brand"><span class="eyebrow">7824 Zero Road · second floor</span><h1>Contractor App <span class="ver" id="appver" title="App version">v18</span></h1></div>
+    <div class="brand"><span class="eyebrow">7824 Zero Road · second floor</span><h1>Contractor App <span class="ver" id="appver" title="App version">v20</span></h1></div>
     <nav class="tabs" role="tablist" aria-label="Sheets">
       <button type="button" role="tab" id="tab-3d" aria-selected="true" aria-controls="sheet-3d" data-sheet="3d"><span class="no">3D</span>Model</button>
       <button type="button" role="tab" id="tab-s1" aria-selected="false" aria-controls="sheet-s1" data-sheet="s1"><span class="no">S-1</span>Framing</button>
@@ -6089,6 +6107,21 @@ requestAnimationFrame(frame);
 
 <script src="chat-config.js"></script>
 <script>
+// ---------------------------------------------------------------- one Firebase connection (anonymous sign-in) shared by the chat and the open items
+(function () {
+  const cfg = window.ZR_CHAT || {};
+  if (!cfg.firebase || !cfg.firebase.projectId) return;
+  const V = cfg.sdk || '12.18.0', base = `https://www.gstatic.com/firebasejs/${V}/`;
+  window.zrFirebase = Promise.all([import(base + 'firebase-app.js'), import(base + 'firebase-auth.js'), import(base + 'firebase-firestore.js')])
+    .then(async ([A, U, F]) => {
+      const app = A.initializeApp(cfg.firebase, 'zr-chat');
+      const auth = U.getAuth(app), db = F.getFirestore(app);
+      const cred = await U.signInAnonymously(auth);
+      return { F, db, uid: cred.user.uid, room: cfg.room || 'zero-rd-crew' };
+    });
+})();
+</script>
+<script>
 // ---------------------------------------------------------------- crew chat: one room for everyone on the job, kept in Firebase (see CHAT-SETUP.md)
 (function () {
   const cfg = window.ZR_CHAT || {};
@@ -6208,14 +6241,10 @@ requestAnimationFrame(frame);
     seen(); countUnread();
   }
 
-  const V = cfg.sdk || '12.18.0', base = `https://www.gstatic.com/firebasejs/${V}/`;
-  Promise.all([import(base + 'firebase-app.js'), import(base + 'firebase-auth.js'), import(base + 'firebase-firestore.js')])
-    .then(async ([A, U, F]) => {
-      const app = A.initializeApp(cfg.firebase, 'zr-chat');
-      const auth = U.getAuth(app), db = F.getFirestore(app);
-      const cred = await U.signInAnonymously(auth);
-      myUid = cred.user.uid;
-      const col = F.collection(db, 'rooms', cfg.room || 'zero-rd-crew', 'messages');
+  window.zrFirebase
+    .then(({ F, db, uid, room }) => {
+      myUid = uid;
+      const col = F.collection(db, 'rooms', room, 'messages');
       send = msg => F.addDoc(col, { ...msg, uid: myUid, at: F.serverTimestamp() });
       remove = id => F.deleteDoc(F.doc(col, id));
       if (form.goBtn) form.goBtn.disabled = false;
@@ -6227,6 +6256,154 @@ requestAnimationFrame(frame);
       }, err => { status.textContent = 'can’t load: ' + (err.code || 'error'); });
     })
     .catch(err => { status.textContent = navigator.onLine ? 'can’t connect: ' + (err.code || err.message || 'error') : 'offline'; });
+})();
+</script>
+
+<script>
+// ---------------------------------------------------------------- open items: tick off to resolve (struck through for everyone), add new ones per trade,
+// or comment on a picked item from its card (the comment is an open item tied to that item); kept in Firebase next to the chat
+(function () {
+  const TRADES = { s1: 'Framing', e1: 'Electrical', p1: 'Plumbing', m1: 'HVAC', r1: 'Radiant' };
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+  const store = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) { /* per-viewer convenience */ } } };
+  // a drawn item is keyed by its sheet and its wording, so it stays resolved until the wording changes
+  const hash = t => { let h = 5381; for (let i = 0; i < t.length; i++) h = (h * 33 ^ t.charCodeAt(i)) >>> 0; return h.toString(36); };
+  const dateFmt = new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric' });
+  const when = ms => ms ? dateFmt.format(new Date(ms)) : '';
+
+  const me = () => store.get('zr-chat-name') || '';
+  let fb = null, items = [], done = new Map(), state = 'connecting…';
+  const lists = [];
+
+  for (const sheet of document.querySelectorAll('.sheet2d')) {
+    const ul = sheet.querySelector('.open ul'); if (!ul) continue;
+    const key = sheet.id.slice(6), trade = TRADES[key] || '';
+    const pane = ul.closest('.pane'), wrap = pane && pane.parentElement, bar = wrap && wrap.previousElementSibling;
+    const btn = bar && bar.children[[...wrap.children].indexOf(pane)];
+    const drawn = [...ul.children].map(li => { const span = el('span', 'oi-txt'); span.append(...li.childNodes); return { id: 'b-' + key + '-' + hash(span.textContent.trim()), body: span }; });
+    ul.classList.add('oi-list');
+    const st = el('p', 'oi-st');
+    const form = el('form', 'oi-add');
+    ul.after(st, form);
+    const L = { key, trade, ul, drawn, st, form, btn };
+    // the picked item's card gets its own open items and a comment box
+    const pk = sheet.querySelector('.picked .pk-card'), tag = pk && pk.querySelector('.pk-tag');
+    if (tag) {
+      L.card = { box: el('div', 'pk-oi'), h: el('div', 'pk-oi-h'), ul: el('ul', 'oi-list'), st: el('p', 'oi-st'), form: el('form', 'oi-add'), tag };
+      L.card.box.append(L.card.h, L.card.ul, L.card.st, L.card.form); pk.append(L.card.box);
+      new MutationObserver(() => drawCard(L)).observe(tag, { childList: true, characterData: true, subtree: true });
+    }
+    lists.push(L); drawForms(L);
+  }
+  if (!lists.length) return;
+
+  function row(L, id, body, meta, mine, itemId) {
+    const d = done.get(id);
+    const li = el('li', 'oi' + (d ? ' done' : ''));
+    const box = el('input'); box.type = 'checkbox'; box.checked = !!d; box.disabled = !fb;
+    box.setAttribute('aria-label', d ? 'Resolved; untick to reopen' : 'Mark resolved');
+    box.addEventListener('change', () => toggle(L, id, box));
+    const main = el('div', 'oi-main'); main.append(body);
+    const m = el('div', 'oi-meta');
+    if (meta) m.append(el('span', null, meta));
+    if (d) m.append(el('span', 'oi-res', 'Resolved by ' + (d.name || '?') + (d.at ? ' · ' + when(d.at) : '')));
+    if (mine) { const x = el('button', 'oi-del', 'Delete'); x.type = 'button'; x.addEventListener('click', () => { if (!confirm('Delete this open item for everyone?')) return; const { F, db, room } = fb; F.deleteDoc(F.doc(db, 'rooms', room, 'items', itemId)).then(() => d && F.deleteDoc(F.doc(db, 'rooms', room, 'done', id))).catch(err => say(L, 'not deleted: ' + (err.code || 'error'))); }); m.append(x); }
+    if (m.childElementCount) main.append(m);
+    li.append(box, main);
+    return li;
+  }
+
+  function draw() {
+    for (const L of lists) {
+      L.ul.replaceChildren();
+      let open = 0;
+      for (const b of L.drawn) { L.ul.append(row(L, b.id, b.body.cloneNode(true), '', false)); if (!done.has(b.id)) open++; }
+      for (const it of items) {
+        if (it.sheet !== L.key) continue;
+        const id = 'i-' + it.id;
+        L.ul.append(row(L, id, el('span', 'oi-txt', it.text), (it.ref ? 'On ' + it.ref + ' · ' : '') + 'Added by ' + (it.name || '?') + (it.trade ? ' (' + it.trade + ')' : '') + ' · ' + when(it.at), fb && it.uid === fb.uid, it.id));
+        if (!done.has(id)) open++;
+      }
+      if (L.btn) { let n = L.btn.querySelector('.n'); if (!n) { n = el('span', 'n'); L.btn.appendChild(n); } n.textContent = open; L.btn.title = open + ' open'; }
+      if (!L.err) L.st.textContent = state;
+      drawCard(L);
+    }
+  }
+  function refOf(L) { return L.card.tag.textContent.trim().slice(0, 60); }
+  function drawCard(L) {
+    if (!L.card) return;
+    const ref = refOf(L), mine = items.filter(it => it.sheet === L.key && it.ref === ref);
+    L.card.ul.replaceChildren();
+    for (const it of mine) L.card.ul.append(row(L, 'i-' + it.id, el('span', 'oi-txt', it.text), 'Added by ' + (it.name || '?') + (it.trade ? ' (' + it.trade + ')' : '') + ' · ' + when(it.at), fb && it.uid === fb.uid, it.id));
+    const open = mine.filter(it => !done.has('i-' + it.id)).length;
+    L.card.h.textContent = mine.length ? `Open items on ${ref}: ${open} open` : `Comments on ${ref} become open items for ${L.trade || 'this sheet'} until resolved.`;
+    const ta = L.card.form.querySelector('textarea'); if (ta) ta.placeholder = 'Comment on ' + ref + '…';
+    if (!L.err) L.card.st.textContent = state;
+  }
+  function sts(L) { return L.card ? [L.st, L.card.st] : [L.st]; }
+  function say(L, msg) { L.err = true; sts(L).forEach(x => x.textContent = msg); setTimeout(() => { L.err = false; sts(L).forEach(x => x.textContent = state); }, 6000); }
+
+  function needName(L) {
+    if (me()) return false;
+    const forms = [L.card && !L.card.box.closest('.picked').hidden && L.card.form, L.form].filter(Boolean);
+    const n = forms.map(f => f.querySelector('input[name=who]')).find(Boolean);
+    if (n) { n.focus(); say(L, 'Put your name in first, so the crew knows who resolved it.'); }
+    return true;
+  }
+
+  async function toggle(L, id, box) {
+    if (!fb || needName(L)) { box.checked = !box.checked; return; }
+    const { F, db, room, uid } = fb, ref = F.doc(db, 'rooms', room, 'done', id);
+    try {
+      if (box.checked) await F.setDoc(ref, { name: me(), uid, at: F.serverTimestamp() });
+      else await F.deleteDoc(ref);
+    } catch (err) { box.checked = !box.checked; say(L, 'not saved: ' + (err.code || err.message || 'error')); }
+  }
+
+  function drawForms(L) { drawForm(L, L.form, false); if (L.card) drawForm(L, L.card.form, true); }
+  function drawForm(L, f, onCard) {
+    f.replaceChildren();
+    if (!me()) {
+      const n = el('input'); n.name = 'who'; n.placeholder = 'Your name'; n.maxLength = 40; n.autocomplete = 'name'; n.setAttribute('aria-label', 'Your name');
+      const ok = el('button', 'chat-btn', 'Save'); ok.type = 'button';
+      ok.addEventListener('click', () => { const v = n.value.trim().slice(0, 40); if (!v) return n.focus(); store.set('zr-chat-name', v); if (!store.get('zr-chat-trade') && L.trade) store.set('zr-chat-trade', L.trade); lists.forEach(x => { x.err = false; drawForms(x); }); draw(); });
+      const line = el('div', 'line'); line.append(n, ok);
+      f.append(el('label', null, 'Your name, to resolve or add items (the chat uses it too)'), line);
+      return;
+    }
+    const ta = el('textarea'); ta.rows = 1; ta.maxLength = 1000; ta.placeholder = onCard ? 'Comment on ' + refOf(L) + '…' : 'Add an open item for ' + (L.trade || 'this sheet') + '…'; ta.setAttribute('aria-label', onCard ? 'Comment on this item (adds an open item)' : 'New open item');
+    const fit = () => { ta.style.height = 'auto'; ta.style.height = Math.min(ta.scrollHeight + 2, 140) + 'px'; };
+    ta.addEventListener('input', fit);
+    const go = el('button', 'chat-btn go', onCard ? 'Post' : 'Add'); go.type = 'submit';
+    const line = el('div', 'line'); line.append(ta, go);
+    f.append(line);
+    f.onsubmit = async e => {
+      e.preventDefault();
+      const text = ta.value.trim(); if (!text) return;
+      if (!fb) return say(L, 'not connected yet; try again in a moment');
+      const { F, db, room, uid } = fb, it = { sheet: L.key, text: text.slice(0, 1000), name: me(), uid, at: F.serverTimestamp() };
+      const t = store.get('zr-chat-trade'); if (t) it.trade = t.slice(0, 40);
+      if (onCard && refOf(L)) it.ref = refOf(L);
+      ta.value = ''; fit();
+      try { await F.addDoc(F.collection(db, 'rooms', room, 'items'), it); } catch (err) { ta.value = text; fit(); say(L, 'not added: ' + (err.code || err.message || 'error')); }
+    };
+  }
+
+  draw();
+  if (!window.zrFirebase) { state = 'Resolving and adding items needs the crew chat switched on (CHAT-SETUP.md).'; draw(); return; }
+  window.zrFirebase.then(conn => {
+    fb = conn; state = ''; draw();
+    const { F, db, room } = conn;
+    const onErr = err => { state = 'can’t load: ' + (err.code || 'error'); draw(); };
+    F.onSnapshot(F.query(F.collection(db, 'rooms', room, 'items'), F.orderBy('at'), F.limit(500)), snap => {
+      items = snap.docs.map(d => { const x = d.data({ serverTimestamps: 'estimate' }); return { id: d.id, sheet: x.sheet, ref: x.ref, text: x.text, name: x.name, trade: x.trade, uid: x.uid, at: x.at ? x.at.toMillis() : Date.now() }; });
+      state = snap.metadata.fromCache ? 'offline: showing the last copy' : ''; draw();
+    }, onErr);
+    F.onSnapshot(F.query(F.collection(db, 'rooms', room, 'done'), F.limit(2000)), snap => {
+      done = new Map(snap.docs.map(d => { const x = d.data({ serverTimestamps: 'estimate' }); return [d.id, { name: x.name, at: x.at ? x.at.toMillis() : Date.now() }]; }));
+      draw();
+    }, onErr);
+  }).catch(err => { state = navigator.onLine ? 'can’t connect: ' + (err.code || err.message || 'error') : 'offline'; draw(); });
 })();
 </script>
 

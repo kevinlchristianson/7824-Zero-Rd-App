@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="app-version" content="v20">
+<meta name="app-version" content="v21">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -300,7 +300,7 @@ tbody tr:last-child td { border-bottom: 0; }
 
 <div id="app">
   <header class="bar">
-    <div class="brand"><span class="eyebrow">7824 Zero Road · second floor</span><h1>Contractor App <span class="ver" id="appver" title="App version">v20</span></h1></div>
+    <div class="brand"><span class="eyebrow">7824 Zero Road · second floor</span><h1>Contractor App <span class="ver" id="appver" title="App version">v21</span></h1></div>
     <nav class="tabs" role="tablist" aria-label="Sheets">
       <button type="button" role="tab" id="tab-3d" aria-selected="true" aria-controls="sheet-3d" data-sheet="3d"><span class="no">3D</span>Model</button>
       <button type="button" role="tab" id="tab-s1" aria-selected="false" aria-controls="sheet-s1" data-sheet="s1"><span class="no">S-1</span>Framing</button>
@@ -328,7 +328,7 @@ tbody tr:last-child td { border-bottom: 0; }
           <label class="toggle"><input type="checkbox" id="ly-radiant" checked><span class="sw" style="background:#c62828"></span> Radiant floor heat: PEX loops and manifolds (hydronic pack M-1); red zone A, orange B, blue C</label>
           <label class="toggle"><input type="checkbox" id="ly-furn" checked><span class="sw" style="background:#dfe8df"></span> Fixtures and furniture</label>
           <label class="toggle"><input type="checkbox" id="ly-shell" checked><span class="sw" style="background:#8d8378"></span> Brick shell and windows</label>
-          <label class="toggle"><input type="checkbox" id="ly-floor" checked><span class="sw" style="background:#ffffff"></span> Plan drawing on the floor</label>
+          <label class="toggle"><input type="checkbox" id="ly-floor" checked><span class="sw" style="background:#ffffff"></span> Plan drawing on the floor, with room dimensions wall to wall (stud faces)</label>
           <div class="cut">
             <label for="cut">Cut the walls at</label>
             <input type="range" id="cut" min="1" max="9.5" step="0.25" value="9.5">
@@ -5674,6 +5674,73 @@ function buildFloor() {
   const e = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(BY, 2, BX)), MAT.truss); e.position.set(0, -1, 0); G.floor.add(e);
 }
 
+// ---------------------------------------------------------------- room dimensions drawn flat on the floor, like the plan grid
+// Each room gets two dimension lines, wall to wall: interior walls to the stud face 2" off the drawn centre line,
+// exterior walls to the exterior stud face 6" in from the brick (the app's taping convention).
+function buildRoomDims() {
+  const P = 40;                                   // canvas pixels per foot
+  const EXT = 0.5, INT = 2 / 12, TOL = 0.05;
+  const cv = document.createElement('canvas'); cv.width = BX * P; cv.height = BY * P;
+  const ctx = cv.getContext('2d');
+  const cx = X => X * P, cy = Y => (BY - Y) * P;  // same sheet layout as the plan drawing: north left, east at the top
+  const walls = framing.walls;
+  // the finished face bounding a room edge: exterior stud face, the stud face of a wall on that line, or the edge itself
+  function face(c, along, lo, hi, inward) {
+    const outer = along === 'X' ? BX : BY;
+    if (Math.abs(c - shell.f) < TOL) return EXT;
+    if (Math.abs(c - (outer - shell.f)) < TOL) return outer - EXT;
+    const hit = walls.some(w => (along === 'X' ? !w.alongX && Math.abs(w.x1 - c) < TOL && Math.min(w.y1, w.y2) < hi - TOL && Math.max(w.y1, w.y2) > lo + TOL
+                                               : w.alongX && Math.abs(w.y1 - c) < TOL && Math.min(w.x1, w.x2) < hi - TOL && Math.max(w.x1, w.x2) > lo + TOL));
+    return hit ? c + inward * INT : c;
+  }
+  const INK = '#4f6b8a';
+  function dim(ax, ay, bx, by, len, size) {
+    // a dimension line from a to b (canvas px) with architectural ticks, its length set in a gap at the middle
+    const L = Math.hypot(bx - ax, by - ay), ux = (bx - ax) / L, uy = (by - ay) / L;
+    const text = ftIn(len), fs = size * P;
+    ctx.font = `600 ${fs}px "IBM Plex Sans", "Segoe UI", Helvetica, Arial, sans-serif`;
+    const tw = ctx.measureText(text).width, gap = tw / 2 + fs * 0.35;
+    const mx = (ax + bx) / 2, my = (ay + by) / 2;
+    ctx.strokeStyle = INK; ctx.lineWidth = 0.06 * P; ctx.lineCap = 'butt';
+    ctx.beginPath();
+    if (L > 2 * gap + 0.6 * P) { ctx.moveTo(ax, ay); ctx.lineTo(mx - ux * gap, my - uy * gap); ctx.moveTo(mx + ux * gap, my + uy * gap); ctx.lineTo(bx, by); }
+    else { ctx.moveTo(ax, ay); ctx.lineTo(bx, by); }
+    ctx.stroke();
+    // 45° ticks and short witness lines at both wall faces
+    const t = 0.22 * P, nx = -uy, ny = ux;
+    ctx.lineWidth = 0.09 * P; ctx.beginPath();
+    for (const [x, y] of [[ax, ay], [bx, by]]) {
+      ctx.moveTo(x - (ux + nx) * t * 0.7, y - (uy + ny) * t * 0.7); ctx.lineTo(x + (ux + nx) * t * 0.7, y + (uy + ny) * t * 0.7);
+      ctx.moveTo(x - nx * t, y - ny * t); ctx.lineTo(x + nx * t, y + ny * t);
+    }
+    ctx.stroke();
+    if (L <= 2 * gap + 0.6 * P) return;
+    ctx.save(); ctx.translate(mx, my); ctx.rotate(Math.atan2(uy, ux));
+    ctx.fillStyle = INK; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(text, 0, 0);
+    ctx.restore();
+  }
+  for (const [x1, x2, y1, y2] of plan.rooms) {
+    if (x2 - x1 > BX - 2 && y2 - y1 > BY - 2) continue;   // the whole-floor living field, not a room
+    const fx1 = face(x1, 'X', y1, y2, 1), fx2 = face(x2, 'X', y1, y2, -1), fy1 = face(y1, 'Y', x1, x2, 1), fy2 = face(y2, 'Y', x1, x2, -1);
+    const w = fx2 - fx1, h = fy2 - fy1; if (w < 1.5 || h < 1.5) continue;
+    const size = Math.max(0.45, Math.min(0.9, Math.min(w, h) / 7));
+    // north–south run near the west wall of the room, east–west run near its north wall, clear of the room name in the middle
+    const yL = fy1 + Math.min(1.6, h * 0.22), xL = fx1 + Math.min(1.6, w * 0.22);
+    dim(cx(fx1), cy(yL), cx(fx2), cy(yL), w, size);
+    dim(cx(xL), cy(fy1), cx(xL), cy(fy2), h, size);
+  }
+  // the den is part of the open great room, so it has no room rectangle: east–west from the face of W17 to the east wall
+  { const x = 46.2, a = 36.7 + INT, b = BY - EXT; dim(cx(x), cy(a), cx(x), cy(b), b - a, 0.8); }
+  const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; tex.flipY = false; tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+  const m = new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
+  const A = M(0, 0), B = M(BX, 0), C = M(BX, BY), D = M(0, BY), y = 0.03;
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute([A.x, y, A.z, B.x, y, B.z, C.x, y, C.z, D.x, y, D.z], 3));
+  g.setAttribute('uv', new THREE.Float32BufferAttribute([0, 1, 1, 1, 1, 0, 0, 0], 2));
+  g.setIndex([0, 1, 2, 0, 2, 3]);
+  const plate = new THREE.Mesh(g, m); plate.renderOrder = 1; G.floor.add(plate);
+}
+
 // ---------------------------------------------------------------- the brick shell: 4 walls with windows and doors
 const WIN_SILL = 2.5, WIN_HEAD = 7.5, EXT_DOOR_H = 8.0, BRICK = 0.67;
 function buildShell() {
@@ -6059,7 +6126,7 @@ function buildRadiant() {
 }
 
 // ---------------------------------------------------------------- build everything
-buildFloor(); buildShell(); buildHVAC(); buildTrusses(); buildRoofTrusses(); buildRadiant();
+buildFloor(); buildRoomDims(); buildShell(); buildHVAC(); buildTrusses(); buildRoofTrusses(); buildRadiant();
 for (const w of framing.walls) { wallBoxes(w, true, MAT.wall); frameWall(w); }
 frameFurring();
 buildFurniture(); buildElectrical(); buildPlumbing();

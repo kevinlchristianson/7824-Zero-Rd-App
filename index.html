@@ -101,6 +101,7 @@ a.packet:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .paper svg .sym, .paper svg .tag { cursor: pointer; }
 .paper svg .sym:hover, .paper svg .tag:hover { filter: drop-shadow(0 0 2px #e08a00); }
 .paper svg .sym.on, .paper svg .tag.on { filter: drop-shadow(0 0 3px #e08a00) drop-shadow(0 0 6px #e08a00); }
+#sheet-r1 .paper svg:has(g.sym[id^="r1-L"].on) g.sym[id^="r1-L"]:not(.on) { opacity: .15; transition: opacity .15s; }
 .paper svg .sym.on-leg { filter: drop-shadow(0 0 2px #2c6aa0) drop-shadow(0 0 5px #2c6aa0); }
 /* the glow alone is too faint on a phone: the picked device gets an orange disc, every device on its switch leg a blue one */
 .paper svg .sym.on-leg .hit { fill: #2c6aa0; fill-opacity: .3; stroke: #2c6aa0; stroke-width: 2; }

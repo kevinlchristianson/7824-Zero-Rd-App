@@ -310,8 +310,7 @@ tbody tr:last-child td { border-bottom: 0; }
           <label class="toggle"><input type="checkbox" id="ly-radiant" checked><span class="sw" style="background:#c62828"></span> Radiant floor heat: PEX loops and manifolds (hydronic pack M-1); red zone A, orange B, blue C</label>
           <label class="toggle"><input type="checkbox" id="ly-furn" checked><span class="sw" style="background:#dfe8df"></span> Fixtures and furniture</label>
           <label class="toggle"><input type="checkbox" id="ly-shell" checked><span class="sw" style="background:#8d8378"></span> Brick shell and windows</label>
-          <label class="toggle"><input type="checkbox" id="ly-floor" checked><span class="sw" style="background:#ffffff"></span> Plan drawing on the floor</label>
-          <label class="toggle"><input type="checkbox" id="ly-dims" checked><span class="sw" style="background:#4f6b8a"></span> Room dimensions on the floor, wall to wall (stud faces)</label>
+          <label class="toggle"><input type="checkbox" id="ly-floor" checked><span class="sw" style="background:#ffffff"></span> Plan drawing on the floor, with room dimensions wall to wall (stud faces)</label>
           <div class="cut">
             <label for="cut">Cut the walls at</label>
             <input type="range" id="cut" min="1" max="9.5" step="0.25" value="9.5">
@@ -5601,7 +5600,7 @@ const MAT = {
 function setCut(h) { const on = h < 9.5; cutPlane.constant = h; for (const m of cutMats) { m.clippingPlanes = on ? [cutPlane] : null; m.needsUpdate = true; } }
 
 // ---------------------------------------------------------------- groups
-const G = {}; for (const k of ['floor', 'shell', 'walls', 'framing', 'elec', 'plumb', 'furn', 'hvac', 'truss', 'roof', 'radiant', 'dims']) { G[k] = new THREE.Group(); scene.add(G[k]); }
+const G = {}; for (const k of ['floor', 'shell', 'walls', 'framing', 'elec', 'plumb', 'furn', 'hvac', 'truss', 'roof', 'radiant']) { G[k] = new THREE.Group(); scene.add(G[k]); }
 const pickables = [];
 function box(x1, x2, y1, y2, bottom, top, material, data, group) {
   // a box over plan rectangle [x1,x2] × [y1,y2] from height bottom to top (feet)
@@ -5712,6 +5711,8 @@ function buildRoomDims() {
     dim(cx(fx1), cy(yL), cx(fx2), cy(yL), w, size);
     dim(cx(xL), cy(fy1), cx(xL), cy(fy2), h, size);
   }
+  // the den is part of the open great room, so it has no room rectangle: east–west from the face of W17 to the east wall
+  { const x = 46.2, a = 36.7 + INT, b = BY - EXT; dim(cx(x), cy(a), cx(x), cy(b), b - a, 0.8); }
   const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; tex.flipY = false; tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
   const m = new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
   const A = M(0, 0), B = M(BX, 0), C = M(BX, BY), D = M(0, BY), y = 0.03;
@@ -5719,7 +5720,7 @@ function buildRoomDims() {
   g.setAttribute('position', new THREE.Float32BufferAttribute([A.x, y, A.z, B.x, y, B.z, C.x, y, C.z, D.x, y, D.z], 3));
   g.setAttribute('uv', new THREE.Float32BufferAttribute([0, 1, 1, 1, 1, 0, 0, 0], 2));
   g.setIndex([0, 1, 2, 0, 2, 3]);
-  const plate = new THREE.Mesh(g, m); plate.renderOrder = 1; G.dims.add(plate);
+  const plate = new THREE.Mesh(g, m); plate.renderOrder = 1; G.floor.add(plate);
 }
 
 // ---------------------------------------------------------------- the brick shell: 4 walls with windows and doors
@@ -6136,11 +6137,11 @@ function applyLayers() {
   G.framing.visible = fr;
   G.walls.visible = $('ly-walls').checked;
   for (const m of G.walls.children) m.material = fr ? MAT.wallGhost : MAT.wall;
-  G.elec.visible = $('ly-elec').checked; G.plumb.visible = $('ly-plumb').checked; G.hvac.visible = $('ly-hvac').checked; G.truss.visible = $('ly-truss').checked; G.roof.visible = $('ly-roof').checked; G.radiant.visible = $('ly-radiant').checked; G.furn.visible = $('ly-furn').checked; G.shell.visible = $('ly-shell').checked; G.floor.visible = $('ly-floor').checked; G.dims.visible = $('ly-dims').checked;
+  G.elec.visible = $('ly-elec').checked; G.plumb.visible = $('ly-plumb').checked; G.hvac.visible = $('ly-hvac').checked; G.truss.visible = $('ly-truss').checked; G.roof.visible = $('ly-roof').checked; G.radiant.visible = $('ly-radiant').checked; G.furn.visible = $('ly-furn').checked; G.shell.visible = $('ly-shell').checked; G.floor.visible = $('ly-floor').checked;
   const h = parseFloat($('cut').value); $('cutval').value = h >= 9.5 ? 'no cut' : ftIn(h); setCut(h);
   if (picked && fr) clearPick();
 }
-for (const id of ['ly-walls', 'ly-framing', 'ly-elec', 'ly-plumb', 'ly-hvac', 'ly-truss', 'ly-roof', 'ly-radiant', 'ly-furn', 'ly-shell', 'ly-floor', 'ly-dims', 'cut']) $(id).addEventListener('input', applyLayers);
+for (const id of ['ly-walls', 'ly-framing', 'ly-elec', 'ly-plumb', 'ly-hvac', 'ly-truss', 'ly-roof', 'ly-radiant', 'ly-furn', 'ly-shell', 'ly-floor', 'cut']) $(id).addEventListener('input', applyLayers);
 applyLayers(); status('');
 const needle = $('needle');
 function frame(now) {

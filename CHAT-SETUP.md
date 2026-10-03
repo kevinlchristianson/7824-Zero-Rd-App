@@ -30,7 +30,8 @@ Old messages can be deleted in the Firestore console under `rooms/<room>/message
 
 Each sheet's **Open items** list uses the same Firebase project. Anyone can tick an item to
 resolve it (it's struck through for everyone, with who resolved it and when) and untick it to
-reopen it, and anyone can add a new item to a sheet's list; only its author can delete it.
+reopen it, and anyone can add a new item to a sheet's list, or comment on a picked item from its card
+(the comment becomes an open item on that item until resolved); only its author can delete it.
 Added items live in `rooms/<room>/items` and resolutions in `rooms/<room>/done`. When
 `firestore.rules` changes, paste it into the Firestore **Rules** tab again and press **Publish**,
 or the new writes are refused with `permission-denied`.

@@ -151,6 +151,9 @@ h3 { font-family: var(--display); font-weight: 600; font-size: 18px; margin: 18p
 .oi-add textarea, .oi-add input { flex: 1 1 auto; min-width: 0; font: inherit; font-size: 16px; padding: 9px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); }
 .oi-add textarea { resize: none; max-height: 140px; line-height: 1.35; }
 .oi-add label { font-size: 13px; color: var(--muted); }
+.pk-oi { margin-top: 8px; padding-top: 6px; border-top: 1px solid var(--line); }
+.pk-oi-h { font-size: 13px; color: var(--muted); }
+.pk-oi .oi-st:empty { display: none; }
 .feed { color: var(--muted); max-width: 90ch; }
 .tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 4px; background: var(--panel); }
 table { border-collapse: collapse; width: 100%; font-size: 12.5px; min-width: 700px; }
@@ -6257,7 +6260,8 @@ requestAnimationFrame(frame);
 </script>
 
 <script>
-// ---------------------------------------------------------------- open items: tick off to resolve (struck through for everyone), add new ones per trade; kept in Firebase next to the chat
+// ---------------------------------------------------------------- open items: tick off to resolve (struck through for everyone), add new ones per trade,
+// or comment on a picked item from its card (the comment is an open item tied to that item); kept in Firebase next to the chat
 (function () {
   const TRADES = { s1: 'Framing', e1: 'Electrical', p1: 'Plumbing', m1: 'HVAC', r1: 'Radiant' };
   const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
@@ -6282,7 +6286,14 @@ requestAnimationFrame(frame);
     const form = el('form', 'oi-add');
     ul.after(st, form);
     const L = { key, trade, ul, drawn, st, form, btn };
-    lists.push(L); drawForm(L);
+    // the picked item's card gets its own open items and a comment box
+    const pk = sheet.querySelector('.picked .pk-card'), tag = pk && pk.querySelector('.pk-tag');
+    if (tag) {
+      L.card = { box: el('div', 'pk-oi'), h: el('div', 'pk-oi-h'), ul: el('ul', 'oi-list'), st: el('p', 'oi-st'), form: el('form', 'oi-add'), tag };
+      L.card.box.append(L.card.h, L.card.ul, L.card.st, L.card.form); pk.append(L.card.box);
+      new MutationObserver(() => drawCard(L)).observe(tag, { childList: true, characterData: true, subtree: true });
+    }
+    lists.push(L); drawForms(L);
   }
   if (!lists.length) return;
 
@@ -6310,18 +6321,32 @@ requestAnimationFrame(frame);
       for (const it of items) {
         if (it.sheet !== L.key) continue;
         const id = 'i-' + it.id;
-        L.ul.append(row(L, id, el('span', 'oi-txt', it.text), 'Added by ' + (it.name || '?') + (it.trade ? ' (' + it.trade + ')' : '') + ' · ' + when(it.at), fb && it.uid === fb.uid, it.id));
+        L.ul.append(row(L, id, el('span', 'oi-txt', it.text), (it.ref ? 'On ' + it.ref + ' · ' : '') + 'Added by ' + (it.name || '?') + (it.trade ? ' (' + it.trade + ')' : '') + ' · ' + when(it.at), fb && it.uid === fb.uid, it.id));
         if (!done.has(id)) open++;
       }
       if (L.btn) { let n = L.btn.querySelector('.n'); if (!n) { n = el('span', 'n'); L.btn.appendChild(n); } n.textContent = open; L.btn.title = open + ' open'; }
       if (!L.err) L.st.textContent = state;
+      drawCard(L);
     }
   }
-  function say(L, msg) { L.err = true; L.st.textContent = msg; setTimeout(() => { L.err = false; L.st.textContent = state; }, 6000); }
+  function refOf(L) { return L.card.tag.textContent.trim().slice(0, 60); }
+  function drawCard(L) {
+    if (!L.card) return;
+    const ref = refOf(L), mine = items.filter(it => it.sheet === L.key && it.ref === ref);
+    L.card.ul.replaceChildren();
+    for (const it of mine) L.card.ul.append(row(L, 'i-' + it.id, el('span', 'oi-txt', it.text), 'Added by ' + (it.name || '?') + (it.trade ? ' (' + it.trade + ')' : '') + ' · ' + when(it.at), fb && it.uid === fb.uid, it.id));
+    const open = mine.filter(it => !done.has('i-' + it.id)).length;
+    L.card.h.textContent = mine.length ? `Open items on ${ref}: ${open} open` : `Comments on ${ref} become open items for ${L.trade || 'this sheet'} until resolved.`;
+    const ta = L.card.form.querySelector('textarea'); if (ta) ta.placeholder = 'Comment on ' + ref + '…';
+    if (!L.err) L.card.st.textContent = state;
+  }
+  function sts(L) { return L.card ? [L.st, L.card.st] : [L.st]; }
+  function say(L, msg) { L.err = true; sts(L).forEach(x => x.textContent = msg); setTimeout(() => { L.err = false; sts(L).forEach(x => x.textContent = state); }, 6000); }
 
   function needName(L) {
     if (me()) return false;
-    const n = L.form.querySelector('input[name=who]');
+    const forms = [L.card && !L.card.box.closest('.picked').hidden && L.card.form, L.form].filter(Boolean);
+    const n = forms.map(f => f.querySelector('input[name=who]')).find(Boolean);
     if (n) { n.focus(); say(L, 'Put your name in first, so the crew knows who resolved it.'); }
     return true;
   }
@@ -6335,20 +6360,21 @@ requestAnimationFrame(frame);
     } catch (err) { box.checked = !box.checked; say(L, 'not saved: ' + (err.code || err.message || 'error')); }
   }
 
-  function drawForm(L) {
-    const f = L.form; f.replaceChildren();
+  function drawForms(L) { drawForm(L, L.form, false); if (L.card) drawForm(L, L.card.form, true); }
+  function drawForm(L, f, onCard) {
+    f.replaceChildren();
     if (!me()) {
       const n = el('input'); n.name = 'who'; n.placeholder = 'Your name'; n.maxLength = 40; n.autocomplete = 'name'; n.setAttribute('aria-label', 'Your name');
       const ok = el('button', 'chat-btn', 'Save'); ok.type = 'button';
-      ok.addEventListener('click', () => { const v = n.value.trim().slice(0, 40); if (!v) return n.focus(); store.set('zr-chat-name', v); if (!store.get('zr-chat-trade') && L.trade) store.set('zr-chat-trade', L.trade); lists.forEach(x => { x.err = false; drawForm(x); }); draw(); });
+      ok.addEventListener('click', () => { const v = n.value.trim().slice(0, 40); if (!v) return n.focus(); store.set('zr-chat-name', v); if (!store.get('zr-chat-trade') && L.trade) store.set('zr-chat-trade', L.trade); lists.forEach(x => { x.err = false; drawForms(x); }); draw(); });
       const line = el('div', 'line'); line.append(n, ok);
       f.append(el('label', null, 'Your name, to resolve or add items (the chat uses it too)'), line);
       return;
     }
-    const ta = el('textarea'); ta.rows = 1; ta.maxLength = 1000; ta.placeholder = 'Add an open item for ' + (L.trade || 'this sheet') + '…'; ta.setAttribute('aria-label', 'New open item');
+    const ta = el('textarea'); ta.rows = 1; ta.maxLength = 1000; ta.placeholder = onCard ? 'Comment on ' + refOf(L) + '…' : 'Add an open item for ' + (L.trade || 'this sheet') + '…'; ta.setAttribute('aria-label', onCard ? 'Comment on this item (adds an open item)' : 'New open item');
     const fit = () => { ta.style.height = 'auto'; ta.style.height = Math.min(ta.scrollHeight + 2, 140) + 'px'; };
     ta.addEventListener('input', fit);
-    const go = el('button', 'chat-btn go', 'Add'); go.type = 'submit';
+    const go = el('button', 'chat-btn go', onCard ? 'Post' : 'Add'); go.type = 'submit';
     const line = el('div', 'line'); line.append(ta, go);
     f.append(line);
     f.onsubmit = async e => {
@@ -6357,6 +6383,7 @@ requestAnimationFrame(frame);
       if (!fb) return say(L, 'not connected yet; try again in a moment');
       const { F, db, room, uid } = fb, it = { sheet: L.key, text: text.slice(0, 1000), name: me(), uid, at: F.serverTimestamp() };
       const t = store.get('zr-chat-trade'); if (t) it.trade = t.slice(0, 40);
+      if (onCard && refOf(L)) it.ref = refOf(L);
       ta.value = ''; fit();
       try { await F.addDoc(F.collection(db, 'rooms', room, 'items'), it); } catch (err) { ta.value = text; fit(); say(L, 'not added: ' + (err.code || err.message || 'error')); }
     };
@@ -6369,7 +6396,7 @@ requestAnimationFrame(frame);
     const { F, db, room } = conn;
     const onErr = err => { state = 'can’t load: ' + (err.code || 'error'); draw(); };
     F.onSnapshot(F.query(F.collection(db, 'rooms', room, 'items'), F.orderBy('at'), F.limit(500)), snap => {
-      items = snap.docs.map(d => { const x = d.data({ serverTimestamps: 'estimate' }); return { id: d.id, sheet: x.sheet, text: x.text, name: x.name, trade: x.trade, uid: x.uid, at: x.at ? x.at.toMillis() : Date.now() }; });
+      items = snap.docs.map(d => { const x = d.data({ serverTimestamps: 'estimate' }); return { id: d.id, sheet: x.sheet, ref: x.ref, text: x.text, name: x.name, trade: x.trade, uid: x.uid, at: x.at ? x.at.toMillis() : Date.now() }; });
       state = snap.metadata.fromCache ? 'offline: showing the last copy' : ''; draw();
     }, onErr);
     F.onSnapshot(F.query(F.collection(db, 'rooms', room, 'done'), F.limit(2000)), snap => {

@@ -5856,14 +5856,16 @@ function frameOf(x1, x2, y1, y2, front) {
 
 // Kevin's choices from the app's open items (2026-10-04) that differ from the plan drawing
 const FURN_CHOICES = {
-  moves: [{ from: [24, 26, 43.7, 45.2], to: [26.5, 28.03, 43.6, 45.6], as: 'nightstand' }],   // master nightstand, against wall 19 by the bed head
+  moves: [{ from: [24, 26, 43.7, 45.2], to: [26.5, 28.03, 43.6, 45.6], as: 'nightstand' },   // master nightstand, against wall 19 by the bed head
+    { from: [22.3, 33.3, 19.1, 20.8], to: [23.3, 32.3, 19.1, 20.8] }],                         // east living sofa: a straight 9', centred where it was
+  drop: [[31, 33.3, 14.6, 19.1]],                                                               // ...and its L return is gone
   freestanding: ['M Bath'],                                                                     // freestanding soaker tub
   ovalDining: 6,                                                                                // 6-seat oval dining table
   tvs: [{ wall: 27, inch: 75, at: 12.2, side: 1 }, { wall: 23, inch: 55, at: 40.3, side: 1 }],   // wall-mounted, on the face toward +x
 };
 function buildFurniture() {
   const near = (a, b) => a.every((v, i) => Math.abs(v - b[i]) < 0.02);
-  const fx = plan.fixtures.map(f => { const m = FURN_CHOICES.moves.find(m => near(f.slice(1, 5), m.from)); return m ? [f[0], ...m.to, m.as] : f; }), labels = plan.labels;
+  const fx = plan.fixtures.map(f => { const m = FURN_CHOICES.moves.find(m => near(f.slice(1, 5), m.from)); return m ? [f[0], ...m.to, m.as] : f; }).filter(f => !FURN_CHOICES.drop.some(r => near(f.slice(1, 5), r))), labels = plan.labels;
   const built = [];
   const same = (a, b) => [1, 2, 3, 4].every(i => Math.abs(a[i] - b[i]) < 0.01);
   const within = (a, b) => a[1] >= b[1] - 0.01 && a[2] <= b[2] + 0.01 && a[3] >= b[3] - 0.01 && a[4] <= b[4] + 0.01;

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="app-version" content="v22">
+<meta name="app-version" content="v23">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -81,6 +81,12 @@ main { flex: 1; min-height: 0; }
 .compass svg { width: 34px; height: 34px; transition: transform .12s linear; }
 .hud-sel { left: 14px; bottom: 12px; display: flex; align-items: center; gap: 10px; padding: 6px 8px 6px 12px; font-size: 13px; max-width: min(80%, 720px); }
 .hud-sel button { padding: 3px 9px; font-size: 12px; flex: none; border-radius: 6px; border: 1px solid var(--line); background: var(--panel-2); color: var(--ink); font: inherit; cursor: pointer; }
+.hud-sel .sel-c { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.hud-pop { left: 14px; bottom: 58px; width: min(420px, calc(100% - 28px)); max-height: min(60%, 420px); overflow: auto; padding: 8px 12px 10px; font-size: 13px; }
+.hud-pop .pk-oi { margin-top: 0; padding-top: 0; border-top: 0; }
+.hud-pop .pop-h { display: flex; align-items: flex-start; gap: 8px; }
+.hud-pop .pop-h .pk-oi-h { flex: 1 1 auto; }
+.hud-pop .pop-x { flex: none; padding: 3px 9px; font: inherit; font-size: 12px; border-radius: 6px; border: 1px solid var(--line); background: var(--panel-2); color: var(--ink); cursor: pointer; }
 .hud-hint { right: 14px; bottom: 12px; margin: 0; font-size: 12px; color: var(--muted); }
 .hud-status { left: 14px; top: 56px; margin: 0; padding: 6px 10px; font-size: 13px; }
 /* ---------- 2D sheets */
@@ -300,7 +306,7 @@ tbody tr:last-child td { border-bottom: 0; }
 
 <div id="app">
   <header class="bar">
-    <div class="brand"><span class="eyebrow">7824 Zero Road · second floor</span><h1>Contractor App <span class="ver" id="appver" title="App version">v22</span></h1></div>
+    <div class="brand"><span class="eyebrow">7824 Zero Road · second floor</span><h1>Contractor App <span class="ver" id="appver" title="App version">v23</span></h1></div>
     <nav class="tabs" role="tablist" aria-label="Sheets">
       <button type="button" role="tab" id="tab-3d" aria-selected="true" aria-controls="sheet-3d" data-sheet="3d"><span class="no">3D</span>Model</button>
       <button type="button" role="tab" id="tab-s1" aria-selected="false" aria-controls="sheet-s1" data-sheet="s1"><span class="no">S-1</span>Framing</button>
@@ -348,7 +354,8 @@ tbody tr:last-child td { border-bottom: 0; }
           </div>
         </div>
         <p class="hud hud-status chip" id="status">Building the model…</p>
-        <div class="hud hud-sel chip" id="sel" hidden><span id="seltext"></span><button type="button" id="selclear">Clear</button></div>
+        <div class="hud hud-sel chip" id="sel" hidden><span id="seltext"></span><span id="selref" hidden></span><button type="button" id="selcomment" class="sel-c" aria-expanded="false" aria-controls="selpop">Comment</button><button type="button" id="selclear">Clear</button></div>
+        <div class="hud hud-pop chip" id="selpop" role="dialog" aria-label="Comments on the selected item" hidden></div>
         <p class="hud hud-hint">Drag to orbit · scroll to zoom · right-drag or two fingers to pan · click an object to read it</p>
       </div>
     </div>
@@ -6342,8 +6349,18 @@ const ghost = new THREE.Group(); scene.add(ghost);
 
 // ---------------------------------------------------------------- picking
 const raycaster = new THREE.Raycaster(); let picked = null, downAt = null;
-function clearPick() { if (!picked) return; picked.mesh.material = picked.mat; picked = null; $('sel').hidden = true; }
-function pick(mesh) { clearPick(); picked = { mesh, mat: mesh.material }; mesh.material = MAT.hi; $('seltext').textContent = mesh.userData.text; $('sel').hidden = false; }
+function clearPick() { if (!picked) return; picked.mesh.material = picked.mat; picked = null; $('sel').hidden = true; $('selpop').hidden = true; $('selcomment').setAttribute('aria-expanded', 'false'); }
+// a picked item's comments are open items on its trade's sheet; electrical devices use the same tag as the E-1 card, so both show the same comments
+const SHEET_OF = { elec: 'e1', plumb: 'p1', hvac: 'm1', radiant: 'r1' };
+function refOf3d({ kind, text }) {
+  const sheet = SHEET_OF[kind] || (kind === 'furn' && /toilet|tub|vanity|shower|washer/i.test(text) ? 'p1' : 's1');
+  const ref = kind === 'elec' ? text.split(' ')[0] : text.split(/:| — /)[0].trim();
+  return { sheet, ref: ref.slice(0, 60) };
+}
+function pick(mesh) {
+  clearPick(); picked = { mesh, mat: mesh.material }; mesh.material = MAT.hi; $('seltext').textContent = mesh.userData.text; $('sel').hidden = false;
+  const { sheet, ref } = refOf3d(mesh.userData); $('sel').dataset.sheet = sheet; $('selref').textContent = ref;
+}
 $('selclear').addEventListener('click', clearPick);
 renderer.domElement.addEventListener('pointerdown', e => { downAt = [e.clientX, e.clientY]; });
 renderer.domElement.addEventListener('pointerup', e => {
@@ -6548,6 +6565,7 @@ requestAnimationFrame(frame);
   const me = () => store.get('zr-chat-name') || '';
   let fb = null, items = [], done = new Map(), state = 'connecting…';
   const lists = [];
+  let L3 = null;   // the 3D view's comment popup, set up below
 
   for (const sheet of document.querySelectorAll('.sheet2d')) {
     const ul = sheet.querySelector('.open ul'); if (!ul) continue;
@@ -6570,6 +6588,20 @@ requestAnimationFrame(frame);
     lists.push(L); drawForms(L);
   }
   if (!lists.length) return;
+  // the 3D view: the item ribbon's Comment button pops up the picked item's open items and a comment box
+  { const sel = document.getElementById('sel'), ref = document.getElementById('selref'), pop = document.getElementById('selpop'), btn = document.getElementById('selcomment');
+    if (sel && ref && pop && btn) {
+      L3 = { get key() { return sel.dataset.sheet || 's1'; }, get trade() { return TRADES[this.key] || ''; }, btn, st: el('p', 'oi-st'),
+        card: { box: el('div', 'pk-oi'), h: el('div', 'pk-oi-h'), ul: el('ul', 'oi-list'), st: el('p', 'oi-st'), form: el('form', 'oi-add'), tag: ref } };
+      const head = el('div', 'pop-h'), x = el('button', 'pop-x', 'Close'); x.type = 'button';
+      head.append(L3.card.h, x); L3.card.box.append(head, L3.card.ul, L3.card.st, L3.card.form); pop.append(L3.card.box);
+      const show = on => { pop.hidden = !on; btn.setAttribute('aria-expanded', String(on)); if (on) { drawForms(L3); const ta = pop.querySelector('textarea, input'); if (ta && matchMedia('(hover: hover)').matches) ta.focus(); } };
+      btn.addEventListener('click', () => show(pop.hidden)); x.addEventListener('click', () => show(false));
+      new MutationObserver(() => { drawCard(L3); if (!pop.hidden) drawForms(L3); }).observe(ref, { childList: true, characterData: true, subtree: true });
+      drawForms(L3);
+    }
+  }
+  const all = () => L3 ? [...lists, L3] : lists;
 
   function row(L, id, body, meta, mine, itemId) {
     const d = done.get(id);
@@ -6602,6 +6634,7 @@ requestAnimationFrame(frame);
       if (!L.err) L.st.textContent = state;
       drawCard(L);
     }
+    if (L3) drawCard(L3);
   }
   function refOf(L) { return L.card.tag.textContent.trim().slice(0, 60); }
   function drawCard(L) {
@@ -6611,7 +6644,8 @@ requestAnimationFrame(frame);
     for (const it of mine) L.card.ul.append(row(L, 'i-' + it.id, el('span', 'oi-txt', it.text), 'Added by ' + (it.name || '?') + (it.trade ? ' (' + it.trade + ')' : '') + ' · ' + when(it.at), fb && it.uid === fb.uid, it.id));
     const open = mine.filter(it => !done.has('i-' + it.id)).length;
     L.card.h.textContent = mine.length ? `Open items on ${ref}: ${open} open` : `Comments on ${ref} become open items for ${L.trade || 'this sheet'} until resolved.`;
-    const ta = L.card.form.querySelector('textarea'); if (ta) ta.placeholder = 'Comment on ' + ref + '…';
+    if (L === L3) L.btn.textContent = open ? `Comments (${open})` : 'Comment';
+    const ta = L.card.form.querySelector('textarea'); if (ta && L !== L3) ta.placeholder = 'Comment on ' + ref + '…';
     if (!L.err) L.card.st.textContent = state;
   }
   function sts(L) { return L.card ? [L.st, L.card.st] : [L.st]; }
@@ -6619,7 +6653,7 @@ requestAnimationFrame(frame);
 
   function needName(L) {
     if (me()) return false;
-    const forms = [L.card && !L.card.box.closest('.picked').hidden && L.card.form, L.form].filter(Boolean);
+    const forms = [L.card && !L.card.box.closest('[hidden]') && L.card.form, L.form].filter(Boolean);
     const n = forms.map(f => f.querySelector('input[name=who]')).find(Boolean);
     if (n) { n.focus(); say(L, 'Put your name in first, so the crew knows who resolved it.'); }
     return true;
@@ -6634,18 +6668,18 @@ requestAnimationFrame(frame);
     } catch (err) { box.checked = !box.checked; say(L, 'not saved: ' + (err.code || err.message || 'error')); }
   }
 
-  function drawForms(L) { drawForm(L, L.form, false); if (L.card) drawForm(L, L.card.form, true); }
+  function drawForms(L) { if (L.form) drawForm(L, L.form, false); if (L.card) drawForm(L, L.card.form, true); }
   function drawForm(L, f, onCard) {
     f.replaceChildren();
     if (!me()) {
       const n = el('input'); n.name = 'who'; n.placeholder = 'Your name'; n.maxLength = 40; n.autocomplete = 'name'; n.setAttribute('aria-label', 'Your name');
       const ok = el('button', 'chat-btn', 'Save'); ok.type = 'button';
-      ok.addEventListener('click', () => { const v = n.value.trim().slice(0, 40); if (!v) return n.focus(); store.set('zr-chat-name', v); if (!store.get('zr-chat-trade') && L.trade) store.set('zr-chat-trade', L.trade); lists.forEach(x => { x.err = false; drawForms(x); }); draw(); });
+      ok.addEventListener('click', () => { const v = n.value.trim().slice(0, 40); if (!v) return n.focus(); store.set('zr-chat-name', v); if (!store.get('zr-chat-trade') && L.trade) store.set('zr-chat-trade', L.trade); all().forEach(x => { x.err = false; drawForms(x); }); draw(); });
       const line = el('div', 'line'); line.append(n, ok);
       f.append(el('label', null, 'Your name, to resolve or add items (the chat uses it too)'), line);
       return;
     }
-    const ta = el('textarea'); ta.rows = 1; ta.maxLength = 1000; ta.placeholder = onCard ? 'Comment on ' + refOf(L) + '…' : 'Add an open item for ' + (L.trade || 'this sheet') + '…'; ta.setAttribute('aria-label', onCard ? 'Comment on this item (adds an open item)' : 'New open item');
+    const ta = el('textarea'); ta.rows = 1; ta.maxLength = 1000; ta.placeholder = onCard ? (L === L3 ? 'Add a comment…' : 'Comment on ' + refOf(L) + '…') : 'Add an open item for ' + (L.trade || 'this sheet') + '…'; ta.setAttribute('aria-label', onCard ? 'Comment on this item (adds an open item)' : 'New open item');
     const fit = () => { ta.style.height = 'auto'; ta.style.height = Math.min(ta.scrollHeight + 2, 140) + 'px'; };
     ta.addEventListener('input', fit);
     const go = el('button', 'chat-btn go', onCard ? 'Post' : 'Add'); go.type = 'submit';

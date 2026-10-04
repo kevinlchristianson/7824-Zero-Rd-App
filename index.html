@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="app-version" content="v23">
+<meta name="app-version" content="v24">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -306,7 +306,7 @@ tbody tr:last-child td { border-bottom: 0; }
 
 <div id="app">
   <header class="bar">
-    <div class="brand"><span class="eyebrow">7824 Zero Road · second floor</span><h1>Contractor App <span class="ver" id="appver" title="App version">v23</span></h1></div>
+    <div class="brand"><span class="eyebrow">7824 Zero Road · second floor</span><h1>Contractor App <span class="ver" id="appver" title="App version">v24</span></h1></div>
     <nav class="tabs" role="tablist" aria-label="Sheets">
       <button type="button" role="tab" id="tab-3d" aria-selected="true" aria-controls="sheet-3d" data-sheet="3d"><span class="no">3D</span>Model</button>
       <button type="button" role="tab" id="tab-s1" aria-selected="false" aria-controls="sheet-s1" data-sheet="s1"><span class="no">S-1</span>Framing</button>
@@ -5854,8 +5854,17 @@ function frameOf(x1, x2, y1, y2, front) {
   return { L, D, r, p, faceAxis: ax ? 'x' : 'y', alongAxis: ax ? 'y' : 'x', uOf: (px, py) => ax ? py - y1 : px - x1 };
 }
 
+// Kevin's choices from the app's open items (2026-10-04) that differ from the plan drawing
+const FURN_CHOICES = {
+  moves: [{ from: [24, 26, 43.7, 45.2], to: [26.5, 28.03, 43.6, 45.6], as: 'nightstand' }],   // master nightstand, against wall 19 by the bed head
+  freestanding: ['M Bath'],                                                                     // freestanding soaker tub
+  ovalDining: 6,                                                                                // 6-seat oval dining table
+  tvs: [{ wall: 27, inch: 75, at: 12.2, side: 1 }, { wall: 23, inch: 55, at: 40.3, side: 1 }],   // wall-mounted, on the face toward +x
+};
 function buildFurniture() {
-  const fx = plan.fixtures, labels = plan.labels;
+  const near = (a, b) => a.every((v, i) => Math.abs(v - b[i]) < 0.02);
+  const fx = plan.fixtures.map(f => { const m = FURN_CHOICES.moves.find(m => near(f.slice(1, 5), m.from)); return m ? [f[0], ...m.to, m.as] : f; }), labels = plan.labels;
+  const built = [];
   const same = (a, b) => [1, 2, 3, 4].every(i => Math.abs(a[i] - b[i]) < 0.01);
   const within = (a, b) => a[1] >= b[1] - 0.01 && a[2] <= b[2] + 0.01 && a[3] >= b[3] - 0.01 && a[4] <= b[4] + 0.01;
   const labelsIn = (x1, x2, y1, y2) => labels.filter(([lx, ly]) => lx > x1 && lx < x2 && ly > y1 && ly < y2).map(l => l[2]).join(' ');
@@ -5918,6 +5927,15 @@ function buildFurniture() {
       for (const b of inner) P.box(b[1], b[2], b[3], b[4], 1.8, 2.2, FC.pillow);
       if (!inner.length) P.box(...F.r(0.3, F.L - 0.3, 0.25, 0.85), 1.8, 2.2, FC.pillow);
       name = 'bed';
+    } else if (kind === 'tub' && FURN_CHOICES.freestanding.includes(R)) {
+      // freestanding soaker: an oval tub off the walls with a floor-mounted filler at its foot
+      const ow = w - 0.35, od = d - 0.35, F = frameOf(x1, x2, y1, y2, w > d ? 'y+' : 'x+');
+      P.cyl(cx, cy, 0, 0.25, 0.47, FC.porcelain, 28, ow, od);
+      P.cyl(cx, cy, 0.25, 1.95, 0.5, FC.porcelain, 28, ow, od);
+      P.cyl(cx, cy, 1.95, 1.96, 0.43, FC.basin, 28, ow, od);
+      const [fx1, fy1] = F.p(F.L - 0.05, F.D / 2);
+      P.cyl(fx1, fy1, 0, 3.0, 0.05, FC.chrome, 8); P.box(...F.r(F.L - 0.45, F.L - 0.05, F.D / 2 - 0.04, F.D / 2 + 0.04), 2.9, 3.0, FC.chrome);
+      name = 'freestanding soaker tub with floor-mounted filler';
     } else if (kind === 'tub') {
       const b = inner[0] || [0, x1 + 0.3, x2 - 0.3, y1 + 0.3, y2 - 0.3];
       const rim = 1.6;
@@ -6063,6 +6081,18 @@ function buildFurniture() {
       }
       legs(P, F, 0.25, 0.15, 0.08, FC.woodDark);
       name = 'sofa';
+    } else if (/Dining/.test(R) && long >= 4 && FURN_CHOICES.ovalDining) {
+      // oval table on two pedestals, a chair at each end and the rest along the sides
+      const F = frameOf(x1, x2, y1, y2, w > d ? 'y+' : 'x+'), seats = FURN_CHOICES.ovalDining, n = Math.max(1, (seats - 2) / 2);
+      P.cyl(cx, cy, 2.38, 2.5, 0.5, FC.oak, 32, w, d);
+      for (const u of [F.L * 0.3, F.L * 0.7]) { const [px, py] = F.p(u, F.D / 2); P.cyl(px, py, 0.25, 2.38, 0.18, FC.woodDark, 10); P.cyl(px, py, 0, 0.25, 0.6, FC.woodDark, 14); }
+      for (let k = 0; k < n; k++) {
+        const u = F.L * (k + 0.5) / n, e = 0.5 - 0.5 * Math.sqrt(1 - Math.pow((u - F.L / 2) / (F.L / 2), 2));
+        const [ax, ay] = F.p(u, e * F.D - 0.55), [bx, by] = F.p(u, F.D - e * F.D + 0.55);
+        chair(P, ax, ay, F.faceAxis + '+'); chair(P, bx, by, F.faceAxis + '-');
+      }
+      const [ax, ay] = F.p(-0.55, F.D / 2), [bx, by] = F.p(F.L + 0.55, F.D / 2); chair(P, ax, ay, F.alongAxis + '+'); chair(P, bx, by, F.alongAxis + '-');
+      name = `oval dining table, seats ${2 * n + 2}`;
     } else if (/Dining/.test(R) && long >= 4) {
       const F = frameOf(x1, x2, y1, y2, w > d ? 'y+' : 'x+');   // u runs the length of the table
       P.box(x1, x2, y1, y2, 2.38, 2.5, FC.oak);
@@ -6091,7 +6121,13 @@ function buildFurniture() {
     } else {
       // anything else is a cabinet: a dresser in a bedroom, a base cabinet with a top elsewhere
       const F = frameOf(x1, x2, y1, y2, frontOf(x1, x2, y1, y2, room || [cx, cy]));
-      if (/Bed|Suite/.test(R) && !/Bath/.test(R)) {
+      if (f[5] === 'nightstand') {
+        P.box(...F.r(0, F.L, 0, F.D - 0.03), 0.5, 2.1, FC.wood);
+        for (const z of [1.3, 2.05]) { P.box(...F.r(0.05, F.L - 0.05, F.D - 0.03, F.D - 0.01), z - 0.7, z, FC.oak); handle(P, F, F.L / 2, z - 0.35, 0.3); }
+        legs(P, F, 0.5, 0.12, 0.05, FC.woodDark);
+        P.cyl(...F.p(F.L / 2, F.D / 2), 2.1, 2.15, 0.3, FC.woodDark, 12); P.cyl(...F.p(F.L / 2, F.D / 2), 2.15, 2.9, 0.04, FC.chrome, 6); P.cyl(...F.p(F.L / 2, F.D / 2), 2.75, 3.25, 0.32, FC.linen, 14);
+        name = 'nightstand with lamp';
+      } else if (/Bed|Suite/.test(R) && !/Bath/.test(R)) {
         P.box(...F.r(0, F.L, 0, F.D - 0.03), 0.3, 2.6, FC.wood);
         for (const z of [0.95, 1.6, 2.25]) { P.box(...F.r(0.05, F.L - 0.05, F.D - 0.03, F.D - 0.01), z - 0.6, z, FC.oak); handle(P, F, F.L / 2, z - 0.3, 0.35); }
         legs(P, F, 0.3, 0.12, 0.05, FC.woodDark);
@@ -6104,8 +6140,27 @@ function buildFurniture() {
         name = 'base cabinet, 34" top';
       }
     }
-    P.done({ kind: 'furn', text: `${name[0].toUpperCase() + name.slice(1)}, ${size}` + (R ? `, ${R}` : '') });
+    const mesh = P.done({ kind: 'furn', text: `${name[0].toUpperCase() + name.slice(1)}, ${size}` + (R ? `, ${R}` : '') });
+    if (mesh) built.push({ mesh, cx, cy, room });
     if (kind === 'shower') { const g = box(x1, x1 + 0.05, y2 - 0.05, y2, 0, 7, MAT.glass, { kind: 'furn', text: 'Shower glass, between the pad and the tub only' }, G.furn); if (g) g.castShadow = false; }
+  }
+  // TVs on the walls Kevin picked: a 16:9 panel centred at 4'-6", on the wall face
+  for (const t of FURN_CHOICES.tvs) {
+    const wl = framing.walls.find(w => w.n === t.wall); if (!wl) continue;
+    const seg = wl.segs.find(s => t.at >= s.lo && t.at <= s.hi) || wl.segs[0], k = wl.alongX ? wl.y1 : wl.x1, face = k + t.side * seg.t / 2;
+    const W = t.inch * 0.8716 / 12, H = t.inch * 0.4903 / 12, zc = 4.5, P = Piece();
+    const r = (a, b) => wl.alongX ? [t.at - W / 2, t.at + W / 2, face + t.side * a, face + t.side * b] : [face + t.side * a, face + t.side * b, t.at - W / 2, t.at + W / 2];
+    const q = (rect) => [Math.min(rect[0], rect[1]), Math.max(rect[0], rect[1]), Math.min(rect[2], rect[3]), Math.max(rect[2], rect[3])];
+    P.box(...q(r(0, 0.1)), zc - H / 2, zc + H / 2, FC.black);
+    P.box(...q(r(0.1, 0.12)), zc - H / 2 + 0.06, zc + H / 2 - 0.06, FC.dark);
+    built.push({ mesh: P.done({ kind: 'furn', text: `${t.inch}" TV, wall-mounted on wall ${t.wall}, centred at 4'-6" AFF; needs a receptacle and Cat6 behind it` }) });
+  }
+  // pieces that read the same (the two living-room sofas) get a compass word, so a comment lands on the right one
+  const counts = {}; for (const b of built) counts[b.mesh.userData.text] = (counts[b.mesh.userData.text] || 0) + 1;
+  for (const b of built) {
+    if (counts[b.mesh.userData.text] < 2 || !b.room) continue;
+    const dx = b.cx - b.room[0], dy = b.cy - b.room[1], ns = dx > 1 ? 'south' : dx < -1 ? 'north' : '', ew = dy > 1 ? 'east' : dy < -1 ? 'west' : '';
+    b.mesh.userData.text = b.mesh.userData.text.replace(/^(\w+)/, `$1 (${ns + ew || 'centre'})`);
   }
 }
 

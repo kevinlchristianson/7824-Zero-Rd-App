@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="app-version" content="v37">
+<meta name="app-version" content="v38">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -77,6 +77,9 @@ main { flex: 1; min-height: 0; }
 .hud > * { pointer-events: auto; }
 .chip { background: color-mix(in srgb, var(--panel) 86%, transparent); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid var(--line); box-shadow: var(--shadow); border-radius: 6px; }
 .hud-top { top: 12px; left: 14px; right: 14px; display: flex; justify-content: flex-end; align-items: flex-start; gap: 10px; }
+.dragmode { display: flex; padding: 3px; gap: 2px; }
+.dragmode button { font: inherit; font-size: 13px; font-weight: 600; padding: 5px 12px; border-radius: 4px; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
+.dragmode button[aria-pressed="true"] { background: var(--ink); color: var(--panel); }
 .compass { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; }
 .compass svg { width: 34px; height: 34px; transition: transform .12s linear; }
 .hud-sel { left: 14px; bottom: 12px; display: flex; align-items: center; gap: 10px; padding: 6px 8px 6px 12px; font-size: 13px; max-width: min(80%, 720px); }
@@ -87,7 +90,7 @@ main { flex: 1; min-height: 0; }
 .hud-pop .pop-h { display: flex; align-items: flex-start; gap: 8px; }
 .hud-pop .pop-h .pk-oi-h { flex: 1 1 auto; }
 .hud-pop .pop-x { flex: none; padding: 3px 9px; font: inherit; font-size: 12px; border-radius: 6px; border: 1px solid var(--line); background: var(--panel-2); color: var(--ink); cursor: pointer; }
-.hud-hint { right: 14px; bottom: 12px; margin: 0; font-size: 12px; color: var(--muted); }
+.hud-hint { right: 14px; bottom: 12px; margin: 0; padding: 4px 9px; font-size: 12px; color: var(--muted); }
 .hud-status { left: 14px; top: 56px; margin: 0; padding: 6px 10px; font-size: 13px; }
 /* ---------- 2D sheets */
 .sheet2d { height: 100%; overflow-y: auto; padding-bottom: env(safe-area-inset-bottom, 0px); }
@@ -306,7 +309,7 @@ tbody tr:last-child td { border-bottom: 0; }
 
 <div id="app">
   <header class="bar">
-    <div class="brand"><span class="eyebrow">7824 Zero Road · second floor</span><h1>Contractor App <span class="ver" id="appver" title="App version">v37</span></h1></div>
+    <div class="brand"><span class="eyebrow">7824 Zero Road · second floor</span><h1>Contractor App <span class="ver" id="appver" title="App version">v38</span></h1></div>
     <nav class="tabs" role="tablist" aria-label="Sheets">
       <button type="button" role="tab" id="tab-3d" aria-selected="true" aria-controls="sheet-3d" data-sheet="3d"><span class="no">3D</span>Model</button>
       <button type="button" role="tab" id="tab-s1" aria-selected="false" aria-controls="sheet-s1" data-sheet="s1"><span class="no">S-1</span>Framing</button>
@@ -349,6 +352,7 @@ tbody tr:last-child td { border-bottom: 0; }
       </aside>
       <div id="stage" aria-label="3D model of the floor">
         <div class="hud hud-top">
+          <div class="dragmode chip" id="dragmode" role="group" aria-label="What a one-finger or left-button drag does"><button type="button" data-mode="orbit" aria-pressed="true">Orbit</button><button type="button" data-mode="pan" aria-pressed="false">Pan</button></div>
           <div class="compass chip" id="compass" aria-hidden="true">
             <svg id="needle" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="currentColor" stroke-opacity=".25"/><path d="M18 5 L22.5 19 L18 16.5 L13.5 19 Z" fill="#b4462f"/><path d="M18 31 L22.5 17 L18 19.5 L13.5 17 Z" fill="currentColor" fill-opacity=".35"/><text x="18" y="12.2" text-anchor="middle" font-size="7" font-weight="700" font-family="Barlow Condensed, Arial Narrow, sans-serif" fill="#ffffff">N</text></svg>
           </div>
@@ -356,7 +360,7 @@ tbody tr:last-child td { border-bottom: 0; }
         <p class="hud hud-status chip" id="status">Building the model…</p>
         <div class="hud hud-sel chip" id="sel" hidden><span id="seltext"></span><span id="selref" hidden></span><button type="button" id="selcomment" class="sel-c" aria-expanded="false" aria-controls="selpop">Comment</button><button type="button" id="selclear">Clear</button></div>
         <div class="hud hud-pop chip" id="selpop" role="dialog" aria-label="Comments on the selected item" hidden></div>
-        <p class="hud hud-hint">Drag to orbit · scroll to zoom · right-drag or two fingers to pan · click an object to read it</p>
+        <p class="hud hud-hint chip">Drag to orbit · scroll to zoom · right-drag, shift-drag or the Pan button to pan · click an object to read it</p>
       </div>
     </div>
 
@@ -3211,7 +3215,7 @@ Everything you see is clickable.</p></div>
 <text x="323.2" y="791.2" font-size="7.5" font-weight="normal" fill="#333" text-anchor="start" dominant-baseline="middle">smoke / smoke+CO</text>
 <text x="412.8" y="791.2" font-size="7.5" font-weight="normal" fill="#333" text-anchor="start" dominant-baseline="middle">soffit light</text>
 <text x="485.6" y="791.2" font-size="7.5" font-weight="normal" fill="#333" text-anchor="start" dominant-baseline="middle">low-voltage drop</text>
-<g font-family="IBM Plex Sans, Segoe UI, Helvetica, Arial, sans-serif"><rect x="60" y="806.0" width="952" height="60" fill="#fff" stroke="#444" stroke-width="1"/><line x1="460" y1="806.0" x2="460" y2="866.0" stroke="#444"/><line x1="812" y1="806.0" x2="812" y2="866.0" stroke="#444"/><text x="72" y="826.0" font-size="12" font-weight="700" fill="#222">7824 Zero Road</text><text x="72" y="844.0" font-size="9" fill="#555">Casper, Wyoming · 68'-1" × 48'-1¼" in framing · 9' ceiling · grid 5', 0,0 at SE</text><text x="72" y="858.0" font-size="9" fill="#555">Base plan 2026-09-29 · wall numbers as that drawing</text><text x="472" y="826.0" font-size="13" font-weight="700" fill="#222">Electrical plan</text><text x="472" y="844.0" font-size="9" fill="#555">Devices, luminaires, alarms and the circuit schedule for sub-panel P2</text><text x="472" y="858.0" font-size="9" fill="#555">Schematic for pricing and coordination, not a stamped construction document. Verify on site.</text><text x="822" y="830.0" font-size="22" font-weight="700" fill="#b4462f">E-1</text><text class="rev" x="822" y="846.0" font-size="9" fill="#555">rev v37</text><text x="822" y="859.0" font-size="9" fill="#555">drawn for K. Christianson</text></g>
+<g font-family="IBM Plex Sans, Segoe UI, Helvetica, Arial, sans-serif"><rect x="60" y="806.0" width="952" height="60" fill="#fff" stroke="#444" stroke-width="1"/><line x1="460" y1="806.0" x2="460" y2="866.0" stroke="#444"/><line x1="812" y1="806.0" x2="812" y2="866.0" stroke="#444"/><text x="72" y="826.0" font-size="12" font-weight="700" fill="#222">7824 Zero Road</text><text x="72" y="844.0" font-size="9" fill="#555">Casper, Wyoming · 68'-1" × 48'-1¼" in framing · 9' ceiling · grid 5', 0,0 at SE</text><text x="72" y="858.0" font-size="9" fill="#555">Base plan 2026-09-29 · wall numbers as that drawing</text><text x="472" y="826.0" font-size="13" font-weight="700" fill="#222">Electrical plan</text><text x="472" y="844.0" font-size="9" fill="#555">Devices, luminaires, alarms and the circuit schedule for sub-panel P2</text><text x="472" y="858.0" font-size="9" fill="#555">Schematic for pricing and coordination, not a stamped construction document. Verify on site.</text><text x="822" y="830.0" font-size="22" font-weight="700" fill="#b4462f">E-1</text><text class="rev" x="822" y="846.0" font-size="9" fill="#555">rev v38</text><text x="822" y="859.0" font-size="9" fill="#555">drawn for K. Christianson</text></g>
 </svg>
 </div></div></div>
       <div class="below">
@@ -4250,7 +4254,7 @@ Everything you see is clickable.</p></div>
 <g class="tag" data-id="F19"><circle cx="833.1" cy="533.4" r="7.0" fill="#fff" stroke="#1f5f8b" stroke-width="1"/><text x="833.1" y="533.7" font-size="5" font-weight="700" fill="#1f5f8b" text-anchor="middle" dominant-baseline="middle">F19</text></g>
 <g class="tag" data-id="F21"><circle cx="698.4" cy="294.0" r="7.0" fill="#fff" stroke="#1f5f8b" stroke-width="1"/><text x="698.4" y="294.3" font-size="5" font-weight="700" fill="#1f5f8b" text-anchor="middle" dominant-baseline="middle">F21</text></g>
 <g class="tag" data-id="F22"><circle cx="368.0" cy="210.0" r="7.0" fill="#fff" stroke="#1f5f8b" stroke-width="1"/><text x="368.0" y="210.3" font-size="5" font-weight="700" fill="#1f5f8b" text-anchor="middle" dominant-baseline="middle">F22</text></g>
-<g font-family="IBM Plex Sans, Segoe UI, Helvetica, Arial, sans-serif"><rect x="60" y="806.0" width="952" height="60" fill="#fff" stroke="#444" stroke-width="1"/><line x1="460" y1="806.0" x2="460" y2="866.0" stroke="#444"/><line x1="812" y1="806.0" x2="812" y2="866.0" stroke="#444"/><text x="72" y="826.0" font-size="12" font-weight="700" fill="#222">7824 Zero Road</text><text x="72" y="844.0" font-size="9" fill="#555">Casper, Wyoming · 68'-1" × 48'-1¼" in framing · 9' ceiling · grid 5', 0,0 at SE</text><text x="72" y="858.0" font-size="9" fill="#555">Base plan 2026-09-29 · wall numbers as that drawing</text><text x="472" y="826.0" font-size="13" font-weight="700" fill="#222">Plumbing plan</text><text x="472" y="844.0" font-size="9" fill="#555">Fixtures, one drop, vent stacks, supply trunks and exhaust ducts for coordination</text><text x="472" y="858.0" font-size="9" fill="#555">Schematic for pricing and coordination, not a stamped construction document. Verify on site.</text><text x="822" y="830.0" font-size="22" font-weight="700" fill="#b4462f">P-1</text><text class="rev" x="822" y="846.0" font-size="9" fill="#555">rev v37</text><text x="822" y="859.0" font-size="9" fill="#555">drawn for K. Christianson</text></g>
+<g font-family="IBM Plex Sans, Segoe UI, Helvetica, Arial, sans-serif"><rect x="60" y="806.0" width="952" height="60" fill="#fff" stroke="#444" stroke-width="1"/><line x1="460" y1="806.0" x2="460" y2="866.0" stroke="#444"/><line x1="812" y1="806.0" x2="812" y2="866.0" stroke="#444"/><text x="72" y="826.0" font-size="12" font-weight="700" fill="#222">7824 Zero Road</text><text x="72" y="844.0" font-size="9" fill="#555">Casper, Wyoming · 68'-1" × 48'-1¼" in framing · 9' ceiling · grid 5', 0,0 at SE</text><text x="72" y="858.0" font-size="9" fill="#555">Base plan 2026-09-29 · wall numbers as that drawing</text><text x="472" y="826.0" font-size="13" font-weight="700" fill="#222">Plumbing plan</text><text x="472" y="844.0" font-size="9" fill="#555">Fixtures, one drop, vent stacks, supply trunks and exhaust ducts for coordination</text><text x="472" y="858.0" font-size="9" fill="#555">Schematic for pricing and coordination, not a stamped construction document. Verify on site.</text><text x="822" y="830.0" font-size="22" font-weight="700" fill="#b4462f">P-1</text><text class="rev" x="822" y="846.0" font-size="9" fill="#555">rev v38</text><text x="822" y="859.0" font-size="9" fill="#555">drawn for K. Christianson</text></g>
 </svg>
 </div></div></div>
       <div class="below">
@@ -4806,7 +4810,7 @@ Everything you see is clickable.</p></div>
 <text x="107.6" y="785.8" font-size="7.5" font-weight="normal" fill="#333" text-anchor="start" dominant-baseline="middle">supply trunk / branch, floor registers G#</text>
 <text x="471.6" y="785.8" font-size="7.5" font-weight="normal" fill="#333" text-anchor="start" dominant-baseline="middle">return duct, wall grilles R# at the baseboard</text>
 <text x="751.6" y="785.8" font-size="7.5" font-weight="normal" fill="#333" text-anchor="start" dominant-baseline="middle">AH-1 below · T thermostat</text>
-<g font-family="IBM Plex Sans, Segoe UI, Helvetica, Arial, sans-serif"><rect x="60" y="806.0" width="952" height="60" fill="#fff" stroke="#444" stroke-width="1"/><line x1="460" y1="806.0" x2="460" y2="866.0" stroke="#444"/><line x1="812" y1="806.0" x2="812" y2="866.0" stroke="#444"/><text x="72" y="826.0" font-size="12" font-weight="700" fill="#222">7824 Zero Road — second floor</text><text x="72" y="844.0" font-size="9" fill="#555">Casper, Wyoming · 68'-1" × 48'-1¼" in framing · 9' ceiling · grid 5', 0,0 at SE</text><text x="72" y="858.0" font-size="9" fill="#555">Wall numbers as the floor plan drawing of 2026-09-29</text><text x="472" y="826.0" font-size="13" font-weight="700" fill="#222">HVAC plan</text><text x="472" y="844.0" font-size="9" fill="#555">Supply trunks, branches and floor registers in the trusses; returns; AH-1 below</text><text x="472" y="858.0" font-size="9" fill="#555">Schematic for pricing and coordination, not a stamped construction document. Verify on site.</text><text x="822" y="830.0" font-size="22" font-weight="700" fill="#b4462f">M-6</text><text class="rev" x="822" y="846.0" font-size="9" fill="#555">rev v37</text><text x="822" y="859.0" font-size="9" fill="#555">drawn for K. Christianson</text></g>
+<g font-family="IBM Plex Sans, Segoe UI, Helvetica, Arial, sans-serif"><rect x="60" y="806.0" width="952" height="60" fill="#fff" stroke="#444" stroke-width="1"/><line x1="460" y1="806.0" x2="460" y2="866.0" stroke="#444"/><line x1="812" y1="806.0" x2="812" y2="866.0" stroke="#444"/><text x="72" y="826.0" font-size="12" font-weight="700" fill="#222">7824 Zero Road — second floor</text><text x="72" y="844.0" font-size="9" fill="#555">Casper, Wyoming · 68'-1" × 48'-1¼" in framing · 9' ceiling · grid 5', 0,0 at SE</text><text x="72" y="858.0" font-size="9" fill="#555">Wall numbers as the floor plan drawing of 2026-09-29</text><text x="472" y="826.0" font-size="13" font-weight="700" fill="#222">HVAC plan</text><text x="472" y="844.0" font-size="9" fill="#555">Supply trunks, branches and floor registers in the trusses; returns; AH-1 below</text><text x="472" y="858.0" font-size="9" fill="#555">Schematic for pricing and coordination, not a stamped construction document. Verify on site.</text><text x="822" y="830.0" font-size="22" font-weight="700" fill="#b4462f">M-6</text><text class="rev" x="822" y="846.0" font-size="9" fill="#555">rev v38</text><text x="822" y="859.0" font-size="9" fill="#555">drawn for K. Christianson</text></g>
 </svg>
 </div></div></div>
       <div class="below">
@@ -5763,6 +5767,15 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(35, 1, 0.5, 2000);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = !reduceMotion; controls.dampingFactor = 0.08; controls.maxPolarAngle = Math.PI / 2 + 0.35; controls.minDistance = 4; controls.maxDistance = 400;
+// Orbit / Pan toggle: what a left-button or one-finger drag does. Right-drag and shift+drag pan in Orbit mode; two fingers always pan and pinch.
+function setDragMode(mode) {
+  const pan = mode === 'pan';
+  controls.mouseButtons = { LEFT: pan ? THREE.MOUSE.PAN : THREE.MOUSE.ROTATE, MIDDLE: THREE.MOUSE.DOLLY, RIGHT: pan ? THREE.MOUSE.ROTATE : THREE.MOUSE.PAN };
+  controls.touches = { ONE: pan ? THREE.TOUCH.PAN : THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_PAN };
+  for (const b of $('dragmode').querySelectorAll('button')) b.setAttribute('aria-pressed', String(b.dataset.mode === mode));
+}
+$('dragmode').addEventListener('click', e => { const b = e.target.closest('button[data-mode]'); if (b) setDragMode(b.dataset.mode); });
+setDragMode('orbit');
 scene.add(new THREE.HemisphereLight(0xf3f6ff, 0x8a7c62, 1.0));
 const sun = new THREE.DirectionalLight(0xfff1da, 2.0); sun.position.set(-70, 120, 90); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048);
 Object.assign(sun.shadow.camera, { left: -70, right: 70, top: 70, bottom: -70, near: 10, far: 400 }); sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.05; scene.add(sun);

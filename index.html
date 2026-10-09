@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="app-version" content="v39">
+<meta name="app-version" content="v40">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -272,6 +272,13 @@ tbody tr:last-child td { border-bottom: 0; }
 .chat-note p { margin: 6px 0 0; color: var(--muted); }
 .chat-who { display: flex; align-items: center; gap: 10px; padding: 8px 16px; border-bottom: 1px solid var(--line); font-size: 13px; color: var(--muted); }
 .chat-who b { color: var(--ink); font-weight: 600; }
+.chat-alert { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(20, 18, 16, .55); }
+.chat-alert[hidden] { display: none; }
+.chat-alert .box { width: min(420px, 100%); background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 12px; padding: 18px; box-shadow: 0 12px 40px rgba(0, 0, 0, .3); }
+.chat-alert h2 { margin: 0 0 4px; font-size: 18px; }
+.chat-alert .from { font-size: 13px; color: var(--muted); }
+.chat-alert .txt { margin: 10px 0 16px; white-space: pre-wrap; overflow-wrap: anywhere; max-height: 30vh; overflow: auto; }
+.chat-alert button { width: 100%; font: inherit; font-weight: 600; padding: 12px; border: 0; border-radius: 8px; background: var(--accent); color: var(--accent-ink); cursor: pointer; }
 .chat-who .st { margin-left: auto; font-family: var(--mono); font-size: 12px; }
 .chat-btn { font: inherit; font-size: 13px; font-weight: 500; padding: 5px 11px; min-height: 32px; border-radius: 6px; border: 1px solid var(--line); background: var(--panel-2); color: var(--ink); cursor: pointer; }
 .chat-btn.go { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-family: var(--display); font-weight: 600; font-size: 16px; padding: 8px 16px; }
@@ -309,7 +316,7 @@ tbody tr:last-child td { border-bottom: 0; }
 
 <div id="app">
   <header class="bar">
-    <div class="brand"><span class="eyebrow">7824 Zero Road · second floor</span><h1>Contractor App <span class="ver" id="appver" title="App version">v39</span></h1></div>
+    <div class="brand"><span class="eyebrow">7824 Zero Road · second floor</span><h1>Contractor App <span class="ver" id="appver" title="App version">v40</span></h1></div>
     <nav class="tabs" role="tablist" aria-label="Sheets">
       <button type="button" role="tab" id="tab-3d" aria-selected="true" aria-controls="sheet-3d" data-sheet="3d"><span class="no">3D</span>Model</button>
       <button type="button" role="tab" id="tab-s1" aria-selected="false" aria-controls="sheet-s1" data-sheet="s1"><span class="no">S-1</span>Framing</button>
@@ -6932,12 +6939,27 @@ requestAnimationFrame(frame);
   const badge = el('span', 'badge'); badge.hidden = true; tab.appendChild(badge);
   let msgs = [], myUid = null;
   const lastAt = () => msgs.length ? msgs[msgs.length - 1].at : 0;
-  function seen() { if (visible() && msgs.length) { store.set('zr-chat-seen-' + cfg.room, String(lastAt())); badge.hidden = true; } }
+  // a new message from someone else covers the app until this phone opens the chat; after that every tab works again
+  const alertBox = el('div', 'chat-alert'); alertBox.hidden = true;
+  alertBox.setAttribute('role', 'alertdialog'); alertBox.setAttribute('aria-modal', 'true'); alertBox.setAttribute('aria-labelledby', 'chat-alert-h');
+  const alertCard = el('div', 'box'), alertH = el('h2', null, 'New message'), alertFrom = el('div', 'from'), alertTxt = el('div', 'txt');
+  const alertGo = el('button', null, 'Open chat'); alertGo.type = 'button'; alertH.id = 'chat-alert-h';
+  alertGo.addEventListener('click', () => tab.click());
+  alertCard.append(alertH, alertFrom, alertTxt, alertGo); alertBox.append(alertCard); document.body.append(alertBox);
+  function seen() { if (visible() && msgs.length) { store.set('zr-chat-seen-' + cfg.room, String(lastAt())); badge.hidden = true; } if (!panel.hidden) alertBox.hidden = true; }
   function countUnread() {
     const since = +(store.get('zr-chat-seen-' + cfg.room) || 0);
-    const n = msgs.filter(m => m.at > since && m.uid !== myUid).length;
+    const unread = msgs.filter(m => m.at > since && m.uid !== myUid && !m.pending), n = unread.length;
     badge.textContent = n > 99 ? '99+' : String(n); badge.hidden = !n || visible();
     tab.setAttribute('aria-label', 'Chat' + (n ? `, ${n} unread` : ''));
+    if (n && panel.hidden) {
+      const last = unread[n - 1], wasHidden = alertBox.hidden;
+      alertH.textContent = n > 1 ? `${n} new messages` : 'New message';
+      alertFrom.textContent = (n > 1 ? 'Latest from ' : 'From ') + (last.name || '?') + (last.trade ? ' · ' + last.trade : '');
+      alertTxt.textContent = last.text.length > 280 ? last.text.slice(0, 280) + '…' : last.text;
+      alertBox.hidden = false;
+      if (wasHidden) alertGo.focus();
+    } else alertBox.hidden = true;
   }
   document.addEventListener('visibilitychange', () => { seen(); countUnread(); });
 

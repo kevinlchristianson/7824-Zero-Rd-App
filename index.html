@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="app-version" content="v47">
+<meta name="app-version" content="v48">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -316,7 +316,7 @@ tbody tr:last-child td { border-bottom: 0; }
 
 <div id="app">
   <header class="bar">
-    <div class="brand"><span class="eyebrow">7824 Zero Road · second floor</span><h1>Contractor App <span class="ver" id="appver" title="App version">v47</span></h1></div>
+    <div class="brand"><span class="eyebrow">7824 Zero Road · second floor</span><h1>Contractor App <span class="ver" id="appver" title="App version">v48</span></h1></div>
     <nav class="tabs" role="tablist" aria-label="Sheets">
       <button type="button" role="tab" id="tab-3d" aria-selected="true" aria-controls="sheet-3d" data-sheet="3d"><span class="no">3D</span>Model</button>
       <button type="button" role="tab" id="tab-s1" aria-selected="false" aria-controls="sheet-s1" data-sheet="s1"><span class="no">S-1</span>Framing</button>
@@ -7160,7 +7160,9 @@ requestAnimationFrame(frame);
   const when = ms => ms ? dateFmt.format(new Date(ms)) : '';
 
   const me = () => store.get('zr-chat-name') || '';
-  let fb = null, items = [], done = new Map(), state = 'connecting…';
+  let fb = null, items = [], done = new Map(), hidden = new Set(), state = 'connecting…';
+  // owners (chat-config.js) can delete anyone's item, and hide the items drawn on the sheets
+  const owner = () => !!fb && ((window.ZR_CHAT || {}).owners || []).includes(fb.uid);
   const lists = [];
   let L3 = null;   // the 3D view's comment popup, set up below
 
@@ -7210,7 +7212,7 @@ requestAnimationFrame(frame);
     const m = el('div', 'oi-meta');
     if (meta) m.append(el('span', null, meta));
     if (d) m.append(el('span', 'oi-res', 'Resolved by ' + (d.name || '?') + (d.at ? ' · ' + when(d.at) : '')));
-    if (mine) { const x = el('button', 'oi-del', 'Delete'); x.type = 'button'; x.addEventListener('click', () => { if (!confirm('Delete this open item for everyone?')) return; const { F, db, room } = fb; F.deleteDoc(F.doc(db, 'rooms', room, 'items', itemId)).then(() => d && F.deleteDoc(F.doc(db, 'rooms', room, 'done', id))).catch(err => say(L, 'not deleted: ' + (err.code || 'error'))); }); m.append(x); }
+    if (mine) { const x = el('button', 'oi-del', 'Delete'); x.type = 'button'; x.addEventListener('click', () => { if (!confirm('Delete this open item for everyone?')) return; const { F, db, room } = fb; (itemId ? F.deleteDoc(F.doc(db, 'rooms', room, 'items', itemId)) : F.setDoc(F.doc(db, 'rooms', room, 'hidden', id), { uid: fb.uid, at: F.serverTimestamp() })).then(() => d && F.deleteDoc(F.doc(db, 'rooms', room, 'done', id))).catch(err => say(L, 'not deleted: ' + (err.code || 'error'))); }); m.append(x); }
     if (m.childElementCount) main.append(m);
     li.append(box, main);
     return li;
@@ -7220,11 +7222,11 @@ requestAnimationFrame(frame);
     for (const L of lists) {
       L.ul.replaceChildren();
       let open = 0;
-      for (const b of L.drawn) { L.ul.append(row(L, b.id, b.body.cloneNode(true), '', false)); if (!done.has(b.id)) open++; }
+      for (const b of L.drawn) { if (hidden.has(b.id)) continue; L.ul.append(row(L, b.id, b.body.cloneNode(true), '', owner())); if (!done.has(b.id)) open++; }
       for (const it of items) {
         if (it.sheet !== L.key) continue;
         const id = 'i-' + it.id;
-        L.ul.append(row(L, id, el('span', 'oi-txt', it.text), (it.ref ? 'On ' + it.ref + ' · ' : '') + 'Added by ' + (it.name || '?') + (it.trade ? ' (' + it.trade + ')' : '') + ' · ' + when(it.at), fb && (it.uid === fb.uid || ((window.ZR_CHAT || {}).owners || []).includes(fb.uid)), it.id));
+        L.ul.append(row(L, id, el('span', 'oi-txt', it.text), (it.ref ? 'On ' + it.ref + ' · ' : '') + 'Added by ' + (it.name || '?') + (it.trade ? ' (' + it.trade + ')' : '') + ' · ' + when(it.at), fb && (it.uid === fb.uid || owner()), it.id));
         if (!done.has(id)) open++;
       }
       if (L.btn) { let n = L.btn.querySelector('.n'); if (!n) { n = el('span', 'n'); L.btn.appendChild(n); } n.textContent = open; L.btn.title = open + ' open'; }
@@ -7238,7 +7240,7 @@ requestAnimationFrame(frame);
     if (!L.card) return;
     const ref = refOf(L), mine = items.filter(it => it.sheet === L.key && it.ref === ref);
     L.card.ul.replaceChildren();
-    for (const it of mine) L.card.ul.append(row(L, 'i-' + it.id, el('span', 'oi-txt', it.text), 'Added by ' + (it.name || '?') + (it.trade ? ' (' + it.trade + ')' : '') + ' · ' + when(it.at), fb && (it.uid === fb.uid || ((window.ZR_CHAT || {}).owners || []).includes(fb.uid)), it.id));
+    for (const it of mine) L.card.ul.append(row(L, 'i-' + it.id, el('span', 'oi-txt', it.text), 'Added by ' + (it.name || '?') + (it.trade ? ' (' + it.trade + ')' : '') + ' · ' + when(it.at), fb && (it.uid === fb.uid || owner()), it.id));
     const open = mine.filter(it => !done.has('i-' + it.id)).length;
     L.card.h.textContent = mine.length ? `Open items on ${ref}: ${open} open` : `Comments on ${ref} become open items for ${L.trade || 'this sheet'} until resolved.`;
     if (L === L3) L.btn.textContent = open ? `Comments (${open})` : 'Comment';
@@ -7308,6 +7310,7 @@ requestAnimationFrame(frame);
       done = new Map(snap.docs.map(d => { const x = d.data({ serverTimestamps: 'estimate' }); return [d.id, { name: x.name, at: x.at ? x.at.toMillis() : Date.now() }]; }));
       draw();
     }, onErr);
+    F.onSnapshot(F.query(F.collection(db, 'rooms', room, 'hidden'), F.limit(2000)), snap => { hidden = new Set(snap.docs.map(d => d.id)); draw(); }, () => {});   // quiet until the rules with `hidden` are published
   }).catch(err => { state = navigator.onLine ? 'can’t connect: ' + (err.code || err.message || 'error') : 'offline'; draw(); });
 })();
 </script>

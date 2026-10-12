@@ -15,6 +15,9 @@ window.ZR_CHAT = {
   // One conversation per room. Change it to start a fresh thread for a new job.
   room: 'zero-rd-crew',
 
+  // App sign-in IDs that may delete anyone's open item (Kevin's phone). Must match isOwner() in firestore.rules.
+  owners: ['dWBNvj4yY0VueMSww6pW6TWeTx42'],
+
   // Firebase JS SDK version loaded from gstatic.
   sdk: '12.18.0'
 };

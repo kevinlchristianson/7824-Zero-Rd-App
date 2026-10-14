@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="app-version" content="v53">
+<meta name="app-version" content="v54">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -304,7 +304,7 @@ tbody tr:last-child td { border-bottom: 0; }
 .chat-re span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; border-left: 3px solid var(--accent); padding-left: 7px; }
 .chat-re input { flex: none; accent-color: var(--accent); width: 18px; height: 18px; margin: 0; }
 @media (max-width: 760px) {
-  .tabs { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+  .tabs { grid-template-columns: repeat(8, minmax(0, 1fr)); }
   .tabs button { font-size: 11px; letter-spacing: -.01em; }
   .tabs button .badge { position: absolute; transform: translate(14px, -16px); }
   .tabs button { position: relative; }
@@ -316,7 +316,7 @@ tbody tr:last-child td { border-bottom: 0; }
 
 <div id="app">
   <header class="bar">
-    <div class="brand"><span class="eyebrow">7824 Zero Road · second floor</span><h1>Contractor App <span class="ver" id="appver" title="App version">v53</span></h1></div>
+    <div class="brand"><span class="eyebrow">7824 Zero Road · second floor</span><h1>Contractor App <span class="ver" id="appver" title="App version">v54</span></h1></div>
     <nav class="tabs" role="tablist" aria-label="Sheets">
       <button type="button" role="tab" id="tab-3d" aria-selected="true" aria-controls="sheet-3d" data-sheet="3d"><span class="no">3D</span>Model</button>
       <button type="button" role="tab" id="tab-s1" aria-selected="false" aria-controls="sheet-s1" data-sheet="s1"><span class="no">S-1</span>Framing</button>
@@ -324,6 +324,7 @@ tbody tr:last-child td { border-bottom: 0; }
       <button type="button" role="tab" id="tab-p1" aria-selected="false" aria-controls="sheet-p1" data-sheet="p1"><span class="no">P-1</span>Plumbing</button>
       <button type="button" role="tab" id="tab-m1" aria-selected="false" aria-controls="sheet-m1" data-sheet="m1"><span class="no">M-6</span>HVAC</button>
       <button type="button" role="tab" id="tab-r1" aria-selected="false" aria-controls="sheet-r1" data-sheet="r1"><span class="no">R-1</span>Radiant</button>
+      <button type="button" role="tab" id="tab-k1" aria-selected="false" aria-controls="sheet-k1" data-sheet="k1"><span class="no">K-1</span>Kitchen</button>
       <button type="button" role="tab" id="tab-chat" aria-selected="false" aria-controls="sheet-chat" data-sheet="chat"><span class="no">✉</span>Chat</button>
     </nav>
     <span class="counts">32 walls · 17 doors · 268 electrical devices · 23 plumbing fixtures · 23 registers</span>
@@ -5356,6 +5357,628 @@ Everything you see is clickable.</p></div>
 </tbody></table></div></section>
       </div>
     </div>
+    <!-- ================================================================ K-1 kitchen elevations (app-edits/k1-v54/k1.py from kitchen-elevations data.json) -->
+    <div class="sheet sheet2d" id="sheet-k1" role="tabpanel" aria-labelledby="tab-k1" hidden>
+      <div class="tools"><div class="zoom" role="group" aria-label="Zoom"><button type="button" data-zoom="1" aria-pressed="true">Fit</button><button type="button" data-zoom="2" aria-pressed="false">2×</button><button type="button" data-zoom="4" aria-pressed="false">4×</button></div><p class="sel" data-hint="These zoom buttons are your friend.&#10;Everything you see is clickable.">These zoom buttons are your friend.
+Everything you see is clickable.</p></div>
+      <div class="drawing"><div class="scroller"><div class="paper"><svg xmlns="http://www.w3.org/2000/svg" width="1072" height="993.2" viewBox="0 0 1072 993.2" font-family="IBM Plex Sans, Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-label="K-1 Kitchen elevations">
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="60" y="34" font-size="16" font-weight="700" fill="#222">Looking south</text>
+<text x="60" y="49" font-size="9" fill="#555">Wall run on W16, W14 and the pantry opening to the right, hall opening to the left. Zero is the W15 east face (stud); it is on your right, so dimensions grow to the left.</text>
+<rect x="683.5" y="136.2" width="235.2" height="248.4" fill="#e4e2df" stroke="#c9c3b8" stroke-width="0.7"/>
+<text x="801.1" y="147.7" font-size="6" fill="#6f685d" text-anchor="middle">W14 north face (32&quot; nearer to you than W16)</text>
+<rect x="284.4" y="136.2" width="395" height="248.4" fill="#eeeceb" stroke="#c9c3b8" stroke-width="0.7"/>
+<text x="482" y="147.7" font-size="6" fill="#6f685d" text-anchor="middle">W16 north face</text>
+<rect x="139.5" y="136.2" width="144.9" height="248.4" fill="#f6f5f2" stroke="#c9c3b8" stroke-width="0.7"/>
+<text x="212" y="147.7" font-size="6" fill="#6f685d" text-anchor="middle">Hall: W7 beyond, 5&#x27;-6&quot; behind W16</text>
+<line x1="918.7" y1="384.6" x2="139.5" y2="384.6" stroke="#222" stroke-width="1.8"/>
+<line x1="918.7" y1="136.2" x2="139.5" y2="136.2" stroke="#222" stroke-width="0.9" stroke-dasharray="6.9 4.6"/>
+<text x="141.8" y="133" font-size="5.5" fill="#6f685d" font-family="IBM Plex Mono, monospace">CEILING 9&#x27;-0&quot;</text>
+<text x="141.8" y="392.4" font-size="5.5" fill="#6f685d" font-family="IBM Plex Mono, monospace">FLOOR</text>
+<g class="sym" id="k1-S-D3" data-id="S:D3"><title>D3: Pantry cased opening D3</title>
+<rect x="740.4" y="158.1" width="96.6" height="226.5" fill="#fff" stroke="#6f685d" stroke-width="0.9"/>
+<text x="788.7" y="271.3" font-size="6" fill="#6f685d" text-anchor="middle">Pantry cased opening D3</text>
+</g>
+<line x1="918.7" y1="274.2" x2="139.5" y2="274.2" stroke="#0f8a82" stroke-width="0.8" stroke-dasharray="3.4 2.8"/>
+<text x="137.2" y="276" font-size="5.1" fill="#0f8a82" text-anchor="end">48&quot; reach</text>
+<line x1="918.7" y1="283.4" x2="139.5" y2="283.4" stroke="#0f8a82" stroke-width="0.8" stroke-dasharray="3.4 2.8"/>
+<text x="137.2" y="285.2" font-size="5.1" fill="#0f8a82" text-anchor="end">44&quot; over counter</text>
+<line x1="918.7" y1="306.4" x2="139.5" y2="306.4" stroke="#0f8a82" stroke-width="0.8" stroke-dasharray="3.4 2.8"/>
+<text x="137.2" y="308.2" font-size="5.1" fill="#0f8a82" text-anchor="end">34&quot; counter max</text>
+<line x1="918.7" y1="322.5" x2="139.5" y2="322.5" stroke="#0f8a82" stroke-width="0.8" stroke-dasharray="3.4 2.8"/>
+<text x="137.2" y="324.3" font-size="5.1" fill="#0f8a82" text-anchor="end">27&quot; knee</text>
+<line x1="918.7" y1="350.1" x2="139.5" y2="350.1" stroke="#0f8a82" stroke-width="0.8" stroke-dasharray="3.4 2.8"/>
+<text x="137.2" y="351.9" font-size="5.1" fill="#0f8a82" text-anchor="end">15&quot; min reach</text>
+<g class="sym" id="k1-S-B1" data-id="S:B1"><title>B1: Base, drawers</title>
+<rect x="601.3" y="309.9" width="75.9" height="65.5" fill="#f3ead9" stroke="#7a6a4f" stroke-width="0.8"/>
+<rect x="602.4" y="375.4" width="73.6" height="9.2" fill="#4d5257" opacity=".55"/>
+<line x1="677.2" y1="353.5" x2="601.3" y2="353.5" stroke="#7a6a4f" stroke-width="0.7"/>
+<line x1="677.2" y1="331.7" x2="601.3" y2="331.7" stroke="#7a6a4f" stroke-width="0.7"/>
+<line x1="650.7" y1="359.3" x2="627.7" y2="359.3" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="650.7" y1="337.4" x2="627.7" y2="337.4" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="650.7" y1="315.6" x2="627.7" y2="315.6" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<text x="639.2" y="323.7" font-size="6.4" text-anchor="middle" font-weight="600" font-family="IBM Plex Mono, monospace" fill="#222">B1</text>
+<text x="639.2" y="331.5" font-size="5.1" fill="#6f685d" text-anchor="middle">Base, drawers</text>
+</g>
+<g class="sym" id="k1-S-B2" data-id="S:B2"><title>B2: Base</title>
+<rect x="553" y="309.9" width="48.3" height="65.5" fill="#f3ead9" stroke="#7a6a4f" stroke-width="0.8"/>
+<rect x="554.1" y="375.4" width="46" height="9.2" fill="#4d5257" opacity=".55"/>
+<line x1="601.3" y1="323.6" x2="553" y2="323.6" stroke="#7a6a4f" stroke-width="0.7"/>
+<line x1="588.6" y1="316.8" x2="565.6" y2="316.8" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="557" y1="339.8" x2="557" y2="329.4" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<text x="577.1" y="323.7" font-size="6.4" text-anchor="middle" font-weight="600" font-family="IBM Plex Mono, monospace" fill="#222">B2</text>
+<text x="577.1" y="331.5" font-size="5.1" fill="#6f685d" text-anchor="middle">Base</text>
+</g>
+<g class="sym" id="k1-S-B3" data-id="S:B3"><title>B3: Base</title>
+<rect x="497.8" y="309.9" width="55.2" height="65.5" fill="#f3ead9" stroke="#7a6a4f" stroke-width="0.8"/>
+<rect x="498.9" y="375.4" width="52.9" height="9.2" fill="#4d5257" opacity=".55"/>
+<line x1="553" y1="323.6" x2="497.8" y2="323.6" stroke="#7a6a4f" stroke-width="0.7"/>
+<line x1="536.9" y1="316.8" x2="513.9" y2="316.8" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="501.8" y1="339.8" x2="501.8" y2="329.4" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<text x="525.4" y="323.7" font-size="6.4" text-anchor="middle" font-weight="600" font-family="IBM Plex Mono, monospace" fill="#222">B3</text>
+<text x="525.4" y="331.5" font-size="5.1" fill="#6f685d" text-anchor="middle">Base</text>
+</g>
+<g class="sym" id="k1-S-T1" data-id="S:T1"><title>T1: Oven tower</title>
+<rect x="359.8" y="136.2" width="55.2" height="239.2" fill="#f3ead9" stroke="#7a6a4f" stroke-width="0.8"/>
+<rect x="360.9" y="375.4" width="52.9" height="9.2" fill="#4d5257" opacity=".55"/>
+<text x="387.4" y="147.7" font-size="6.4" text-anchor="middle" font-weight="600" font-family="IBM Plex Mono, monospace" fill="#222">T1</text>
+<text x="387.4" y="155.5" font-size="5.1" fill="#6f685d" text-anchor="middle">Oven tower</text>
+</g>
+<g class="sym" id="k1-S-EP1" data-id="S:EP1"><title>EP1: End panel</title>
+<rect x="287.3" y="136.2" width="3.5" height="239.2" fill="#f3ead9" stroke="#7a6a4f" stroke-width="0.8"/>
+<rect x="287.3" y="375.4" width="3.5" height="9.2" fill="#f3ead9" stroke="#7a6a4f" stroke-width="0.8"/>
+</g>
+<g class="sym" id="k1-S-REF" data-id="S:REF"><title>REF: Refrigerator 30&quot;</title>
+<rect x="291.3" y="223.6" width="67.9" height="161" fill="#d5dade" stroke="#4d5257" stroke-width="0.8"/>
+<line x1="325.3" y1="384.6" x2="325.3" y2="223.6" stroke="#4d5257" stroke-width="0.7"/>
+<rect x="290.8" y="136.2" width="69" height="87.4" fill="#f3ead9" stroke="#7a6a4f" stroke-width="0.8"/>
+<line x1="328.7" y1="301.8" x2="328.7" y2="246.6" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="321.8" y1="301.8" x2="321.8" y2="246.6" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="336.8" y1="217.8" x2="313.8" y2="217.8" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<text x="325.3" y="182.2" font-size="5.1" fill="#6f685d" text-anchor="middle">cabinet above, one door</text>
+<text x="325.3" y="304.1" font-size="6.4" text-anchor="middle" font-weight="600" font-family="IBM Plex Mono, monospace" fill="#222">REF</text>
+<text x="325.3" y="311.9" font-size="5.1" fill="#6f685d" text-anchor="middle">Refrigerator 30&quot;</text>
+</g>
+<g class="sym" id="k1-S-K1" data-id="S:K1"><title>K1: Roll-under counter</title>
+<rect x="415" y="309.9" width="82.8" height="8" fill="#f3ead9" stroke="#7a6a4f" stroke-width="0.8"/>
+<rect x="415" y="317.9" width="82.8" height="66.7" fill="#0f8a82" fill-opacity=".08" stroke="#0f8a82" stroke-width="0.7" stroke-dasharray="2.8 2.3"/>
+<text x="456.4" y="351.2" font-size="5.5" fill="#0f8a82" text-anchor="middle">roll-under counter, 29&quot; clear</text>
+<text x="456.4" y="316.1" font-size="6.4" text-anchor="middle" font-weight="600" font-family="IBM Plex Mono, monospace" fill="#222">K1</text>
+</g>
+<g class="sym" id="k1-S-CT1" data-id="S:CT1"><title>CT1: Counter</title>
+<rect x="415" y="306.4" width="262.2" height="3.4" fill="#4d5257"/>
+</g>
+<g class="sym" id="k1-S-U1" data-id="S:U1"><title>U1: Wall cabinet to ceiling</title>
+<rect x="601.3" y="136.2" width="75.9" height="124.2" fill="#f3ead9" stroke="#7a6a4f" stroke-width="0.8"/>
+<line x1="677.2" y1="163.8" x2="601.3" y2="163.8" stroke="#7a6a4f" stroke-width="0.7"/>
+<line x1="650.7" y1="159.2" x2="627.7" y2="159.2" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="639.2" y1="260.4" x2="639.2" y2="163.8" stroke="#7a6a4f" stroke-width="0.7"/>
+<line x1="642.7" y1="254.6" x2="642.7" y2="244.3" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="635.8" y1="254.6" x2="635.8" y2="244.3" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<text x="639.2" y="212.1" font-size="6.4" text-anchor="middle" font-weight="600" font-family="IBM Plex Mono, monospace" fill="#222">U1</text>
+</g>
+<g class="sym" id="k1-S-U2" data-id="S:U2"><title>U2: Wall cabinet to ceiling</title>
+<rect x="553" y="136.2" width="48.3" height="124.2" fill="#f3ead9" stroke="#7a6a4f" stroke-width="0.8"/>
+<line x1="601.3" y1="163.8" x2="553" y2="163.8" stroke="#7a6a4f" stroke-width="0.7"/>
+<line x1="588.6" y1="159.2" x2="565.6" y2="159.2" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="557" y1="254.6" x2="557" y2="244.3" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<text x="577.1" y="212.1" font-size="6.4" text-anchor="middle" font-weight="600" font-family="IBM Plex Mono, monospace" fill="#222">U2</text>
+</g>
+<g class="sym" id="k1-S-U3" data-id="S:U3"><title>U3: Wall cabinet to ceiling</title>
+<rect x="497.8" y="136.2" width="55.2" height="124.2" fill="#f3ead9" stroke="#7a6a4f" stroke-width="0.8"/>
+<line x1="553" y1="163.8" x2="497.8" y2="163.8" stroke="#7a6a4f" stroke-width="0.7"/>
+<line x1="536.9" y1="159.2" x2="513.9" y2="159.2" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="501.8" y1="254.6" x2="501.8" y2="244.3" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<text x="525.4" y="212.1" font-size="6.4" text-anchor="middle" font-weight="600" font-family="IBM Plex Mono, monospace" fill="#222">U3</text>
+</g>
+<g class="sym" id="k1-S-U4" data-id="S:U4"><title>U4: Wall cabinet to ceiling</title>
+<rect x="415" y="136.2" width="82.8" height="124.2" fill="#f3ead9" stroke="#7a6a4f" stroke-width="0.8"/>
+<line x1="497.8" y1="163.8" x2="415" y2="163.8" stroke="#7a6a4f" stroke-width="0.7"/>
+<line x1="467.9" y1="159.2" x2="444.9" y2="159.2" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="456.4" y1="260.4" x2="456.4" y2="163.8" stroke="#7a6a4f" stroke-width="0.7"/>
+<line x1="459.8" y1="254.6" x2="459.8" y2="244.3" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="452.9" y1="254.6" x2="452.9" y2="244.3" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<text x="456.4" y="212.1" font-size="6.4" text-anchor="middle" font-weight="600" font-family="IBM Plex Mono, monospace" fill="#222">U4</text>
+</g>
+<g class="sym" id="k1-S-TU1" data-id="S:TU1"><title>TU1: Cabinet above the oven</title>
+<rect x="359.8" y="136.2" width="55.2" height="115" fill="#f3ead9" stroke="#7a6a4f" stroke-width="0.8"/>
+<line x1="415" y1="163.8" x2="359.8" y2="163.8" stroke="#7a6a4f" stroke-width="0.7"/>
+<line x1="398.9" y1="159.2" x2="375.9" y2="159.2" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="363.8" y1="245.4" x2="363.8" y2="235.1" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<text x="387.4" y="207.5" font-size="6.4" text-anchor="middle" font-weight="600" font-family="IBM Plex Mono, monospace" fill="#222">TU1</text>
+</g>
+<g class="sym" id="k1-S-O1" data-id="S:O1"><title>O1: Wall oven, single, side-opening door</title>
+<rect x="363.9" y="251.2" width="46.9" height="62.1" fill="#d5dade" stroke="#4d5257" stroke-width="0.8"/>
+<line x1="406.9" y1="304.1" x2="406.9" y2="260.4" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<text x="387.4" y="284.6" font-size="6.4" text-anchor="middle" font-weight="600" font-family="IBM Plex Mono, monospace" fill="#222">O1</text>
+<text x="387.4" y="292.4" font-size="5.1" fill="#6f685d" text-anchor="middle">Wall oven, single, side-opening door</text>
+</g>
+<g class="sym" id="k1-S-TD1" data-id="S:TD1"><title>TD1: Drawer</title>
+<rect x="360.9" y="375.4" width="52.9" height="9.2" fill="#4d5257" opacity=".55"/>
+<rect x="359.8" y="344.3" width="55.2" height="31" fill="#f3ead9" stroke="#7a6a4f" stroke-width="0.8"/>
+<line x1="398.9" y1="350.1" x2="375.9" y2="350.1" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<text x="387.4" y="362.2" font-size="5.1" fill="#6f685d" text-anchor="middle">TD1 Drawer</text>
+</g>
+<g class="sym" id="k1-S-TD2" data-id="S:TD2"><title>TD2: Drawer</title>
+<rect x="360.9" y="375.4" width="52.9" height="9.2" fill="#4d5257" opacity=".55"/>
+<rect x="359.8" y="313.3" width="55.2" height="31" fill="#f3ead9" stroke="#7a6a4f" stroke-width="0.8"/>
+<line x1="398.9" y1="319" x2="375.9" y2="319" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<text x="387.4" y="331.1" font-size="5.1" fill="#6f685d" text-anchor="middle">TD2 Drawer</text>
+</g>
+<g class="sym" id="k1-S-L48" data-id="S:L48"><title>L48: LED strip under the wall cabinets, ckt 21</title>
+<line x1="677.2" y1="261.5" x2="415" y2="261.5" stroke="#c8650a" stroke-width="2.1"/>
+<text x="412.7" y="267.5" font-size="5.5" fill="#c8650a" text-anchor="end" font-family="IBM Plex Mono, monospace">L48</text>
+</g>
+<g class="sym" id="k1-S-S15" data-id="S:S15"><title>S15: Dimmer, kitchen 3-way, ckt 21</title>
+<rect x="711.8" y="283.4" width="5.5" height="9.2" rx="0.7" fill="#c8650a" stroke="#c8650a" stroke-width="0.9"/>
+<text x="720.1" y="283.9" font-size="5.3" fill="#c8650a" font-weight="500" font-family="IBM Plex Mono, monospace">S15</text>
+<circle class="hit" cx="714.5" cy="288" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-S-R54" data-id="S:R54"><title>R54: GFCI 20A, ckt 7</title>
+<circle cx="500.6" cy="288" r="3.4" fill="#c8650a" stroke="#c8650a" stroke-width="0.9"/>
+<text x="500.6" y="290.1" font-size="4.6" fill="#fff" text-anchor="middle" font-weight="600">G</text>
+<text x="506.2" y="283.9" font-size="5.3" fill="#c8650a" font-weight="500" font-family="IBM Plex Mono, monospace">R54</text>
+<circle class="hit" cx="500.6" cy="288" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-S-R55" data-id="S:R55"><title>R55: GFCI 20A, ckt 8</title>
+<circle cx="428.8" cy="288" r="3.4" fill="#c8650a" stroke="#c8650a" stroke-width="0.9"/>
+<text x="428.8" y="290.1" font-size="4.6" fill="#fff" text-anchor="middle" font-weight="600">G</text>
+<text x="434.3" y="283.9" font-size="5.3" fill="#c8650a" font-weight="500" font-family="IBM Plex Mono, monospace">R55</text>
+<circle class="hit" cx="428.8" cy="288" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-S-R52" data-id="S:R52"><title>R52: Oven 240V, ckt 3-4 (behind the cabinets)</title>
+<circle cx="387.4" cy="315.6" r="4.4" fill="#fff" stroke="#c8650a" stroke-width="0.9" stroke-dasharray="1.8 1.4"/>
+<text x="392.9" y="311.5" font-size="5.3" fill="#c8650a" font-weight="500" font-family="IBM Plex Mono, monospace">R52</text>
+<circle class="hit" cx="387.4" cy="315.6" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-S-R50" data-id="S:R50"><title>R50: Fridge 20A, recessed box, ckt 9 (behind the cabinets)</title>
+<circle cx="325.3" cy="315.6" r="3.4" fill="#fff" stroke="#c8650a" stroke-width="0.9" stroke-dasharray="1.8 1.4"/>
+<text x="330.8" y="311.5" font-size="5.3" fill="#c8650a" font-weight="500" font-family="IBM Plex Mono, monospace">R50</text>
+<circle class="hit" cx="325.3" cy="315.6" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-S-F10" data-id="S:F10"><title>F10: Fridge water box (behind the cabinets)</title>
+<circle cx="325.3" cy="370.8" r="3.4" fill="#fff" stroke="#2c6aa0" stroke-width="0.9" stroke-dasharray="1.8 1.4"/>
+<text x="330.8" y="366.7" font-size="5.3" fill="#2c6aa0" font-weight="500" font-family="IBM Plex Mono, monospace">F10</text>
+<circle class="hit" cx="325.3" cy="370.8" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-S-X4" data-id="S:X4"><title>X4: LV drop for cabinet LED</title>
+<path d="M628.9 187.3 L633 191.4 L628.9 195.5 L624.7 191.4 z" fill="#7b4ab3" stroke="#7b4ab3" stroke-width="0.9"/>
+<text x="634.4" y="187.3" font-size="5.3" fill="#7b4ab3" font-weight="500" font-family="IBM Plex Mono, monospace">X4</text>
+<circle class="hit" cx="628.9" cy="191.4" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-S-X5" data-id="S:X5"><title>X5: LV drop for cabinet LED</title>
+<path d="M449.5 187.3 L453.6 191.4 L449.5 195.5 L445.3 191.4 z" fill="#7b4ab3" stroke="#7b4ab3" stroke-width="0.9"/>
+<text x="455" y="187.3" font-size="5.3" fill="#7b4ab3" font-weight="500" font-family="IBM Plex Mono, monospace">X5</text>
+<circle class="hit" cx="449.5" cy="191.4" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-S-S2" data-id="S:S2"><title>S2: Vent stack S2, 2&quot;, in W16 (behind the cabinets)</title>
+<line x1="573.7" y1="384.6" x2="573.7" y2="136.2" stroke="#2c6aa0" opacity=".8" stroke-width="2.8" stroke-dasharray="3.4 2.3"/>
+<text x="576.4" y="223.6" font-size="5.3" fill="#2c6aa0" font-weight="500" font-family="IBM Plex Mono, monospace">S2</text>
+</g>
+<g class="sym" id="k1-S-R2" data-id="S:R2"><title>R2: Supply riser R2 (feeds the island sink) (behind the cabinets)</title>
+<line x1="587.5" y1="384.6" x2="587.5" y2="361.6" stroke="#2c6aa0" opacity=".8" stroke-width="1.6" stroke-dasharray="3.4 2.3"/>
+<text x="590.2" y="359.3" font-size="5.3" fill="#2c6aa0" font-weight="500" font-family="IBM Plex Mono, monospace">R2</text>
+</g>
+<g class="sym" id="k1-S-L52" data-id="S:L52"><title>L52: Can over the aisle, ckt 21</title>
+<path d="M610.5 136.2 h9.2 l-2.3 3.7 h-4.6 z" fill="#c8650a" stroke="#c8650a" stroke-width="0.9"/>
+<text x="620.6" y="146.3" font-size="5.3" fill="#c8650a" font-weight="500" font-family="IBM Plex Mono, monospace">L52</text>
+<circle class="hit" cx="615.1" cy="136.2" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-S-L53" data-id="S:L53"><title>L53: Can over the aisle, ckt 21</title>
+<path d="M472.5 136.2 h9.2 l-2.3 3.7 h-4.6 z" fill="#c8650a" stroke="#c8650a" stroke-width="0.9"/>
+<text x="482.6" y="146.3" font-size="5.3" fill="#c8650a" font-weight="500" font-family="IBM Plex Mono, monospace">L53</text>
+<circle class="hit" cx="477.1" cy="136.2" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-S-L54" data-id="S:L54"><title>L54: Can over the aisle, ckt 21</title>
+<path d="M334.5 136.2 h9.2 l-2.3 3.7 h-4.6 z" fill="#c8650a" stroke="#c8650a" stroke-width="0.9"/>
+<text x="344.6" y="146.3" font-size="5.3" fill="#c8650a" font-weight="500" font-family="IBM Plex Mono, monospace">L54</text>
+<circle class="hit" cx="339.1" cy="136.2" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-S-F23" data-id="S:F23"><title>F23: Pot filler, wall mount, cold only</title>
+<circle cx="456.4" cy="283.4" r="3.4" fill="#2c6aa0" stroke="#2c6aa0" stroke-width="0.9"/>
+<text x="461.9" y="279.3" font-size="5.3" fill="#2c6aa0" font-weight="500" font-family="IBM Plex Mono, monospace">F23</text>
+<circle class="hit" cx="456.4" cy="283.4" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-S-R98" data-id="S:R98"><title>R98: GFCI 20A, ckt 7, on W15 (pantry&#x27;s east wall, kitchen face)</title>
+<circle cx="679.5" cy="288" r="3.4" fill="#c8650a" stroke="#c8650a" stroke-width="0.9"/>
+<text x="679.5" y="290.1" font-size="4.6" fill="#fff" text-anchor="middle" font-weight="600">G</text>
+<line x1="679.5" y1="384.6" x2="679.5" y2="306.4" stroke="#c8650a" stroke-width="0.7" stroke-dasharray="2.3 2.3"/>
+<text x="685" y="283.9" font-size="5.3" fill="#c8650a" font-weight="500" font-family="IBM Plex Mono, monospace">R98</text>
+<circle class="hit" cx="679.5" cy="288" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<line x1="677.2" y1="115.5" x2="287.3" y2="115.5" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="674.9" y1="117.8" x2="679.5" y2="113.2" stroke="#b4462f" stroke-width="1"/>
+<line x1="677.2" y1="119" x2="677.2" y2="112" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="599" y1="117.8" x2="603.6" y2="113.2" stroke="#b4462f" stroke-width="1"/>
+<line x1="601.3" y1="119" x2="601.3" y2="112" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="550.7" y1="117.8" x2="555.3" y2="113.2" stroke="#b4462f" stroke-width="1"/>
+<line x1="553" y1="119" x2="553" y2="112" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="495.5" y1="117.8" x2="500.1" y2="113.2" stroke="#b4462f" stroke-width="1"/>
+<line x1="497.8" y1="119" x2="497.8" y2="112" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="412.7" y1="117.8" x2="417.3" y2="113.2" stroke="#b4462f" stroke-width="1"/>
+<line x1="415" y1="119" x2="415" y2="112" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="357.5" y1="117.8" x2="362.1" y2="113.2" stroke="#b4462f" stroke-width="1"/>
+<line x1="359.8" y1="119" x2="359.8" y2="112" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="288.5" y1="117.8" x2="293.1" y2="113.2" stroke="#b4462f" stroke-width="1"/>
+<line x1="290.8" y1="119" x2="290.8" y2="112" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="285" y1="117.8" x2="289.6" y2="113.2" stroke="#b4462f" stroke-width="1"/>
+<line x1="287.3" y1="119" x2="287.3" y2="112" stroke="#b4462f" stroke-width="0.7"/>
+<text x="639.2" y="113" font-size="6" fill="#b4462f" text-anchor="middle" font-family="IBM Plex Mono, monospace">33&quot;</text>
+<text x="577.1" y="113" font-size="6" fill="#b4462f" text-anchor="middle" font-family="IBM Plex Mono, monospace">21&quot;</text>
+<text x="525.4" y="113" font-size="6" fill="#b4462f" text-anchor="middle" font-family="IBM Plex Mono, monospace">24&quot;</text>
+<text x="456.4" y="113" font-size="6" fill="#b4462f" text-anchor="middle" font-family="IBM Plex Mono, monospace">36&quot;</text>
+<text x="387.4" y="113" font-size="6" fill="#b4462f" text-anchor="middle" font-family="IBM Plex Mono, monospace">24&quot;</text>
+<text x="325.3" y="113" font-size="6" fill="#b4462f" text-anchor="middle" font-family="IBM Plex Mono, monospace">30&quot;</text>
+<text x="289" y="113" font-size="4.6" fill="#b4462f" text-anchor="middle" font-family="IBM Plex Mono, monospace">1½&quot;</text>
+<line x1="679.5" y1="90.2" x2="287.3" y2="90.2" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="677.2" y1="92.5" x2="681.8" y2="87.9" stroke="#b4462f" stroke-width="1"/>
+<line x1="679.5" y1="93.6" x2="679.5" y2="86.7" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="674.9" y1="92.5" x2="679.5" y2="87.9" stroke="#b4462f" stroke-width="1"/>
+<line x1="677.2" y1="93.6" x2="677.2" y2="86.7" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="285" y1="92.5" x2="289.6" y2="87.9" stroke="#b4462f" stroke-width="1"/>
+<line x1="287.3" y1="93.6" x2="287.3" y2="86.7" stroke="#b4462f" stroke-width="0.7"/>
+<text x="678.3" y="87.7" font-size="4.6" fill="#b4462f" text-anchor="middle" font-family="IBM Plex Mono, monospace">1&quot;</text>
+<text x="482.2" y="87.7" font-size="6" fill="#b4462f" text-anchor="middle" font-family="IBM Plex Mono, monospace">169½&quot; (14&#x27;-1½&quot;)</text>
+<text x="679.5" y="76.4" font-size="5.8" fill="#b4462f" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-weight="600">0 = W15</text>
+<line x1="325.3" y1="386.9" x2="325.3" y2="393.8" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="325.3" y1="393.8" x2="325.3" y2="400.7" stroke="#b4462f" stroke-width="0.7"/>
+<text x="327.3" y="403" font-size="5.3" fill="#b4462f" transform="rotate(90 327.3 403)" font-family="IBM Plex Mono, monospace">154&quot;  R50 F10</text>
+<line x1="387.4" y1="386.9" x2="387.4" y2="393.8" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="387.4" y1="393.8" x2="387.4" y2="400.7" stroke="#b4462f" stroke-width="0.7"/>
+<text x="389.4" y="403" font-size="5.3" fill="#b4462f" transform="rotate(90 389.4 403)" font-family="IBM Plex Mono, monospace">127&quot;  R52</text>
+<line x1="428.8" y1="386.9" x2="428.8" y2="393.8" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="428.8" y1="393.8" x2="428.8" y2="400.7" stroke="#b4462f" stroke-width="0.7"/>
+<text x="430.8" y="403" font-size="5.3" fill="#b4462f" transform="rotate(90 430.8 403)" font-family="IBM Plex Mono, monospace">109&quot;  R55</text>
+<line x1="449.5" y1="386.9" x2="449.5" y2="393.8" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="449.5" y1="393.8" x2="449.5" y2="400.7" stroke="#b4462f" stroke-width="0.7"/>
+<text x="451.5" y="403" font-size="5.3" fill="#b4462f" transform="rotate(90 451.5 403)" font-family="IBM Plex Mono, monospace">100&quot;  X5</text>
+<line x1="456.4" y1="386.9" x2="456.4" y2="393.8" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="456.4" y1="393.8" x2="457.1" y2="400.7" stroke="#b4462f" stroke-width="0.7"/>
+<text x="459.1" y="403" font-size="5.3" fill="#b4462f" transform="rotate(90 459.1 403)" font-family="IBM Plex Mono, monospace">97&quot;  F23</text>
+<line x1="500.6" y1="386.9" x2="500.6" y2="393.8" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="500.6" y1="393.8" x2="500.6" y2="400.7" stroke="#b4462f" stroke-width="0.7"/>
+<text x="502.7" y="403" font-size="5.3" fill="#b4462f" transform="rotate(90 502.7 403)" font-family="IBM Plex Mono, monospace">77¾&quot;  R54</text>
+<line x1="573.7" y1="386.9" x2="573.7" y2="393.8" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="573.7" y1="393.8" x2="573.7" y2="400.7" stroke="#b4462f" stroke-width="0.7"/>
+<text x="575.7" y="403" font-size="5.3" fill="#b4462f" transform="rotate(90 575.7 403)" font-family="IBM Plex Mono, monospace">46&quot;  S2</text>
+<line x1="587.5" y1="386.9" x2="587.5" y2="393.8" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="587.5" y1="393.8" x2="587.5" y2="400.7" stroke="#b4462f" stroke-width="0.7"/>
+<text x="589.5" y="403" font-size="5.3" fill="#b4462f" transform="rotate(90 589.5 403)" font-family="IBM Plex Mono, monospace">40&quot;  R2</text>
+<line x1="628.9" y1="386.9" x2="628.9" y2="393.8" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="628.9" y1="393.8" x2="628.9" y2="400.7" stroke="#b4462f" stroke-width="0.7"/>
+<text x="630.9" y="403" font-size="5.3" fill="#b4462f" transform="rotate(90 630.9 403)" font-family="IBM Plex Mono, monospace">22&quot;  X4</text>
+<line x1="679.5" y1="386.9" x2="679.5" y2="393.8" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="679.5" y1="393.8" x2="679.5" y2="400.7" stroke="#b4462f" stroke-width="0.7"/>
+<text x="681.5" y="403" font-size="5.3" fill="#b4462f" transform="rotate(90 681.5 403)" font-family="IBM Plex Mono, monospace">0&quot;  R98</text>
+<line x1="679.5" y1="386.9" x2="679.5" y2="393.8" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="679.5" y1="393.8" x2="687.1" y2="400.7" stroke="#b4462f" stroke-width="0.7"/>
+<text x="689.1" y="403" font-size="5.3" fill="#b4462f" transform="rotate(90 689.1 403)" font-family="IBM Plex Mono, monospace">0</text>
+<line x1="714.5" y1="386.9" x2="714.5" y2="393.8" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="714.5" y1="393.8" x2="714.5" y2="400.7" stroke="#b4462f" stroke-width="0.7"/>
+<text x="716.6" y="403" font-size="5.3" fill="#b4462f" transform="rotate(90 716.6 403)" font-family="IBM Plex Mono, monospace">−15¼&quot;  S15</text>
+<line x1="973.9" y1="384.6" x2="973.9" y2="136.2" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="971.6" y1="386.9" x2="976.2" y2="382.3" stroke="#b4462f" stroke-width="1"/>
+<line x1="970.4" y1="384.6" x2="977.3" y2="384.6" stroke="#b4462f" stroke-width="0.7"/>
+<text x="978.5" y="386.7" font-size="5.3" fill="#b4462f" font-family="IBM Plex Mono, monospace">0&quot;</text>
+<line x1="971.6" y1="377.7" x2="976.2" y2="373.1" stroke="#b4462f" stroke-width="1"/>
+<line x1="970.4" y1="375.4" x2="977.3" y2="375.4" stroke="#b4462f" stroke-width="0.7"/>
+<text x="978.5" y="377.5" font-size="5.3" fill="#b4462f" font-family="IBM Plex Mono, monospace">4&quot;</text>
+<line x1="971.6" y1="320.2" x2="976.2" y2="315.6" stroke="#b4462f" stroke-width="1"/>
+<line x1="970.4" y1="317.9" x2="977.3" y2="317.9" stroke="#b4462f" stroke-width="0.7"/>
+<text x="978.5" y="320" font-size="5.3" fill="#b4462f" font-family="IBM Plex Mono, monospace">29&quot;</text>
+<line x1="971.6" y1="315.6" x2="976.2" y2="311" stroke="#b4462f" stroke-width="1"/>
+<line x1="970.4" y1="313.3" x2="977.3" y2="313.3" stroke="#b4462f" stroke-width="0.7"/>
+<text x="978.5" y="314" font-size="5.3" fill="#b4462f" font-family="IBM Plex Mono, monospace">31&quot;</text>
+<line x1="971.6" y1="312.2" x2="976.2" y2="307.6" stroke="#b4462f" stroke-width="1"/>
+<line x1="970.4" y1="309.9" x2="977.3" y2="309.9" stroke="#b4462f" stroke-width="0.7"/>
+<text x="978.5" y="308" font-size="5.3" fill="#b4462f" font-family="IBM Plex Mono, monospace">32½&quot;</text>
+<line x1="971.6" y1="308.7" x2="976.2" y2="304.1" stroke="#b4462f" stroke-width="1"/>
+<line x1="970.4" y1="306.4" x2="977.3" y2="306.4" stroke="#b4462f" stroke-width="0.7"/>
+<text x="978.5" y="302" font-size="5.3" fill="#b4462f" font-family="IBM Plex Mono, monospace">34&quot;</text>
+<line x1="971.6" y1="262.7" x2="976.2" y2="258.1" stroke="#b4462f" stroke-width="1"/>
+<line x1="970.4" y1="260.4" x2="977.3" y2="260.4" stroke="#b4462f" stroke-width="0.7"/>
+<text x="978.5" y="262.5" font-size="5.3" fill="#b4462f" font-family="IBM Plex Mono, monospace">54&quot;</text>
+<line x1="971.6" y1="253.5" x2="976.2" y2="248.9" stroke="#b4462f" stroke-width="1"/>
+<line x1="970.4" y1="251.2" x2="977.3" y2="251.2" stroke="#b4462f" stroke-width="0.7"/>
+<text x="978.5" y="253.3" font-size="5.3" fill="#b4462f" font-family="IBM Plex Mono, monospace">58&quot;</text>
+<line x1="971.6" y1="225.9" x2="976.2" y2="221.3" stroke="#b4462f" stroke-width="1"/>
+<line x1="970.4" y1="223.6" x2="977.3" y2="223.6" stroke="#b4462f" stroke-width="0.7"/>
+<text x="978.5" y="225.7" font-size="5.3" fill="#b4462f" font-family="IBM Plex Mono, monospace">70&quot;</text>
+<line x1="971.6" y1="166.1" x2="976.2" y2="161.5" stroke="#b4462f" stroke-width="1"/>
+<line x1="970.4" y1="163.8" x2="977.3" y2="163.8" stroke="#b4462f" stroke-width="0.7"/>
+<text x="978.5" y="165.9" font-size="5.3" fill="#b4462f" font-family="IBM Plex Mono, monospace">96&quot;</text>
+<line x1="971.6" y1="138.5" x2="976.2" y2="133.9" stroke="#b4462f" stroke-width="1"/>
+<line x1="970.4" y1="136.2" x2="977.3" y2="136.2" stroke="#b4462f" stroke-width="0.7"/>
+<text x="978.5" y="138.3" font-size="5.3" fill="#b4462f" font-family="IBM Plex Mono, monospace">108&quot;</text>
+<text x="973.9" y="127" font-size="5.3" fill="#b4462f" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-weight="600">AFF</text>
+<text x="60" y="483.6" font-size="16" font-weight="700" fill="#222">Looking north</text>
+<text x="60" y="498.6" font-size="9" fill="#555">Island, aisle face. Dining and living room beyond. Zero is the island west end; dimensions grow to the right.</text>
+<rect x="308.3" y="585.8" width="441.6" height="248.4" fill="#f6f5f2"/>
+<text x="529.1" y="597.3" font-size="6" fill="#6f685d" text-anchor="middle">Open to the dining and living room beyond</text>
+<line x1="308.3" y1="834.2" x2="749.9" y2="834.2" stroke="#222" stroke-width="1.8"/>
+<line x1="308.3" y1="585.8" x2="749.9" y2="585.8" stroke="#222" stroke-width="0.9" stroke-dasharray="6.9 4.6"/>
+<text x="310.6" y="582.6" font-size="5.5" fill="#6f685d" font-family="IBM Plex Mono, monospace">CEILING 9&#x27;-0&quot;</text>
+<text x="310.6" y="842" font-size="5.5" fill="#6f685d" font-family="IBM Plex Mono, monospace">FLOOR</text>
+<line x1="308.3" y1="723.8" x2="749.9" y2="723.8" stroke="#0f8a82" stroke-width="0.8" stroke-dasharray="3.4 2.8"/>
+<text x="306" y="725.6" font-size="5.1" fill="#0f8a82" text-anchor="end">48&quot; reach</text>
+<line x1="308.3" y1="733" x2="749.9" y2="733" stroke="#0f8a82" stroke-width="0.8" stroke-dasharray="3.4 2.8"/>
+<text x="306" y="734.8" font-size="5.1" fill="#0f8a82" text-anchor="end">44&quot; over counter</text>
+<line x1="308.3" y1="756" x2="749.9" y2="756" stroke="#0f8a82" stroke-width="0.8" stroke-dasharray="3.4 2.8"/>
+<text x="306" y="757.8" font-size="5.1" fill="#0f8a82" text-anchor="end">34&quot; counter max</text>
+<line x1="308.3" y1="772.1" x2="749.9" y2="772.1" stroke="#0f8a82" stroke-width="0.8" stroke-dasharray="3.4 2.8"/>
+<text x="306" y="773.9" font-size="5.1" fill="#0f8a82" text-anchor="end">27&quot; knee</text>
+<line x1="308.3" y1="799.7" x2="749.9" y2="799.7" stroke="#0f8a82" stroke-width="0.8" stroke-dasharray="3.4 2.8"/>
+<text x="306" y="801.5" font-size="5.1" fill="#0f8a82" text-anchor="end">15&quot; min reach</text>
+<g class="sym" id="k1-N-IB1" data-id="N:IB1"><title>IB1: Pull-out, double trash</title>
+<rect x="335.9" y="759.4" width="34.5" height="65.5" fill="#f3ead9" stroke="#7a6a4f" stroke-width="0.8"/>
+<rect x="337.1" y="825" width="32.2" height="9.2" fill="#4d5257" opacity=".55"/>
+<line x1="346.2" y1="766.3" x2="360.1" y2="766.3" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<text x="353.1" y="773.2" font-size="6.4" text-anchor="middle" font-weight="600" font-family="IBM Plex Mono, monospace" fill="#222">IB1</text>
+</g>
+<g class="sym" id="k1-N-IB4" data-id="N:IB4"><title>IB4: Base, downdraft blower</title>
+<rect x="646.4" y="759.4" width="75.9" height="65.5" fill="#f3ead9" stroke="#7a6a4f" stroke-width="0.8"/>
+<rect x="647.5" y="825" width="73.6" height="9.2" fill="#4d5257" opacity=".55"/>
+<line x1="646.4" y1="773.2" x2="722.3" y2="773.2" stroke="#7a6a4f" stroke-width="0.7"/>
+<line x1="672.8" y1="766.3" x2="695.8" y2="766.3" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="684.3" y1="825" x2="684.3" y2="773.2" stroke="#7a6a4f" stroke-width="0.7"/>
+<line x1="680.9" y1="789.3" x2="680.9" y2="779" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="687.8" y1="789.3" x2="687.8" y2="779" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<text x="684.3" y="773.2" font-size="6.4" text-anchor="middle" font-weight="600" font-family="IBM Plex Mono, monospace" fill="#222">IB4</text>
+<text x="684.3" y="781.1" font-size="5.1" fill="#6f685d" text-anchor="middle">Base, downdraft blower</text>
+</g>
+<g class="sym" id="k1-N-K3" data-id="N:K3"><title>K3: Roll-under sink</title>
+<rect x="370.4" y="759.4" width="82.8" height="8" fill="#f3ead9" stroke="#7a6a4f" stroke-width="0.8"/>
+<rect x="370.4" y="767.5" width="82.8" height="66.7" fill="#0f8a82" fill-opacity=".08" stroke="#0f8a82" stroke-width="0.7" stroke-dasharray="2.8 2.3"/>
+<text x="411.8" y="800.8" font-size="5.5" fill="#0f8a82" text-anchor="middle">roll-under sink, 29&quot; clear</text>
+<text x="411.8" y="765.7" font-size="6.4" text-anchor="middle" font-weight="600" font-family="IBM Plex Mono, monospace" fill="#222">K3</text>
+</g>
+<g class="sym" id="k1-N-K2" data-id="N:K2"><title>K2: Roll-under cooktop</title>
+<rect x="563.6" y="759.4" width="82.8" height="8" fill="#f3ead9" stroke="#7a6a4f" stroke-width="0.8"/>
+<rect x="563.6" y="767.5" width="82.8" height="66.7" fill="#0f8a82" fill-opacity=".08" stroke="#0f8a82" stroke-width="0.7" stroke-dasharray="2.8 2.3"/>
+<text x="605" y="800.8" font-size="5.5" fill="#0f8a82" text-anchor="middle">roll-under cooktop, 29&quot; clear</text>
+<text x="605" y="765.7" font-size="6.4" text-anchor="middle" font-weight="600" font-family="IBM Plex Mono, monospace" fill="#222">K2</text>
+</g>
+<g class="sym" id="k1-N-CT3" data-id="N:CT3"><title>CT3: Island top</title>
+<rect x="333.6" y="756" width="391" height="3.4" fill="#4d5257"/>
+</g>
+<g class="sym" id="k1-N-DW1" data-id="N:DW1"><title>DW1: Dishwasher drawers</title>
+<rect x="454.4" y="825" width="52.9" height="9.2" fill="#4d5257" opacity=".55"/>
+<rect x="453.9" y="759.4" width="53.8" height="65.5" fill="#d5dade" stroke="#4d5257" stroke-width="0.8"/>
+<line x1="453.2" y1="792.2" x2="508.4" y2="792.2" stroke="#4d5257" stroke-width="0.7"/>
+<line x1="467" y1="765.2" x2="494.6" y2="765.2" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="467" y1="798" x2="494.6" y2="798" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<text x="480.8" y="794.5" font-size="6.4" text-anchor="middle" font-weight="600" font-family="IBM Plex Mono, monospace" fill="#222">DW1</text>
+<text x="480.8" y="802.3" font-size="5.1" fill="#6f685d" text-anchor="middle">Dishwasher drawers</text>
+</g>
+<g class="sym" id="k1-N-DR1" data-id="N:DR1"><title>DR1: Drawer</title>
+<rect x="509.6" y="825" width="52.9" height="9.2" fill="#4d5257" opacity=".55"/>
+<rect x="508.4" y="795.1" width="55.2" height="29.9" fill="#f3ead9" stroke="#7a6a4f" stroke-width="0.8"/>
+<line x1="524.5" y1="800.8" x2="547.5" y2="800.8" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<text x="536" y="812.3" font-size="5.1" fill="#6f685d" text-anchor="middle">DR1 Drawer</text>
+</g>
+<g class="sym" id="k1-N-MW1" data-id="N:MW1"><title>MW1: Microwave drawer</title>
+<rect x="509.1" y="759.4" width="53.8" height="35.6" fill="#d5dade" stroke="#4d5257" stroke-width="0.8"/>
+<line x1="519.9" y1="765.2" x2="552.1" y2="765.2" stroke="#222" stroke-width="1.6" stroke-linecap="round"/>
+<text x="536" y="779.6" font-size="6.4" text-anchor="middle" font-weight="600" font-family="IBM Plex Mono, monospace" fill="#222">MW1</text>
+<text x="536" y="787.4" font-size="5.1" fill="#6f685d" text-anchor="middle">Microwave drawer</text>
+</g>
+<g class="sym" id="k1-N-SK1" data-id="N:SK1"><title>SK1: Sink bowl (in the top)</title>
+<rect x="381.9" y="756" width="59.8" height="13.8" fill="none" stroke="#2c6aa0" stroke-width="0.8" stroke-dasharray="2.3 1.8"/>
+</g>
+<g class="sym" id="k1-N-CK1" data-id="N:CK1"><title>CK1: Induction cooktop 30&quot;</title>
+<rect x="570.5" y="754.6" width="69" height="1.4" fill="#222"/>
+</g>
+<g class="sym" id="k1-N-DD1" data-id="N:DD1"><title>DD1: Downdraft vent</title>
+<rect x="572.8" y="733" width="64.4" height="23" fill="none" stroke="#4d5257" stroke-width="0.8" stroke-dasharray="2.8 1.8"/>
+<text x="605" y="730.7" font-size="5.1" fill="#6f685d" text-anchor="middle">downdraft raised</text>
+</g>
+<g class="sym" id="k1-N-R44" data-id="N:R44"><title>R44: Pop-up 20A GFCI, ckt 7</title>
+<rect x="366.3" y="752.3" width="8.3" height="3.7" fill="#c8650a" stroke="#c8650a" stroke-width="0.9"/>
+<text x="375.9" y="751.9" font-size="5.3" fill="#c8650a" font-weight="500" font-family="IBM Plex Mono, monospace">R44</text>
+<circle class="hit" cx="370.4" cy="756" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-N-R45" data-id="N:R45"><title>R45: Pop-up 20A GFCI, ckt 8</title>
+<rect x="683.7" y="752.3" width="8.3" height="3.7" fill="#c8650a" stroke="#c8650a" stroke-width="0.9"/>
+<text x="693.3" y="751.9" font-size="5.3" fill="#c8650a" font-weight="500" font-family="IBM Plex Mono, monospace">R45</text>
+<circle class="hit" cx="687.8" cy="756" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-N-R46" data-id="N:R46"><title>R46: Duplex 15A, west end panel, ckt 7</title>
+<circle cx="335.9" cy="765.2" r="3.4" fill="#c8650a" stroke="#c8650a" stroke-width="0.9"/>
+<line x1="335.9" y1="834.2" x2="335.9" y2="756" stroke="#c8650a" stroke-width="0.7" stroke-dasharray="2.3 2.3"/>
+<text x="341.4" y="761.1" font-size="5.3" fill="#c8650a" font-weight="500" font-family="IBM Plex Mono, monospace">R46</text>
+<circle class="hit" cx="335.9" cy="765.2" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-N-R47" data-id="N:R47"><title>R47: Duplex 15A, east end panel, ckt 8</title>
+<circle cx="722.3" cy="765.2" r="3.4" fill="#c8650a" stroke="#c8650a" stroke-width="0.9"/>
+<line x1="722.3" y1="834.2" x2="722.3" y2="756" stroke="#c8650a" stroke-width="0.7" stroke-dasharray="2.3 2.3"/>
+<text x="727.8" y="761.1" font-size="5.3" fill="#c8650a" font-weight="500" font-family="IBM Plex Mono, monospace">R47</text>
+<circle class="hit" cx="722.3" cy="765.2" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-N-R48" data-id="N:R48"><title>R48: DW drawers 20A, ckt 11 (behind the cabinets)</title>
+<circle cx="480.8" cy="765.2" r="3.4" fill="#fff" stroke="#c8650a" stroke-width="0.9" stroke-dasharray="1.8 1.4"/>
+<text x="486.3" y="761.1" font-size="5.3" fill="#c8650a" font-weight="500" font-family="IBM Plex Mono, monospace">R48</text>
+<circle class="hit" cx="480.8" cy="765.2" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-N-R49" data-id="N:R49"><title>R49: Microwave drawer 20A, ckt 12 (behind the cabinets)</title>
+<circle cx="536" cy="765.2" r="3.4" fill="#fff" stroke="#c8650a" stroke-width="0.9" stroke-dasharray="1.8 1.4"/>
+<text x="541.5" y="761.1" font-size="5.3" fill="#c8650a" font-weight="500" font-family="IBM Plex Mono, monospace">R49</text>
+<circle class="hit" cx="536" cy="765.2" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-N-R53" data-id="N:R53"><title>R53: Cooktop 240V junction, ckt 1-2 (behind the cabinets)</title>
+<circle cx="605" cy="765.2" r="4.4" fill="#fff" stroke="#c8650a" stroke-width="0.9" stroke-dasharray="1.8 1.4"/>
+<text x="610.5" y="761.1" font-size="5.3" fill="#c8650a" font-weight="500" font-family="IBM Plex Mono, monospace">R53</text>
+<circle class="hit" cx="605" cy="765.2" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-N-X3" data-id="N:X3"><title>X3: LV drop, island LED and charging (behind the cabinets)</title>
+<path d="M353.7 802.5 L357.9 806.6 L353.7 810.7 L349.6 806.6 z" fill="#fff" stroke="#7b4ab3" stroke-width="0.9" stroke-dasharray="1.8 1.4"/>
+<text x="359.2" y="802.5" font-size="5.3" fill="#7b4ab3" font-weight="500" font-family="IBM Plex Mono, monospace">X3</text>
+<circle class="hit" cx="353.7" cy="806.6" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-N-F8" data-id="N:F8"><title>F8: Sink drain, offset trap at the back, loop vent inside the island (behind the cabinets)</title>
+<circle cx="411.8" cy="779" r="3.4" fill="#fff" stroke="#2c6aa0" stroke-width="0.9" stroke-dasharray="1.8 1.4"/>
+<text x="417.3" y="774.9" font-size="5.3" fill="#2c6aa0" font-weight="500" font-family="IBM Plex Mono, monospace">F8</text>
+<circle class="hit" cx="411.8" cy="779" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-N-F9" data-id="N:F9"><title>F9: DW drawers: hot supply and drain (behind the cabinets)</title>
+<circle cx="480.8" cy="820.4" r="3.4" fill="#fff" stroke="#2c6aa0" stroke-width="0.9" stroke-dasharray="1.8 1.4"/>
+<text x="486.3" y="816.3" font-size="5.3" fill="#2c6aa0" font-weight="500" font-family="IBM Plex Mono, monospace">F9</text>
+<circle class="hit" cx="480.8" cy="820.4" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-N-G23" data-id="N:G23"><title>G23: Toe-kick register 4x12, dining face, under the trash pull-out (behind the cabinets)</title>
+<rect x="339.4" y="825" width="27.6" height="6.9" fill="#fff" stroke="#4c8c4a" stroke-width="0.9" stroke-dasharray="1.8 1.4"/>
+<text x="358.7" y="825.5" font-size="5.3" fill="#4c8c4a" font-weight="500" font-family="IBM Plex Mono, monospace">G23</text>
+<circle class="hit" cx="353.2" cy="829.6" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-N-L49" data-id="N:L49"><title>L49: Pendant, ckt 21</title>
+<line x1="425.6" y1="585.8" x2="425.6" y2="681.5" stroke="#c8650a" stroke-width="0.6"/>
+<path d="M418.7 687 L425.6 681 L432.5 687 z" fill="#c8650a" stroke="#c8650a" stroke-width="0.9"/>
+<text x="431.1" y="694.4" font-size="5.3" fill="#c8650a" font-weight="500" font-family="IBM Plex Mono, monospace">L49</text>
+<circle class="hit" cx="425.6" cy="687" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-N-L50" data-id="N:L50"><title>L50: Pendant, ckt 21</title>
+<line x1="522.2" y1="585.8" x2="522.2" y2="681.5" stroke="#c8650a" stroke-width="0.6"/>
+<path d="M515.3 687 L522.2 681 L529.1 687 z" fill="#c8650a" stroke="#c8650a" stroke-width="0.9"/>
+<text x="527.7" y="694.4" font-size="5.3" fill="#c8650a" font-weight="500" font-family="IBM Plex Mono, monospace">L50</text>
+<circle class="hit" cx="522.2" cy="687" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-N-L51" data-id="N:L51"><title>L51: Pendant, ckt 21</title>
+<line x1="632.6" y1="585.8" x2="632.6" y2="681.5" stroke="#c8650a" stroke-width="0.6"/>
+<path d="M625.7 687 L632.6 681 L639.5 687 z" fill="#c8650a" stroke="#c8650a" stroke-width="0.9"/>
+<text x="638.1" y="694.4" font-size="5.3" fill="#c8650a" font-weight="500" font-family="IBM Plex Mono, monospace">L51</text>
+<circle class="hit" cx="632.6" cy="687" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-N-L52" data-id="N:L52"><title>L52: Can over the aisle, ckt 21</title>
+<path d="M393.4 585.8 h9.2 l-2.3 3.7 h-4.6 z" fill="#c8650a" stroke="#c8650a" stroke-width="0.9"/>
+<text x="403.5" y="595.9" font-size="5.3" fill="#c8650a" font-weight="500" font-family="IBM Plex Mono, monospace">L52</text>
+<circle class="hit" cx="398" cy="585.8" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-N-L53" data-id="N:L53"><title>L53: Can over the aisle, ckt 21</title>
+<path d="M531.4 585.8 h9.2 l-2.3 3.7 h-4.6 z" fill="#c8650a" stroke="#c8650a" stroke-width="0.9"/>
+<text x="541.5" y="595.9" font-size="5.3" fill="#c8650a" font-weight="500" font-family="IBM Plex Mono, monospace">L53</text>
+<circle class="hit" cx="536" cy="585.8" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-N-L54" data-id="N:L54"><title>L54: Can over the aisle, ckt 21</title>
+<path d="M669.4 585.8 h9.2 l-2.3 3.7 h-4.6 z" fill="#c8650a" stroke="#c8650a" stroke-width="0.9"/>
+<text x="679.5" y="595.9" font-size="5.3" fill="#c8650a" font-weight="500" font-family="IBM Plex Mono, monospace">L54</text>
+<circle class="hit" cx="674" cy="585.8" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-N-F24" data-id="N:F24"><title>F24: Pot filler, deck mount on the island top</title>
+<circle cx="651" cy="756" r="3.4" fill="#2c6aa0" stroke="#2c6aa0" stroke-width="0.9"/>
+<text x="656.5" y="751.9" font-size="5.3" fill="#2c6aa0" font-weight="500" font-family="IBM Plex Mono, monospace">F24</text>
+<circle class="hit" cx="651" cy="756" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<g class="sym" id="k1-N-L47" data-id="N:L47"><title>L47: Downdraft blower, ckt 23 (behind the cabinets)</title>
+<circle cx="684.3" cy="806.6" r="4.4" fill="#fff" stroke="#c8650a" stroke-width="0.9" stroke-dasharray="1.8 1.4"/>
+<text x="689.9" y="802.5" font-size="5.3" fill="#c8650a" font-weight="500" font-family="IBM Plex Mono, monospace">L47</text>
+<circle class="hit" cx="684.3" cy="806.6" r="9" fill="#fff" fill-opacity="0" pointer-events="all"/>
+</g>
+<line x1="335.9" y1="565.1" x2="722.3" y2="565.1" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="333.6" y1="567.4" x2="338.2" y2="562.8" stroke="#b4462f" stroke-width="1"/>
+<line x1="335.9" y1="568.5" x2="335.9" y2="561.6" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="368.1" y1="567.4" x2="372.7" y2="562.8" stroke="#b4462f" stroke-width="1"/>
+<line x1="370.4" y1="568.5" x2="370.4" y2="561.6" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="450.9" y1="567.4" x2="455.5" y2="562.8" stroke="#b4462f" stroke-width="1"/>
+<line x1="453.2" y1="568.5" x2="453.2" y2="561.6" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="506.1" y1="567.4" x2="510.7" y2="562.8" stroke="#b4462f" stroke-width="1"/>
+<line x1="508.4" y1="568.5" x2="508.4" y2="561.6" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="561.3" y1="567.4" x2="565.9" y2="562.8" stroke="#b4462f" stroke-width="1"/>
+<line x1="563.6" y1="568.5" x2="563.6" y2="561.6" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="644.1" y1="567.4" x2="648.7" y2="562.8" stroke="#b4462f" stroke-width="1"/>
+<line x1="646.4" y1="568.5" x2="646.4" y2="561.6" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="720" y1="567.4" x2="724.6" y2="562.8" stroke="#b4462f" stroke-width="1"/>
+<line x1="722.3" y1="568.5" x2="722.3" y2="561.6" stroke="#b4462f" stroke-width="0.7"/>
+<text x="353.1" y="562.6" font-size="6" fill="#b4462f" text-anchor="middle" font-family="IBM Plex Mono, monospace">15&quot;</text>
+<text x="411.8" y="562.6" font-size="6" fill="#b4462f" text-anchor="middle" font-family="IBM Plex Mono, monospace">36&quot;</text>
+<text x="480.8" y="562.6" font-size="6" fill="#b4462f" text-anchor="middle" font-family="IBM Plex Mono, monospace">24&quot;</text>
+<text x="536" y="562.6" font-size="6" fill="#b4462f" text-anchor="middle" font-family="IBM Plex Mono, monospace">24&quot;</text>
+<text x="605" y="562.6" font-size="6" fill="#b4462f" text-anchor="middle" font-family="IBM Plex Mono, monospace">36&quot;</text>
+<text x="684.3" y="562.6" font-size="6" fill="#b4462f" text-anchor="middle" font-family="IBM Plex Mono, monospace">33&quot;</text>
+<line x1="335.9" y1="539.8" x2="722.3" y2="539.8" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="333.6" y1="542.1" x2="338.2" y2="537.5" stroke="#b4462f" stroke-width="1"/>
+<line x1="335.9" y1="543.2" x2="335.9" y2="536.3" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="720" y1="542.1" x2="724.6" y2="537.5" stroke="#b4462f" stroke-width="1"/>
+<line x1="722.3" y1="543.2" x2="722.3" y2="536.3" stroke="#b4462f" stroke-width="0.7"/>
+<text x="529.1" y="537.3" font-size="6" fill="#b4462f" text-anchor="middle" font-family="IBM Plex Mono, monospace">168&quot; (14&#x27;-0&quot;)</text>
+<text x="335.9" y="526" font-size="5.8" fill="#b4462f" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-weight="600">0 = island end</text>
+<line x1="335.9" y1="836.5" x2="335.9" y2="843.4" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="335.9" y1="843.4" x2="335.9" y2="850.3" stroke="#b4462f" stroke-width="0.7"/>
+<text x="338" y="852.6" font-size="5.3" fill="#b4462f" transform="rotate(90 338 852.6)" font-family="IBM Plex Mono, monospace">0&quot;  R46</text>
+<line x1="335.9" y1="836.5" x2="335.9" y2="843.4" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="335.9" y1="843.4" x2="343.5" y2="850.3" stroke="#b4462f" stroke-width="0.7"/>
+<text x="345.6" y="852.6" font-size="5.3" fill="#b4462f" transform="rotate(90 345.6 852.6)" font-family="IBM Plex Mono, monospace">0</text>
+<line x1="353.2" y1="836.5" x2="353.2" y2="843.4" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="353.2" y1="843.4" x2="353.2" y2="850.3" stroke="#b4462f" stroke-width="0.7"/>
+<text x="355.2" y="852.6" font-size="5.3" fill="#b4462f" transform="rotate(90 355.2 852.6)" font-family="IBM Plex Mono, monospace">7½&quot;  G23 X3</text>
+<line x1="370.4" y1="836.5" x2="370.4" y2="843.4" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="370.4" y1="843.4" x2="370.4" y2="850.3" stroke="#b4462f" stroke-width="0.7"/>
+<text x="372.5" y="852.6" font-size="5.3" fill="#b4462f" transform="rotate(90 372.5 852.6)" font-family="IBM Plex Mono, monospace">15&quot;  R44</text>
+<line x1="411.8" y1="836.5" x2="411.8" y2="843.4" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="411.8" y1="843.4" x2="411.8" y2="850.3" stroke="#b4462f" stroke-width="0.7"/>
+<text x="413.9" y="852.6" font-size="5.3" fill="#b4462f" transform="rotate(90 413.9 852.6)" font-family="IBM Plex Mono, monospace">33&quot;  F8</text>
+<line x1="425.6" y1="836.5" x2="425.6" y2="843.4" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="425.6" y1="843.4" x2="425.6" y2="850.3" stroke="#b4462f" stroke-width="0.7"/>
+<text x="427.7" y="852.6" font-size="5.3" fill="#b4462f" transform="rotate(90 427.7 852.6)" font-family="IBM Plex Mono, monospace">39&quot;  L49</text>
+<line x1="480.8" y1="836.5" x2="480.8" y2="843.4" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="480.8" y1="843.4" x2="480.8" y2="850.3" stroke="#b4462f" stroke-width="0.7"/>
+<text x="482.9" y="852.6" font-size="5.3" fill="#b4462f" transform="rotate(90 482.9 852.6)" font-family="IBM Plex Mono, monospace">63&quot;  R48 F9</text>
+<line x1="522.2" y1="836.5" x2="522.2" y2="843.4" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="522.2" y1="843.4" x2="522.2" y2="850.3" stroke="#b4462f" stroke-width="0.7"/>
+<text x="524.3" y="852.6" font-size="5.3" fill="#b4462f" transform="rotate(90 524.3 852.6)" font-family="IBM Plex Mono, monospace">81&quot;  L50</text>
+<line x1="536" y1="836.5" x2="536" y2="843.4" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="536" y1="843.4" x2="536" y2="850.3" stroke="#b4462f" stroke-width="0.7"/>
+<text x="538.1" y="852.6" font-size="5.3" fill="#b4462f" transform="rotate(90 538.1 852.6)" font-family="IBM Plex Mono, monospace">87&quot;  R49</text>
+<line x1="605" y1="836.5" x2="605" y2="843.4" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="605" y1="843.4" x2="605" y2="850.3" stroke="#b4462f" stroke-width="0.7"/>
+<text x="607.1" y="852.6" font-size="5.3" fill="#b4462f" transform="rotate(90 607.1 852.6)" font-family="IBM Plex Mono, monospace">117&quot;  R53</text>
+<line x1="632.6" y1="836.5" x2="632.6" y2="843.4" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="632.6" y1="843.4" x2="632.6" y2="850.3" stroke="#b4462f" stroke-width="0.7"/>
+<text x="634.7" y="852.6" font-size="5.3" fill="#b4462f" transform="rotate(90 634.7 852.6)" font-family="IBM Plex Mono, monospace">129&quot;  L51</text>
+<line x1="651" y1="836.5" x2="651" y2="843.4" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="651" y1="843.4" x2="651" y2="850.3" stroke="#b4462f" stroke-width="0.7"/>
+<text x="653.1" y="852.6" font-size="5.3" fill="#b4462f" transform="rotate(90 653.1 852.6)" font-family="IBM Plex Mono, monospace">137&quot;  F24</text>
+<line x1="684.3" y1="836.5" x2="684.3" y2="843.4" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="684.3" y1="843.4" x2="684.3" y2="850.3" stroke="#b4462f" stroke-width="0.7"/>
+<text x="686.4" y="852.6" font-size="5.3" fill="#b4462f" transform="rotate(90 686.4 852.6)" font-family="IBM Plex Mono, monospace">151½&quot;  L47</text>
+<line x1="687.8" y1="836.5" x2="687.8" y2="843.4" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="687.8" y1="843.4" x2="691.9" y2="850.3" stroke="#b4462f" stroke-width="0.7"/>
+<text x="694" y="852.6" font-size="5.3" fill="#b4462f" transform="rotate(90 694 852.6)" font-family="IBM Plex Mono, monospace">153&quot;  R45</text>
+<line x1="722.3" y1="836.5" x2="722.3" y2="843.4" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="722.3" y1="843.4" x2="722.3" y2="850.3" stroke="#b4462f" stroke-width="0.7"/>
+<text x="724.4" y="852.6" font-size="5.3" fill="#b4462f" transform="rotate(90 724.4 852.6)" font-family="IBM Plex Mono, monospace">168&quot;  R47</text>
+<line x1="805.1" y1="834.2" x2="805.1" y2="585.8" stroke="#b4462f" stroke-width="0.7"/>
+<line x1="802.8" y1="836.5" x2="807.4" y2="831.9" stroke="#b4462f" stroke-width="1"/>
+<line x1="801.6" y1="834.2" x2="808.6" y2="834.2" stroke="#b4462f" stroke-width="0.7"/>
+<text x="809.7" y="836.3" font-size="5.3" fill="#b4462f" font-family="IBM Plex Mono, monospace">0&quot;</text>
+<line x1="802.8" y1="827.3" x2="807.4" y2="822.7" stroke="#b4462f" stroke-width="1"/>
+<line x1="801.6" y1="825" x2="808.6" y2="825" stroke="#b4462f" stroke-width="0.7"/>
+<text x="809.7" y="827.1" font-size="5.3" fill="#b4462f" font-family="IBM Plex Mono, monospace">4&quot;</text>
+<line x1="802.8" y1="797.4" x2="807.4" y2="792.8" stroke="#b4462f" stroke-width="1"/>
+<line x1="801.6" y1="795.1" x2="808.6" y2="795.1" stroke="#b4462f" stroke-width="0.7"/>
+<text x="809.7" y="797.2" font-size="5.3" fill="#b4462f" font-family="IBM Plex Mono, monospace">17&quot;</text>
+<line x1="802.8" y1="769.8" x2="807.4" y2="765.2" stroke="#b4462f" stroke-width="1"/>
+<line x1="801.6" y1="767.5" x2="808.6" y2="767.5" stroke="#b4462f" stroke-width="0.7"/>
+<text x="809.7" y="769.6" font-size="5.3" fill="#b4462f" font-family="IBM Plex Mono, monospace">29&quot;</text>
+<line x1="802.8" y1="761.7" x2="807.4" y2="757.1" stroke="#b4462f" stroke-width="1"/>
+<line x1="801.6" y1="759.4" x2="808.6" y2="759.4" stroke="#b4462f" stroke-width="0.7"/>
+<text x="809.7" y="761.5" font-size="5.3" fill="#b4462f" font-family="IBM Plex Mono, monospace">32½&quot;</text>
+<line x1="802.8" y1="758.3" x2="807.4" y2="753.7" stroke="#b4462f" stroke-width="1"/>
+<line x1="801.6" y1="756" x2="808.6" y2="756" stroke="#b4462f" stroke-width="0.7"/>
+<text x="809.7" y="755.5" font-size="5.3" fill="#b4462f" font-family="IBM Plex Mono, monospace">34&quot;</text>
+<line x1="802.8" y1="588.1" x2="807.4" y2="583.5" stroke="#b4462f" stroke-width="1"/>
+<line x1="801.6" y1="585.8" x2="808.6" y2="585.8" stroke="#b4462f" stroke-width="0.7"/>
+<text x="809.7" y="587.9" font-size="5.3" fill="#b4462f" font-family="IBM Plex Mono, monospace">108&quot;</text>
+<text x="805.1" y="576.6" font-size="5.3" fill="#b4462f" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-weight="600">AFF</text>
+<g font-family="IBM Plex Sans, Segoe UI, Helvetica, Arial, sans-serif"><rect x="60" y="917.2" width="952" height="60" fill="#fff" stroke="#444" stroke-width="1"/><line x1="460" y1="917.2" x2="460" y2="977.2" stroke="#444"/><line x1="812" y1="917.2" x2="812" y2="977.2" stroke="#444"/><text x="72" y="937.2" font-size="12" font-weight="700" fill="#222">7824 Zero Road — second floor</text><text x="72" y="955.2" font-size="9" fill="#555">Kitchen galley · 9&#x27;-0&quot; ceiling · 34&quot; counter · 62" aisle</text><text x="72" y="969.2" font-size="9" fill="#555">Heights AFF, walls to stud face · elevation data rev N, 2026-10-14</text><text x="472" y="937.2" font-size="13" font-weight="700" fill="#222">Kitchen elevations</text><text x="472" y="955.2" font-size="9" fill="#555">Wall run looking south, island looking north</text><text x="472" y="969.2" font-size="9" fill="#555">Schematic for pricing and coordination, not a stamped construction document. Verify on site.</text><text x="822" y="941.2" font-size="22" font-weight="700" fill="#b4462f">K-1</text><text class="rev" x="822" y="957.2" font-size="9" fill="#555">rev v54</text><text x="822" y="970.2" font-size="9" fill="#555">drawn for K. Christianson</text></g>
+</svg>
+</div></div></div>
+      <div class="below">
+        <section><h2>K-1 Kitchen elevations</h2><ul class="legend"><li><span class="sw" style="background:#f3ead9;border-color:#7a6a4f"></span>cabinet</li><li><span class="sw" style="background:#d5dade"></span>appliance</li><li><span class="sw" style="background:#c8650a"></span>electrical</li><li><span class="sw" style="background:#7b4ab3"></span>low voltage</li><li><span class="sw" style="background:#2c6aa0"></span>plumbing</li><li><span class="sw" style="background:#4c8c4a"></span>HVAC</li><li><span class="sw" style="background:#0f8a82"></span>seated reach lines</li><li><span class="sw" style="background:#b4462f"></span>dimensions</li></ul><h3>Notes</h3><ol><li>Head-on views from the aisle. Island and wall run both start 8&#x27;-9&quot; from the west exterior wall stud face and run 14&#x27;-0&quot; east. 62&quot; clear between the island and the wall run (app).</li><li>Every dimension is in inches from the zero named on each view; heights are above the finished floor. Looking south, zero is the W15 stud face on your right, so dimensions grow to the left. Looking north, zero is the island west end.</li><li>Plan position: looking south, distance from the west exterior wall stud face = 8&#x27;-8&quot; + the dimension. Looking north, 8&#x27;-9&quot; + the dimension.</li><li>Dashed symbols sit behind a cabinet or on the far side. Edge-on devices (R98, R46, R47) are on a return wall or an end panel, drawn with a dashed drop to the floor.</li><li>Wall dimensions use the app&#x27;s convention: stud face. Drywall takes 1/2&quot;, so the wall run starts 1&quot; off W15 to leave 1/2&quot; for scribe.</li><li>Reach lines follow ADA 308 and 306 (forward reach, knee and toe clearance): 48&quot; max with nothing in the way, 44&quot; over a 20–25&quot; deep counter, 34&quot; max counter, 27&quot; min knee clearance, 15&quot; min reach. Reference only; nothing was moved to meet them.</li><li>Source tags: &quot;app&quot; is where the rest of this app puts it; &quot;decided&quot; follows a choice the owner made on the elevations; &quot;snapped&quot; moved a few inches to a standard cabinet width; &quot;assumed&quot; fills a value the app does not have yet.</li></ol></section>
+        <section><h2>Open items</h2><p class="lede">The particulars to settle on this sheet.</p><div class="open"><ul><li>Island: the pendants are still where the app has them (39&quot;, 81&quot;, 129&quot;). They could centre over the sink (33&quot;), the drawers, and the cooktop (117&quot;).</li><li>Wall run: R54 sits 1&quot; west of the knee space, over a 30&quot; deep counter; seated reach over a counter tops out at 25&quot; deep. R55 moved inside the knee space (109&quot;) because the oven tower now covers its old spot.</li><li>Wall run: the wall cabinets start at 54&quot; (assumed), above the 48&quot; seated reach line. Pull-down shelf hardware in U1–U4 would bring the lower shelves to counter height. Say if you want the bottom lower than 54&quot;.</li></ul></div></section>
+        <section class="wide"><h3>South wall run</h3><div class="tbl"><table><thead><tr><th scope="col">ID</th><th scope="col">What</th><th scope="col">Left → right</th><th scope="col">Width</th><th scope="col">Centre</th><th scope="col">Height AFF</th><th scope="col">Source</th><th scope="col">Notes</th></tr></thead><tbody><tr data-id="S:D3" tabindex="0"><td>D3</td><td>Pantry cased opening D3</td><td class="num">−68½&quot; → −26½&quot;</td><td class="num">42&quot;</td><td class="num">−47½&quot; from W15</td><td class="num">0&quot; – 98½&quot;</td><td>app</td><td>Cased opening, no door (app v45). 3&#x27;-6&quot; wide, 98 1/2&quot; high</td></tr><tr data-id="S:S15" tabindex="0"><td>S15</td><td>Dimmer, kitchen 3-way, ckt 21</td><td class="num"></td><td class="num"></td><td class="num">−15¼&quot; from W15</td><td class="num">42&quot;</td><td>app</td><td></td></tr><tr data-id="S:R98" tabindex="0"><td>R98</td><td>GFCI 20A, ckt 7, on W15 (pantry&#x27;s east wall, kitchen face)</td><td class="num"></td><td class="num"></td><td class="num">0&quot; from W15</td><td class="num">42&quot;</td><td>decided</td><td>Kevin 2026-10-09: added on W15 at the west end of the counter, the return wall beside B1. 42&quot; AFF, centred 15&quot; out from W16 (mid-depth of the 30&quot; counter). Seen edge-on in this view. New device number R98 (next free)</td></tr><tr data-id="S:B1" tabindex="0"><td>B1</td><td>Base, drawers</td><td class="num">1&quot; → 34&quot;</td><td class="num">33&quot;</td><td class="num">17½&quot; from W15</td><td class="num">0&quot; – 32½&quot;</td><td>snapped</td><td></td></tr><tr data-id="S:CT1" tabindex="0"><td>CT1</td><td>Counter</td><td class="num">1&quot; → 115&quot;</td><td class="num">114&quot;</td><td class="num">58&quot; from W15</td><td class="num">32½&quot; – 34&quot;</td><td>decided</td><td>34&quot; AFF, 30&quot; deep (app depth); one run now that the tower sits by the fridge</td></tr><tr data-id="S:U1" tabindex="0"><td>U1</td><td>Wall cabinet to ceiling</td><td class="num">1&quot; → 34&quot;</td><td class="num">33&quot;</td><td class="num">17½&quot; from W15</td><td class="num">54&quot; – 108&quot;</td><td>decided</td><td>Kevin 2026-10-09: cabinets to the ceiling across the whole run. Bottom 54&quot; AFF (assumed, the old shelf height), 42&quot; doors with a 12&quot; stacked cabinet to the ceiling, 13&quot; deep (assumed)</td></tr><tr data-id="S:L48" tabindex="0"><td>L48</td><td>LED strip under the wall cabinets, ckt 21</td><td class="num">1&quot; → 115&quot;</td><td class="num">114&quot;</td><td class="num">58&quot; from W15</td><td class="num">53½&quot;</td><td>decided</td><td></td></tr><tr data-id="S:X4" tabindex="0"><td>X4</td><td>LV drop for cabinet LED</td><td class="num"></td><td class="num"></td><td class="num">22&quot; from W15</td><td class="num">84&quot;</td><td>app</td><td>Inside the wall cabinets, feeds the under-cabinet LED</td></tr><tr data-id="S:L52" tabindex="0"><td>L52</td><td>Can over the aisle, ckt 21</td><td class="num"></td><td class="num"></td><td class="num">28&quot; from W15</td><td class="num">108&quot;</td><td>app</td><td></td></tr><tr data-id="S:B2" tabindex="0"><td>B2</td><td>Base</td><td class="num">34&quot; → 55&quot;</td><td class="num">21&quot;</td><td class="num">44½&quot; from W15</td><td class="num">0&quot; – 32½&quot;</td><td>decided</td><td>Shifted west when the oven tower moved to the fridge</td></tr><tr data-id="S:U2" tabindex="0"><td>U2</td><td>Wall cabinet to ceiling</td><td class="num">34&quot; → 55&quot;</td><td class="num">21&quot;</td><td class="num">44½&quot; from W15</td><td class="num">54&quot; – 108&quot;</td><td>decided</td><td>Kevin 2026-10-09: cabinets to the ceiling across the whole run. Bottom 54&quot; AFF (assumed, the old shelf height), 42&quot; doors with a 12&quot; stacked cabinet to the ceiling, 13&quot; deep (assumed)</td></tr><tr data-id="S:R2" tabindex="0"><td>R2</td><td>Supply riser R2 (feeds the island sink) (behind the cabinets)</td><td class="num"></td><td class="num"></td><td class="num">40&quot; from W15</td><td class="num">0&quot;</td><td>app</td><td></td></tr><tr data-id="S:S2" tabindex="0"><td>S2</td><td>Vent stack S2, 2&quot;, in W16 (behind the cabinets)</td><td class="num"></td><td class="num"></td><td class="num">46&quot; from W15</td><td class="num">0&quot;</td><td>app</td><td></td></tr><tr data-id="S:B3" tabindex="0"><td>B3</td><td>Base</td><td class="num">55&quot; → 79&quot;</td><td class="num">24&quot;</td><td class="num">67&quot; from W15</td><td class="num">0&quot; – 32½&quot;</td><td>decided</td><td>Shifted west when the oven tower moved to the fridge</td></tr><tr data-id="S:U3" tabindex="0"><td>U3</td><td>Wall cabinet to ceiling</td><td class="num">55&quot; → 79&quot;</td><td class="num">24&quot;</td><td class="num">67&quot; from W15</td><td class="num">54&quot; – 108&quot;</td><td>decided</td><td>Kevin 2026-10-09: cabinets to the ceiling across the whole run. Bottom 54&quot; AFF (assumed, the old shelf height), 42&quot; doors with a 12&quot; stacked cabinet to the ceiling, 13&quot; deep (assumed)</td></tr><tr data-id="S:R54" tabindex="0"><td>R54</td><td>GFCI 20A, ckt 7</td><td class="num"></td><td class="num"></td><td class="num">77¾&quot; from W15</td><td class="num">42&quot;</td><td>app</td><td></td></tr><tr data-id="S:K1" tabindex="0"><td>K1</td><td>Roll-under counter</td><td class="num">79&quot; → 115&quot;</td><td class="num">36&quot;</td><td class="num">97&quot; from W15</td><td class="num">0&quot; – 32½&quot;</td><td>app</td><td>Knee space 36&quot; wide, 29&quot; clear under the apron</td></tr><tr data-id="S:U4" tabindex="0"><td>U4</td><td>Wall cabinet to ceiling</td><td class="num">79&quot; → 115&quot;</td><td class="num">36&quot;</td><td class="num">97&quot; from W15</td><td class="num">54&quot; – 108&quot;</td><td>decided</td><td>Kevin 2026-10-09: cabinets to the ceiling across the whole run. Bottom 54&quot; AFF (assumed, the old shelf height), 42&quot; doors with a 12&quot; stacked cabinet to the ceiling, 13&quot; deep (assumed)</td></tr><tr data-id="S:L53" tabindex="0"><td>L53</td><td>Can over the aisle, ckt 21</td><td class="num"></td><td class="num"></td><td class="num">88&quot; from W15</td><td class="num">108&quot;</td><td>app</td><td></td></tr><tr data-id="S:F23" tabindex="0"><td>F23</td><td>Pot filler, wall mount, cold only</td><td class="num"></td><td class="num"></td><td class="num">97&quot; from W15</td><td class="num">44&quot;</td><td>app</td><td>Kevin 2026-10-09: pot filler on the wall over the roll-under counter, centred on the knee space. Valve 44&quot; AFF (assumed) so it sits on the over-counter reach line; the arm swings over the counter. 1/2&quot; cold stub-out in W16, fed from riser R2</td></tr><tr data-id="S:X5" tabindex="0"><td>X5</td><td>LV drop for cabinet LED</td><td class="num"></td><td class="num"></td><td class="num">100&quot; from W15</td><td class="num">84&quot;</td><td>decided</td><td>Was 133&quot;, now inside the oven tower; moved over the knee space so it feeds the under-cabinet LED</td></tr><tr data-id="S:R55" tabindex="0"><td>R55</td><td>GFCI 20A, ckt 8</td><td class="num"></td><td class="num"></td><td class="num">109&quot; from W15</td><td class="num">42&quot;</td><td>decided</td><td>Was 118 5/8&quot;, which is now behind the oven tower; moved inside the knee space, 6&quot; off the tower</td></tr><tr data-id="S:T1" tabindex="0"><td>T1</td><td>Oven tower</td><td class="num">115&quot; → 139&quot;</td><td class="num">24&quot;</td><td class="num">127&quot; from W15</td><td class="num">0&quot; – 108&quot;</td><td>decided</td><td>Kevin 2026-10-09: one single side-opening oven, tower moved east against the fridge. Hinge the door on the fridge (east) side so it swings clear of the counter. Runs to the ceiling with storage above the oven. Drawers below the oven, cabinet above (Kevin 2026-10-09)</td></tr><tr data-id="S:TD1" tabindex="0"><td>TD1</td><td>Drawer</td><td class="num">115&quot; → 139&quot;</td><td class="num">24&quot;</td><td class="num">127&quot; from W15</td><td class="num">4&quot; – 17½&quot;</td><td>decided</td><td>Kevin 2026-10-09: drawers below the oven</td></tr><tr data-id="S:TD2" tabindex="0"><td>TD2</td><td>Drawer</td><td class="num">115&quot; → 139&quot;</td><td class="num">24&quot;</td><td class="num">127&quot; from W15</td><td class="num">17½&quot; – 31&quot;</td><td>decided</td><td>Kevin 2026-10-09: drawers below the oven</td></tr><tr data-id="S:TU1" tabindex="0"><td>TU1</td><td>Cabinet above the oven</td><td class="num">115&quot; → 139&quot;</td><td class="num">24&quot;</td><td class="num">127&quot; from W15</td><td class="num">58&quot; – 108&quot;</td><td>decided</td><td>Kevin 2026-10-09: cabinet above the oven, to the ceiling, split at 96&quot; to line up with U1–U4</td></tr><tr data-id="S:O1" tabindex="0"><td>O1</td><td>Wall oven, single, side-opening door</td><td class="num">116½&quot; → 137½&quot;</td><td class="num">21&quot;</td><td class="num">127&quot; from W15</td><td class="num">31&quot; – 58&quot;</td><td>decided</td><td>Kevin 2026-10-09: oven bottom 3&quot; below the 34&quot; counter, at 31&quot;. 27&quot; tall, the usual 24&quot; single wall oven; the real cutout comes from the model picked. Handle on the west (counter) side, hinge on the fridge side</td></tr><tr data-id="S:R52" tabindex="0"><td>R52</td><td>Oven 240V, ckt 3-4 (behind the cabinets)</td><td class="num"></td><td class="num"></td><td class="num">127&quot; from W15</td><td class="num">30&quot;</td><td>decided</td><td>Moved with the oven tower</td></tr><tr data-id="S:REF" tabindex="0"><td>REF</td><td>Refrigerator 30&quot;</td><td class="num">139&quot; → 169&quot;</td><td class="num">30&quot;</td><td class="num">154&quot; from W15</td><td class="num">0&quot; – 70&quot;</td><td>app</td><td>Opening 30&quot; centred where the app puts the fridge. Height 70&quot; assumed for a 30&quot; counter-depth unit (the 3D mockup draws 78&quot;). Cabinet above runs to the ceiling, full fridge depth (Kevin 2026-10-09). Over-fridge cabinet is one door (Kevin asked); a pair of 15&quot; doors is the alternative</td></tr><tr data-id="S:L54" tabindex="0"><td>L54</td><td>Can over the aisle, ckt 21</td><td class="num"></td><td class="num"></td><td class="num">148&quot; from W15</td><td class="num">108&quot;</td><td>app</td><td></td></tr><tr data-id="S:R50" tabindex="0"><td>R50</td><td>Fridge 20A, recessed box, ckt 9 (behind the cabinets)</td><td class="num"></td><td class="num"></td><td class="num">154&quot; from W15</td><td class="num">30&quot;</td><td>app</td><td></td></tr><tr data-id="S:F10" tabindex="0"><td>F10</td><td>Fridge water box (behind the cabinets)</td><td class="num"></td><td class="num"></td><td class="num">154&quot; from W15</td><td class="num">6&quot;</td><td>assumed</td><td></td></tr><tr data-id="S:EP1" tabindex="0"><td>EP1</td><td>End panel</td><td class="num">169&quot; → 170½&quot;</td><td class="num">1½&quot;</td><td class="num">169¾&quot; from W15</td><td class="num">0&quot; – 108&quot;</td><td>assumed</td><td></td></tr></tbody></table></div><h3>North island</h3><div class="tbl"><table><thead><tr><th scope="col">ID</th><th scope="col">What</th><th scope="col">Left → right</th><th scope="col">Width</th><th scope="col">Centre</th><th scope="col">Height AFF</th><th scope="col">Source</th><th scope="col">Notes</th></tr></thead><tbody><tr data-id="N:CT3" tabindex="0"><td>CT3</td><td>Island top</td><td class="num">−1&quot; → 169&quot;</td><td class="num">170&quot;</td><td class="num">84&quot; from island end</td><td class="num">32½&quot; – 34&quot;</td><td>app</td><td>34&quot; AFF; island 36&quot; deep, 168&quot; long</td></tr><tr data-id="N:IB1" tabindex="0"><td>IB1</td><td>Pull-out, double trash</td><td class="num">0&quot; → 15&quot;</td><td class="num">15&quot;</td><td class="num">7½&quot; from island end</td><td class="num">0&quot; – 32½&quot;</td><td>decided</td><td>Kevin 2026-10-09: pull-out double trash can. 15&quot; fits two ~27-qt bins; two 35-qt bins need 18&quot;, which would take 3&quot; from IB4</td></tr><tr data-id="N:R46" tabindex="0"><td>R46</td><td>Duplex 15A, west end panel, ckt 7</td><td class="num"></td><td class="num"></td><td class="num">0&quot; from island end</td><td class="num">30&quot;</td><td>app</td><td>On the island end panel, 14 3/8&quot; in from the aisle face (app v45). Seen edge-on in this view</td></tr><tr data-id="N:G23" tabindex="0"><td>G23</td><td>Toe-kick register 4x12, dining face, under the trash pull-out (behind the cabinets)</td><td class="num"></td><td class="num"></td><td class="num">7½&quot; from island end</td><td class="num">2&quot;</td><td>decided</td><td>Kevin 2026-10-09: moved west into the IB1 toe kick on the north (dining) side, centred 7 1/2&quot; from the island end (plan: 9&#x27;-4 1/2&quot; from the west ext. wall). Was 34 1/4&quot;, under the sink knee space. Since v45 it sits under the 24&quot; dining-side countertop overhang</td></tr><tr data-id="N:X3" tabindex="0"><td>X3</td><td>LV drop, island LED and charging (behind the cabinets)</td><td class="num"></td><td class="num"></td><td class="num">7¾&quot; from island end</td><td class="num">12&quot;</td><td>app</td><td></td></tr><tr data-id="N:K3" tabindex="0"><td>K3</td><td>Roll-under sink</td><td class="num">15&quot; → 51&quot;</td><td class="num">36&quot;</td><td class="num">33&quot; from island end</td><td class="num">0&quot; – 32½&quot;</td><td>decided</td><td>Kevin 2026-10-09: sink and cooktop both roll-under. Sink centred 33&quot; from the island end (app had 45&quot;). Wall-hung style: insulated, offset P-trap at the back so knees clear</td></tr><tr data-id="N:R44" tabindex="0"><td>R44</td><td>Pop-up 20A GFCI, ckt 7</td><td class="num"></td><td class="num"></td><td class="num">15&quot; from island end</td><td class="num">34&quot;</td><td>app</td><td>Over IB1 now</td></tr><tr data-id="N:SK1" tabindex="0"><td>SK1</td><td>Sink bowl (in the top)</td><td class="num">20&quot; → 46&quot;</td><td class="num">26&quot;</td><td class="num">33&quot; from island end</td><td class="num">28&quot; – 34&quot;</td><td>assumed</td><td>Shallow bowl, 5–6&quot; deep, so the knee space keeps 27&quot; clear</td></tr><tr data-id="N:L52" tabindex="0"><td>L52</td><td>Can over the aisle, ckt 21</td><td class="num"></td><td class="num"></td><td class="num">27&quot; from island end</td><td class="num">108&quot;</td><td>app</td><td></td></tr><tr data-id="N:F8" tabindex="0"><td>F8</td><td>Sink drain, offset trap at the back, loop vent inside the island (behind the cabinets)</td><td class="num"></td><td class="num"></td><td class="num">33&quot; from island end</td><td class="num">24&quot;</td><td>decided</td><td></td></tr><tr data-id="N:L49" tabindex="0"><td>L49</td><td>Pendant, ckt 21</td><td class="num"></td><td class="num"></td><td class="num">39&quot; from island end</td><td class="num">64&quot;</td><td>app</td><td>Bottom 30&quot; over the counter (assumed)</td></tr><tr data-id="N:DW1" tabindex="0"><td>DW1</td><td>Dishwasher drawers</td><td class="num">51&quot; → 75&quot;</td><td class="num">24&quot;</td><td class="num">63&quot; from island end</td><td class="num">4&quot; – 32½&quot;</td><td>decided</td><td>App had 75–99&quot;; shifted 24&quot; west by the sink knee space</td></tr><tr data-id="N:R48" tabindex="0"><td>R48</td><td>DW drawers 20A, ckt 11 (behind the cabinets)</td><td class="num"></td><td class="num"></td><td class="num">63&quot; from island end</td><td class="num">30&quot;</td><td>decided</td><td>Moved with its appliance</td></tr><tr data-id="N:F9" tabindex="0"><td>F9</td><td>DW drawers: hot supply and drain (behind the cabinets)</td><td class="num"></td><td class="num"></td><td class="num">63&quot; from island end</td><td class="num">6&quot;</td><td>assumed</td><td></td></tr><tr data-id="N:MW1" tabindex="0"><td>MW1</td><td>Microwave drawer</td><td class="num">75&quot; → 99&quot;</td><td class="num">24&quot;</td><td class="num">87&quot; from island end</td><td class="num">17&quot; – 32½&quot;</td><td>decided</td><td></td></tr><tr data-id="N:DR1" tabindex="0"><td>DR1</td><td>Drawer</td><td class="num">75&quot; → 99&quot;</td><td class="num">24&quot;</td><td class="num">87&quot; from island end</td><td class="num">4&quot; – 17&quot;</td><td>decided</td><td>Kevin 2026-10-09: drawer under the microwave drawer, 13&quot; front, 24&quot; wide</td></tr><tr data-id="N:L50" tabindex="0"><td>L50</td><td>Pendant, ckt 21</td><td class="num"></td><td class="num"></td><td class="num">81&quot; from island end</td><td class="num">64&quot;</td><td>app</td><td></td></tr><tr data-id="N:R49" tabindex="0"><td>R49</td><td>Microwave drawer 20A, ckt 12 (behind the cabinets)</td><td class="num"></td><td class="num"></td><td class="num">87&quot; from island end</td><td class="num">30&quot;</td><td>decided</td><td>Moved with its appliance</td></tr><tr data-id="N:L53" tabindex="0"><td>L53</td><td>Can over the aisle, ckt 21</td><td class="num"></td><td class="num"></td><td class="num">87&quot; from island end</td><td class="num">108&quot;</td><td>app</td><td></td></tr><tr data-id="N:K2" tabindex="0"><td>K2</td><td>Roll-under cooktop</td><td class="num">99&quot; → 135&quot;</td><td class="num">36&quot;</td><td class="num">117&quot; from island end</td><td class="num">0&quot; – 32½&quot;</td><td>decided</td><td>Cooktop centred 117&quot; (app junction 138 5/8&quot;)</td></tr><tr data-id="N:CK1" tabindex="0"><td>CK1</td><td>Induction cooktop 30&quot;</td><td class="num">102&quot; → 132&quot;</td><td class="num">30&quot;</td><td class="num">117&quot; from island end</td><td class="num">34&quot; – 34½&quot;</td><td>decided</td><td></td></tr><tr data-id="N:DD1" tabindex="0"><td>DD1</td><td>Downdraft vent</td><td class="num">103&quot; → 131&quot;</td><td class="num">28&quot;</td><td class="num">117&quot; from island end</td><td class="num">34&quot; – 44&quot;</td><td>assumed</td><td>Pop-up behind the cooktop; needs a model with a remote blower (in IB4)</td></tr><tr data-id="N:R53" tabindex="0"><td>R53</td><td>Cooktop 240V junction, ckt 1-2 (behind the cabinets)</td><td class="num"></td><td class="num"></td><td class="num">117&quot; from island end</td><td class="num">30&quot;</td><td>decided</td><td>Moved with its appliance</td></tr><tr data-id="N:L51" tabindex="0"><td>L51</td><td>Pendant, ckt 21</td><td class="num"></td><td class="num"></td><td class="num">129&quot; from island end</td><td class="num">64&quot;</td><td>app</td><td></td></tr><tr data-id="N:IB4" tabindex="0"><td>IB4</td><td>Base, downdraft blower</td><td class="num">135&quot; → 168&quot;</td><td class="num">33&quot;</td><td class="num">151½&quot; from island end</td><td class="num">0&quot; – 32½&quot;</td><td>decided</td><td>Holds the remote downdraft blower beside the cooktop knee space; 6&quot; duct down into the floor</td></tr><tr data-id="N:F24" tabindex="0"><td>F24</td><td>Pot filler, deck mount on the island top</td><td class="num"></td><td class="num"></td><td class="num">137&quot; from island end</td><td class="num">34&quot;</td><td>app</td><td>Kevin 2026-10-09: pot filler for the cooktop. Deck-mounted on the island top just east of the cooktop (cooktop 102–132&quot;), over IB4, so its arm swings over the burners and the knee space stays clear. Cold line from the island sink supply through the island base</td></tr><tr data-id="N:L54" tabindex="0"><td>L54</td><td>Can over the aisle, ckt 21</td><td class="num"></td><td class="num"></td><td class="num">147&quot; from island end</td><td class="num">108&quot;</td><td>app</td><td></td></tr><tr data-id="N:L47" tabindex="0"><td>L47</td><td>Downdraft blower, ckt 23 (behind the cabinets)</td><td class="num"></td><td class="num"></td><td class="num">151½&quot; from island end</td><td class="num">12&quot;</td><td>app</td><td>Remote blower in IB4, 6&quot; duct down into the floor to the west wall (P-1). Height drawn 12&quot; AFF; the app does not give one</td></tr><tr data-id="N:R45" tabindex="0"><td>R45</td><td>Pop-up 20A GFCI, ckt 8</td><td class="num"></td><td class="num"></td><td class="num">153&quot; from island end</td><td class="num">34&quot;</td><td>app</td><td></td></tr><tr data-id="N:R47" tabindex="0"><td>R47</td><td>Duplex 15A, east end panel, ckt 8</td><td class="num"></td><td class="num"></td><td class="num">168&quot; from island end</td><td class="num">30&quot;</td><td>app</td><td>On the island end panel, 14 3/8&quot; in from the aisle face (app v45). Seen edge-on in this view</td></tr></tbody></table></div></section>
+        <section class="wide"><h3>Decided</h3><ol><li>Decided 2026-10-09: sink and cooktop both get 36&quot; roll-under knee spaces. Island is now base 15 | sink knee 36 | DW 24 | MW 24 | cooktop knee 36 | base 33. The sink moved 12&quot; west and the cooktop 21 5/8&quot; west of where the app had them.</li><li>Decided 2026-10-09: a single side-opening oven, tower moved east against the fridge. Wall run is now base 33 | 21 | 24 | knee 36 | oven tower 24 | fridge 30.</li><li>Decided 2026-10-09: wall cabinets to the ceiling across the whole run, and a full-depth cabinet over the fridge to the ceiling. The open shelf is gone; L48 becomes under-cabinet LED.</li><li>Island: the cooktop needs a downdraft with a remote blower, which sits in IB4 beside it.</li></ol><h3>Reconciled</h3><p class="lede">What changed from the elevations page (rev M, app v38) to match this app.</p><ol><li>Pot fillers renumbered to the app tags: PF1 is F23 (wall mount on W16), PF2 is F24 (island deck mount).</li><li>R46 and R47 sit on the island end panels (0&quot; and 168&quot;), 14 3/8&quot; back from the aisle face, as the app has had them since v45; circuits 7 and 8 added.</li><li>D3 is labelled a cased opening (no door), as in the app since v45.</li><li>Cans L52-L54, pendants L49-L51, strip L48 and dimmer S15 show circuit 21 (the kitchen lighting circuit after the v44 split).</li><li>Added L47, the downdraft blower in IB4 on circuit 23 (in the app, missing from the elevations).</li><li>G23 note: it is now under the 24&quot; dining-side overhang (v45).</li></ol></section>
+        </div>
+    </div>
+    <!-- /K-1 -->
     <!-- ================================================================ crew chat -->
     <div class="sheet" id="sheet-chat" role="tabpanel" aria-labelledby="tab-chat" hidden>
       <div class="chat-wrap" id="chat"></div>
@@ -7102,7 +7725,7 @@ requestAnimationFrame(frame);
 // ---------------------------------------------------------------- open items: tick off to resolve (struck through for everyone), add new ones per trade,
 // or comment on a picked item from its card (the comment is an open item tied to that item); kept in Firebase next to the chat
 (function () {
-  const TRADES = { s1: 'Framing', e1: 'Electrical', p1: 'Plumbing', m1: 'HVAC', r1: 'Radiant' };
+  const TRADES = { s1: 'Framing', e1: 'Electrical', p1: 'Plumbing', m1: 'HVAC', r1: 'Radiant', k1: 'Kitchen' };
   const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
   const store = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) { /* per-viewer convenience */ } } };
   // a drawn item is keyed by its sheet and its wording, so it stays resolved until the wording changes

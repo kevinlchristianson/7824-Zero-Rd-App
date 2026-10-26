@@ -19,7 +19,7 @@ service cloud.firestore {
         && request.resource.data.uid == request.auth.uid
         && request.resource.data.at == request.time
         && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 40
-        && request.resource.data.text is string && request.resource.data.text.size() > 0 && request.resource.data.text.size() <= 2000
+        && request.resource.data.text is string && request.resource.data.text.size() > 0 && request.resource.data.text.size() <= 10000
         && (!('trade' in request.resource.data) || (request.resource.data.trade is string && request.resource.data.trade.size() <= 40))
         && (!('sheet' in request.resource.data) || (request.resource.data.sheet is string && request.resource.data.sheet.size() <= 120));
       allow delete: if request.auth != null && resource.data.uid == request.auth.uid;
@@ -34,7 +34,7 @@ service cloud.firestore {
         && request.resource.data.at == request.time
         && request.resource.data.sheet is string && request.resource.data.sheet.size() > 0 && request.resource.data.sheet.size() <= 20
         && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 40
-        && request.resource.data.text is string && request.resource.data.text.size() > 0 && request.resource.data.text.size() <= 1000
+        && request.resource.data.text is string && request.resource.data.text.size() > 0 && request.resource.data.text.size() <= 10000
         && (!('trade' in request.resource.data) || (request.resource.data.trade is string && request.resource.data.trade.size() <= 40))
         && (!('ref' in request.resource.data) || (request.resource.data.ref is string && request.resource.data.ref.size() <= 60));
       allow delete: if request.auth != null && (resource.data.uid == request.auth.uid || isOwner());

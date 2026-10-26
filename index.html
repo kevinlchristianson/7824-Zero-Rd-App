@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="app-version" content="v59">
+<meta name="app-version" content="v60">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -316,7 +316,7 @@ tbody tr:last-child td { border-bottom: 0; }
 
 <div id="app">
   <header class="bar">
-    <div class="brand"><span class="eyebrow">7824 Zero Road · second floor</span><h1>Contractor App <span class="ver" id="appver" title="App version">v59</span></h1></div>
+    <div class="brand"><span class="eyebrow">7824 Zero Road · second floor</span><h1>Contractor App <span class="ver" id="appver" title="App version">v60</span></h1></div>
     <nav class="tabs" role="tablist" aria-label="Sheets">
       <button type="button" role="tab" id="tab-3d" aria-selected="true" aria-controls="sheet-3d" data-sheet="3d"><span class="no">3D</span>Model</button>
       <button type="button" role="tab" id="tab-s1" aria-selected="false" aria-controls="sheet-s1" data-sheet="s1"><span class="no">S-1</span>Framing</button>
@@ -7646,7 +7646,7 @@ requestAnimationFrame(frame);
     re.append(reBox, reTxt); re.hidden = true;
     const refreshRe = () => { re.hidden = !lastPick; reTxt.textContent = lastPick ? 'About ' + lastPick : ''; reBox.checked = true; };
     form.refreshRe = refreshRe; refreshRe();
-    const ta = el('textarea'); ta.rows = 1; ta.maxLength = 2000; ta.placeholder = 'Ask the crew a question…'; ta.setAttribute('aria-label', 'Message'); ta.setAttribute('enterkeyhint', 'send');
+    const ta = el('textarea'); ta.rows = 1; ta.maxLength = 10000; ta.placeholder = 'Ask the crew a question…'; ta.setAttribute('aria-label', 'Message'); ta.setAttribute('enterkeyhint', 'send');
     const fit = () => { ta.style.height = 'auto'; ta.style.height = Math.min(ta.scrollHeight + 2, 140) + 'px'; };
     ta.addEventListener('input', fit);
     // Enter sends on a keyboard; Shift+Enter (or the phone's return key with enterkeyhint) makes a new line
@@ -7658,7 +7658,7 @@ requestAnimationFrame(frame);
     form.onsubmit = async e => {
       e.preventDefault();
       const text = ta.value.trim(); if (!text || !send) return;
-      const msg = { name: me.name, text: text.slice(0, 2000) };
+      const msg = { name: me.name, text: text.slice(0, 10000) };
       if (me.trade) msg.trade = me.trade;
       if (!re.hidden && reBox.checked && lastPick) msg.sheet = lastPick;
       ta.value = ''; fit(); lastPick = null; refreshRe();
@@ -7872,7 +7872,7 @@ requestAnimationFrame(frame);
       f.append(el('label', null, 'Your name, to resolve or add items (the chat uses it too)'), line);
       return;
     }
-    const ta = el('textarea'); ta.rows = 1; ta.maxLength = 1000; ta.placeholder = onCard ? (L === L3 ? 'Add a comment…' : 'Comment on ' + refOf(L) + '…') : 'Add an open item for ' + (L.trade || 'this sheet') + '…'; ta.setAttribute('aria-label', onCard ? 'Comment on this item (adds an open item)' : 'New open item');
+    const ta = el('textarea'); ta.rows = 1; ta.maxLength = 10000; ta.placeholder = onCard ? (L === L3 ? 'Add a comment…' : 'Comment on ' + refOf(L) + '…') : 'Add an open item for ' + (L.trade || 'this sheet') + '…'; ta.setAttribute('aria-label', onCard ? 'Comment on this item (adds an open item)' : 'New open item');
     const fit = () => { ta.style.height = 'auto'; ta.style.height = Math.min(ta.scrollHeight + 2, 140) + 'px'; };
     ta.addEventListener('input', fit);
     const go = el('button', 'chat-btn go', onCard ? 'Post' : 'Add'); go.type = 'submit';
@@ -7882,7 +7882,7 @@ requestAnimationFrame(frame);
       e.preventDefault();
       const text = ta.value.trim(); if (!text) return;
       if (!fb) return say(L, 'not connected yet; try again in a moment');
-      const { F, db, room, uid } = fb, it = { sheet: L.key, text: text.slice(0, 1000), name: me(), uid, at: F.serverTimestamp() };
+      const { F, db, room, uid } = fb, it = { sheet: L.key, text: text.slice(0, 10000), name: me(), uid, at: F.serverTimestamp() };
       const t = store.get('zr-chat-trade'); if (t) it.trade = t.slice(0, 40);
       if (onCard && refOf(L)) it.ref = refOf(L);
       ta.value = ''; fit();
